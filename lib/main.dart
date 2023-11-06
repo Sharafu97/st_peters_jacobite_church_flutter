@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/route.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
+import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
 import 'screens/home/home_screen.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
           background: AppColors.beigeD7CFC5,
         ),
+        textTheme: textTheme,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
