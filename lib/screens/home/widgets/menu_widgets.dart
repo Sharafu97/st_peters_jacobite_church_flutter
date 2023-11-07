@@ -6,16 +6,17 @@ import '../../../theme/assets.dart';
 class MenuWidget extends StatelessWidget {
   const MenuWidget({super.key});
 
-  static double heightDivider = (400 / 6);
+  static double heightDivider = 22;
+  static double height = 400;
+  static double iconHeight = 24;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      clipBehavior: Clip.none,
       children: [
         Container(
-          height: 400,
-          width: 400,
+          height: height,
+          width: height,
           color: Colors.red,
         ),
         Positioned(
@@ -23,8 +24,8 @@ class MenuWidget extends StatelessWidget {
           child: ClipPath(
             clipper: HalfCircleClip(),
             child: Container(
-              height: 400,
-              width: 400,
+              height: height,
+              width: height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.amber,
@@ -33,43 +34,43 @@ class MenuWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 60,
-          top: heightDivider * 0,
+          left: 100,
+          top: heightDivider,
           child: menuIcons(AppIcons.homeAboutChurch, 'ABOUT THE CHURCH'),
         ),
         Positioned(
-          left: 130,
-          top: heightDivider * 1,
+          left: 150,
+          top: (heightDivider * 2) + iconHeight * 1,
           child: menuIcons(AppIcons.homeChurchOfficials, 'CHURCH OFFICIALS'),
         ),
         Positioned(
-          left: 170,
-          top: heightDivider * 2,
+          left: 175,
+          top: (heightDivider * 3) + iconHeight * 2,
           child: menuIcons(AppIcons.homeSpiritual, 'SPIRITUAL ORGANIZATIONS'),
         ),
         Positioned(
           left: 185,
-          top: heightDivider * 3,
+          top: (heightDivider * 4) + iconHeight * 3,
           child: menuIcons(AppIcons.homeAreaUnit, 'AREA UNITS'),
         ),
         Positioned(
-          left: 190,
-          top: heightDivider * 4,
+          left: 185,
+          top: (heightDivider * 5) + iconHeight * 4,
           child: menuIcons(AppIcons.homeMember, 'MEMBERS'),
         ),
         Positioned(
           left: 180,
-          top: heightDivider * 5,
+          top: (heightDivider * 6) + iconHeight * 5,
           child: menuIcons(AppIcons.homeNewsEvents, 'NEWS & EVENTS'),
         ),
         Positioned(
           left: 155,
-          top: heightDivider * 6,
+          top: (heightDivider * 7) + iconHeight * 6,
           child: menuIcons(AppIcons.homeDownloads, 'DOWNLOADS'),
         ),
         Positioned(
           left: 110,
-          top: heightDivider * 7,
+          top: (heightDivider * 8) + iconHeight * 7,
           child: menuIcons(AppIcons.homePrayerTime, 'PRAYER TIMES'),
         ),
       ],
@@ -77,12 +78,13 @@ class MenuWidget extends StatelessWidget {
   }
 
   Widget menuIcons(String icon, String label) {
-    return Row(
-      children: [
-        SvgPicture.asset(icon, height: 24),
-        Text(label),
-      ],
-    );
+    return
+        // Row(
+        //   children: [
+        SvgPicture.asset(icon, height: 24);
+    //     Text(label),
+    //   ],
+    // );
   }
 }
 
