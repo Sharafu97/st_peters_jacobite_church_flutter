@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      // initialRoute: AppRoutes.aboutChurch,
+      initialRoute: AppRoutes.aboutChurch,
       // home: const HomeScreen(),
     );
   }
