@@ -3,8 +3,6 @@ import 'package:st_peters_jacobite_church_flutter/config/route.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
-import 'screens/home/home_screen.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -17,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.beigeD7CFC5,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
           background: AppColors.beigeD7CFC5,
@@ -26,8 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      initialRoute: AppRoutes.aboutChurch,
-      // home: const HomeScreen(),
+      initialRoute: AppRoutes.home,
     );
   }
 }

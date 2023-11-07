@@ -17,7 +17,7 @@ class ContactBottomsheet extends StatelessWidget {
         children: [
           //TODO:Change Icons
           const Icon(
-            Icons.call_rounded,
+            Icons.call,
             color: AppColors.whiteFFFFFF,
           ),
           const SizedBox(width: 5),
