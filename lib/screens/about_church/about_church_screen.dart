@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
@@ -60,10 +59,10 @@ class AboutChurchScreen extends StatelessWidget {
                           return Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              ColoredBox(
-                                  color: Colors.red,
-                                  child:
-                                      SvgPicture.asset(gridItems[index].icon)),
+                              // ColoredBox(
+                              //     color: Colors.red,
+                              //     child:
+                              //         SvgPicture.asset(gridItems[index].icon)),
                               Text(
                                 gridItems[index].name,
                                 style: textStyle.bodySmall,
