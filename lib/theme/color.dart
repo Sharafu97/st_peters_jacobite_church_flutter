@@ -6,6 +6,7 @@ class AppColors {
 
   static const transparent = Colors.transparent;
   static const whiteFFFFFF = Colors.white;
+  static const black000000 = Colors.black;
 
   static const yellow = Colors.yellow;
   static const yellowFFCD09 = Color(0xFFFFCD09);

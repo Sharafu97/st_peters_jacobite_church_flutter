@@ -22,10 +22,11 @@ class DescriptionWithTitleScreen extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                top: -50,
-                width: constraints.maxWidth,
+                top: screenHeight * 0.15,
                 child: Image.asset(
                   AppAssets.logoWatermark,
+                  width: constraints.maxWidth,
+                  scale: 2,
                 ),
               ),
               SizedBox(
