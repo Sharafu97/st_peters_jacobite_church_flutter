@@ -25,10 +25,13 @@ class TitleBoard extends StatelessWidget {
               ),
               width: screenWidth * 0.8,
             ),
-            Text(
-              title,
-              style: textStyle.bodyLarge!.copyWith(
-                color: AppColors.beigeD7CFC5,
+            Positioned(
+              top: 7,
+              child: Text(
+                title,
+                style: textStyle.bodyLarge!.copyWith(
+                  color: AppColors.beigeD7CFC5,
+                ),
               ),
             ),
           ],

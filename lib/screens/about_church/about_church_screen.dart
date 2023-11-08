@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/config/route.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
-import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
-import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
@@ -86,7 +84,8 @@ class AboutChurchScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
-                            onTap: () {},
+                            onTap: () => Navigator.pushNamed(
+                                context, AppRoutes.description),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [

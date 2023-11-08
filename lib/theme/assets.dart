@@ -5,6 +5,7 @@ class AppAssets {
   static const topLogos = 'assets/images/top_logos.png';
   static const nameBoard = 'assets/icons/name_board.svg';
   static const homeSidePic = 'assets/images/home_sidepic.png';
+  static const endLine = 'assets/icons/endline.png';
 
   ///[ICONS]
   /// [HOME_SCREEN]
