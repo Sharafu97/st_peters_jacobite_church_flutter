@@ -6,6 +6,7 @@ import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 class AboutChurchScreen extends StatelessWidget {
   const AboutChurchScreen({Key? key}) : super(key: key);
@@ -62,31 +63,10 @@ class AboutChurchScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           bottom: -20,
-                          child: SizedBox(
-                            width: constraints.maxWidth,
-                            child: Center(
-                              child: Stack(
-                                alignment: AlignmentDirectional.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    AppAssets.nameBoard,
-                                    colorFilter: const ColorFilter.mode(
-                                      AppColors.brown41210A,
-                                      BlendMode.srcIn,
-                                    ),
-                                    width: constraints.maxWidth * 0.8,
-                                  ),
-                                  Text(
-                                    'ABOUT THE CHURCH',
-                                    style: textTheme.bodyLarge!.copyWith(
-                                      color: AppColors.beigeD7CFC5,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          child: TitleBoard(
+                            title: 'ABOUT THE CHURCH',
                           ),
                         ),
                       ],
@@ -119,6 +99,8 @@ class AboutChurchScreen extends StatelessWidget {
                                   gridItems[index].name,
                                   style: textStyle.bodySmall,
                                   textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),

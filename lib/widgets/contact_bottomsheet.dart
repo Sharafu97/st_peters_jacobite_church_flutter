@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 
 class ContactBottomsheet extends StatelessWidget {
@@ -12,19 +13,13 @@ class ContactBottomsheet extends StatelessWidget {
       height: 45,
       color: AppColors.brown41210A,
       alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          //TODO:Change Icons
-          const Icon(
-            Icons.call,
-            color: AppColors.whiteFFFFFF,
-          ),
+          Image.asset(AppAssets.iconCall),
           const SizedBox(width: 5),
-          const Icon(
-            Icons.mail_outline_rounded,
-            color: AppColors.whiteFFFFFF,
-          ),
+          Image.asset(AppAssets.iconMessage),
           const SizedBox(width: 5),
           Text(
             'CONTACT US',

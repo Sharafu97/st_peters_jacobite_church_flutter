@@ -26,6 +26,10 @@ class AppAssets {
   static const iconOldPhotos = 'assets/icons/old_photos.png';
   static const iconVicarWhite = 'assets/icons/vicar_white.png';
   static const iconVicarBrowm = 'assets/icons/vicar_brown.png';
+
+  ///[CONTACT_US]
+  static const iconCall = 'assets/icons/call.png';
+  static const iconMessage = 'assets/icons/message.png';
 }
 
 class AppIcons {}
