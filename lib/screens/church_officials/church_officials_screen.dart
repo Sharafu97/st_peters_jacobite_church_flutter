@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
@@ -48,7 +49,8 @@ class ChurchOfficialsScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
-                            onTap: () {},
+                            onTap: () => Navigator.pushNamed(
+                                context, AppRoutes.description),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [

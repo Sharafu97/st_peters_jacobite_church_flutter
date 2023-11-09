@@ -84,8 +84,28 @@ class AboutChurchScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
-                            onTap: () => Navigator.pushNamed(
-                                context, AppRoutes.description),
+                            onTap: () {
+                              switch (index) {
+                                case 0:
+                                case 1:
+                                case 2:
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.description);
+                                  break;
+                                case 3:
+                                case 4:
+                                case 5:
+                                case 6:
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.vicars);
+                                  break;
+                                case 7:
+                                case 8:
+                                  Navigator.pushNamed(context,
+                                      AppRoutes.spiritualOrganisations);
+                                  break;
+                              }
+                            },
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [

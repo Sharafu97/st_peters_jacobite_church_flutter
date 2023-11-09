@@ -26,13 +26,13 @@ class NewsAndEventsDetailsWidget extends StatelessWidget {
             Container(
               height: 150,
               width: double.infinity,
-              margin: EdgeInsets.symmetric(vertical: 12),
+              margin: const EdgeInsets.symmetric(vertical: 12),
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Image.asset(
-                AppAssets.newsAndEventTileImage,
+                AppAssets.imageNewsAndEventTileImage,
                 fit: BoxFit.fill,
               ),
             ),

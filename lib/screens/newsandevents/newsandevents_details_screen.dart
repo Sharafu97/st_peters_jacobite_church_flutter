@@ -16,16 +16,16 @@ class NewsAndEventsDetailsScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppAssets.logoWatermark),
+            image: AssetImage(AppAssets.imageLogoWatermark),
           ),
         ),
         child: Column(
           children: [
             const SizedBox(height: 55),
             const TitleBoard(title: 'NEWS&EVENTS'),
-            NewsAndEventsDetailsWidget(),
-            Image.asset(AppAssets.seperator, scale: 3),
-            SizedBox(height: 40)
+            const NewsAndEventsDetailsWidget(),
+            Image.asset(AppAssets.imageSeperator, scale: 3),
+            const SizedBox(height: 40)
           ],
         ),
       ),

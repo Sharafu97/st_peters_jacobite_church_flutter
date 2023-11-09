@@ -53,30 +53,32 @@ class MenuWidget extends StatelessWidget {
         Positioned(
           left: 120,
           top: heightDivider,
-          child: menuIcons(
-              context, AppAssets.homeAboutChurch, 'ABOUT THE CHURCH', ''),
+          child: menuIcons(context, AppAssets.homeAboutChurch,
+              'ABOUT THE CHURCH', AppRoutes.aboutChurch),
         ),
         Positioned(
           left: 175,
           top: (heightDivider * 2) + iconHeight * 1,
-          child: menuIcons(
-              context, AppAssets.homeChurchOfficials, 'CHURCH OFFICIALS', ''),
+          child: menuIcons(context, AppAssets.homeChurchOfficials,
+              'CHURCH OFFICIALS', AppRoutes.churchOfficials),
         ),
         Positioned(
           left: 200,
           top: (heightDivider * 3) + iconHeight * 2,
-          child: menuIcons(
-              context, AppAssets.homeSpiritual, 'SPIRITUAL\nORGANIZATIONS', ''),
+          child: menuIcons(context, AppAssets.homeSpiritual,
+              'SPIRITUAL\nORGANIZATIONS', AppRoutes.spiritualOrganisations),
         ),
         Positioned(
           left: 215,
           top: (heightDivider * 4) + iconHeight * 3,
-          child: menuIcons(context, AppAssets.homeAreaUnit, 'AREA UNITS', ''),
+          child: menuIcons(context, AppAssets.homeAreaUnit, 'AREA UNITS',
+              AppRoutes.areaUnits),
         ),
         Positioned(
           left: 215,
           top: (heightDivider * 5) + iconHeight * 4,
-          child: menuIcons(context, AppAssets.homeMember, 'MEMBERS', ''),
+          child: menuIcons(
+              context, AppAssets.homeMember, 'MEMBERS', AppRoutes.members),
         ),
         Positioned(
           left: 205,

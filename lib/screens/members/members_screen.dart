@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
@@ -44,7 +45,8 @@ class MembersScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
-                            onTap: () {},
+                            onTap: () => Navigator.pushNamed(
+                                context, AppRoutes.memberSpouset),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -76,13 +78,18 @@ class MembersScreen extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const Spacer(),
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppColors.brown41210A),
-                                    shape: BoxShape.circle,
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () => Navigator.pushNamed(
+                                      context, AppRoutes.memberFamily),
+                                  child: Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: AppColors.brown41210A),
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
                                 )
                               ],
