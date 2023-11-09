@@ -9,6 +9,7 @@ import 'package:st_peters_jacobite_church_flutter/screens/newsandevents/newsande
 import 'package:st_peters_jacobite_church_flutter/screens/spiritual_organisations/spiritual_organisations_screen.dart';
 
 import '../screens/downloads/download_screen.dart';
+import '../screens/newsandevents/newsandevents_details_screen.dart';
 import '../screens/prayer_timing/prayer_timing_screen.dart';
 
 class AppRoutes {
@@ -24,6 +25,7 @@ class AppRoutes {
   static const prayerTiming = '/preyer_timing';
   static const downloads = '/downloads';
   static const newsAndEvents = '/news_and_events';
+  static const newsAndEventsDetails = '/news_and_events_details';
 }
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -61,6 +63,10 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
     case AppRoutes.newsAndEvents:
       return MaterialPageRoute(
           builder: (context) => const NewsAndEventsScreen());
+
+    case AppRoutes.newsAndEventsDetails:
+      return MaterialPageRoute(
+          builder: (context) => const NewsAndEventsDetailsScreen());
 
     default:
       return MaterialPageRoute(builder: (context) => const HomeScreen());

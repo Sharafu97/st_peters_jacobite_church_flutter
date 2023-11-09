@@ -31,7 +31,7 @@ class NewsAndEventsScreen extends StatelessWidget {
                   return Image.asset(AppAssets.seperator, scale: 4);
                 },
                 itemBuilder: (context, index) {
-                  return NewsAndEventsListTile();
+                  return NewsAndEventsListTile(index: index);
                 },
               ),
             )
