@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:st_peters_jacobite_church_flutter/config/route.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
@@ -33,7 +33,7 @@ class NewsAndEventsListTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Image.asset(
-                  AppAssets.newsAndEventTileImage,
+                  AppAssets.imageNewsAndEventTileImage,
                   fit: BoxFit.fill,
                 ),
               ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
+import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
-class ChurchOfficialsScreen extends StatelessWidget {
-  const ChurchOfficialsScreen({Key? key}) : super(key: key);
+class MembersScreen extends StatelessWidget {
+  const MembersScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,42 +35,63 @@ class ChurchOfficialsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 55),
-                    const TitleBoard(title: 'CHURCH OFFICIALS'),
+                    const TitleBoard(title: 'AREA UNITS'),
                     const SizedBox(height: 5),
                     Flexible(
-                      child: GridView.builder(
+                      child: ListView.separated(
                         padding:
                             const EdgeInsets.all(AppConstants.defaultPadding),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 1.1,
-                        ),
                         itemBuilder: (context, index) {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
                             onTap: () {},
-                            child: Column(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const SizedBox(height: 10),
-                                Image.asset(
-                                  (index % 2 == 0)
-                                      ? AppAssets.iconVicarWhite
-                                      : AppAssets.iconVicarBrowm,
-                                  scale: 2,
+                                Container(
+                                  height: 70,
+                                  width: 70,
+                                  margin: const EdgeInsets.only(
+                                      right: AppConstants.defaultPadding),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.whiteFFFFFF,
+                                    border: Border.all(
+                                      color: AppColors.brown41210A,
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(35),
+                                    child: Image.asset(
+                                      AppAssets.imageMan,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                                 Text(
-                                  'CHURCH OFFICIAL ${index + 1}',
-                                  style: textStyle.bodySmall,
-                                  textAlign: TextAlign.center,
+                                  'BAIJU THOMAS',
+                                  style: textStyle.labelLarge!
+                                      .copyWith(color: AppColors.black000000),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
+                                const Spacer(),
+                                Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColors.brown41210A),
+                                    shape: BoxShape.circle,
+                                  ),
+                                )
                               ],
                             ),
                           );
                         },
+                        separatorBuilder: (_, __) => const SizedBox(
+                          height: AppConstants.defaultPadding,
+                        ),
                         itemCount: 20,
                       ),
                     ),

@@ -16,7 +16,7 @@ class DownloadScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppAssets.logoWatermark),
+            image: AssetImage(AppAssets.imageLogoWatermark),
           ),
         ),
         child: Column(
@@ -28,7 +28,7 @@ class DownloadScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(30),
                 itemCount: 10,
                 separatorBuilder: (context, index) {
-                  return Image.asset(AppAssets.seperator, scale: 4);
+                  return Image.asset(AppAssets.imageSeperator, scale: 4);
                 },
                 itemBuilder: (context, index) {
                   return DownloadListTile();

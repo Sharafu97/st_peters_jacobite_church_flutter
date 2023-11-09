@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:st_peters_jacobite_church_flutter/config/route.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
@@ -27,7 +27,7 @@ class MenuWidget extends StatelessWidget {
           child: SizedBox(
             height: 450,
             child: Image.asset(
-              AppAssets.christ,
+              AppAssets.imageChrist,
               fit: BoxFit.fitHeight,
             ),
           ),

@@ -24,7 +24,7 @@ class DescriptionScreen extends StatelessWidget {
                 top: -50,
                 width: constraints.maxWidth,
                 child: Image.asset(
-                  AppAssets.logoWatermark,
+                  AppAssets.imageLogoWatermark,
                 ),
               ),
               SizedBox(
@@ -42,7 +42,7 @@ class DescriptionScreen extends StatelessWidget {
                           width: constraints.maxWidth,
                           child: Center(
                             child: Image.asset(
-                              AppAssets.church,
+                              AppAssets.imageChurch,
                               width: constraints.maxWidth * 0.7,
                             ),
                           ),
@@ -70,7 +70,7 @@ class DescriptionScreen extends StatelessWidget {
                               const SizedBox(
                                   height: AppConstants.defaultPadding),
                               Image.asset(
-                                AppAssets.endLine,
+                                AppAssets.imageEndLine,
                                 scale: 2,
                               ),
                               const SizedBox(height: 90),

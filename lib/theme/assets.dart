@@ -1,14 +1,19 @@
 class AppAssets {
   ///[IMAGES]
-  static const logoWatermark = 'assets/images/logo_watermark.png';
-  static const church = 'assets/images/church.png';
-  static const topLogos = 'assets/images/top_logos.png';
-  static const nameBoard = 'assets/icons/name_board.svg';
-  static const homeSidePic = 'assets/images/home_sidepic.png';
-  static const endLine = 'assets/icons/endline.png';
-  static const christ = 'assets/images/christ.png';
-  static const seperator = 'assets/images/seperator.png';
-  static const newsAndEventTileImage = 'assets/images/event_tile_image.jpg';
+  static const imageLogoWatermark = 'assets/images/logo_watermark.png';
+  static const imageChurch = 'assets/images/church.png';
+  static const imageTopLogos = 'assets/images/top_logos.png';
+  static const imageNameBoard = 'assets/icons/name_board.svg';
+  static const imageHomeSidePic = 'assets/images/home_sidepic.png';
+  static const imageEndLine = 'assets/icons/endline.png';
+  static const imageChrist = 'assets/images/christ.png';
+  static const imageSeperator = 'assets/images/seperator.png';
+  static const imageNewsAndEventTileImage =
+      'assets/images/event_tile_image.jpg';
+
+  ///[TEMP]
+  static const imageMan = 'assets/images/man.jpg';
+  static const imageVicar = 'assets/images/vicar.jpg';
 
   ///[ICONS]
   /// [HOME_SCREEN]

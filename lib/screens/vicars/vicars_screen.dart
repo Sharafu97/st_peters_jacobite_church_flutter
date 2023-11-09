@@ -6,8 +6,8 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
-class SpiritualOrganisationsScreen extends StatelessWidget {
-  const SpiritualOrganisationsScreen({Key? key}) : super(key: key);
+class VicarsScreen extends StatelessWidget {
+  const VicarsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,54 +35,66 @@ class SpiritualOrganisationsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 55),
-                    const TitleBoard(title: 'SPIRITUAL ORGANIZATIONS'),
+                    const TitleBoard(title: 'OUR VICARS'),
                     const SizedBox(height: 5),
                     Flexible(
-                      child: GridView.builder(
+                      child: ListView.separated(
                         padding:
                             const EdgeInsets.all(AppConstants.defaultPadding),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: AppConstants.largePadding,
-                          mainAxisSpacing: AppConstants.extraSmallPadding,
-                          childAspectRatio: 0.98,
-                        ),
                         itemBuilder: (context, index) {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
                             onTap: () {},
-                            child: Column(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   height: 100,
                                   width: 100,
-                                  margin: const EdgeInsets.only(bottom: 5),
+                                  margin: const EdgeInsets.only(
+                                      right: AppConstants.defaultPadding),
                                   decoration: BoxDecoration(
-                                      color: AppColors.whiteFFFFFF,
-                                      border: Border.all(
-                                        color: AppColors.brown41210A,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10)),
+                                    color: AppColors.whiteFFFFFF,
+                                    border: Border.all(
+                                      color: AppColors.brown41210A,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.asset(
+                                      AppAssets.imageVicar,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                                Text(
-                                  'SPIRITUAL ORGANIZATION ${index + 1}',
-                                  style: textStyle.labelLarge!
-                                      .copyWith(color: AppColors.black000000),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'Place',
-                                  style: textStyle.bodyMedium!
-                                      .copyWith(color: AppColors.black000000),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                        height: AppConstants.defaultPadding),
+                                    Text(
+                                      'VICAR ${index + 1} NAME',
+                                      style: textStyle.labelLarge!.copyWith(
+                                          color: AppColors.black000000),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      'Place',
+                                      style: textStyle.bodyMedium!.copyWith(
+                                          color: AppColors.black000000),
+                                    ),
+                                  ],
                                 )
                               ],
                             ),
                           );
                         },
+                        separatorBuilder: (_, __) => const SizedBox(
+                          height: AppConstants.defaultPadding,
+                        ),
                         itemCount: 20,
                       ),
                     ),

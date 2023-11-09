@@ -24,7 +24,7 @@ class DescriptionWithTitleScreen extends StatelessWidget {
               Positioned(
                 top: screenHeight * 0.15,
                 child: Image.asset(
-                  AppAssets.logoWatermark,
+                  AppAssets.imageLogoWatermark,
                   width: constraints.maxWidth,
                   scale: 2,
                 ),
@@ -68,7 +68,7 @@ class DescriptionWithTitleScreen extends StatelessWidget {
                               const SizedBox(
                                   height: AppConstants.defaultPadding),
                               Image.asset(
-                                AppAssets.endLine,
+                                AppAssets.imageEndLine,
                                 scale: 2,
                               ),
                               const SizedBox(height: 90),

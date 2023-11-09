@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:st_peters_jacobite_church_flutter/config/route.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SPJSC BAHRAIN',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.beigeD7CFC5,
         colorScheme: ColorScheme.fromSeed(
@@ -25,7 +25,6 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
-      initialRoute: AppRoutes.home,
     );
   }
 }

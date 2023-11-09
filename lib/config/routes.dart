@@ -5,8 +5,12 @@ import 'package:st_peters_jacobite_church_flutter/screens/church_officials/churc
 import 'package:st_peters_jacobite_church_flutter/screens/description/description_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/description/description_with_title_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/home/home_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/members/member_and_spouset_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/members/members_family_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/members/members_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/newsandevents/newsandevents_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/spiritual_organisations/spiritual_organisations_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/vicars/vicars_screen.dart';
 
 import '../screens/downloads/download_screen.dart';
 import '../screens/newsandevents/newsandevents_details_screen.dart';
@@ -21,11 +25,14 @@ class AppRoutes {
   static const churchOfficials = '/church_officials';
   static const spiritualOrganisations = '/spiritual_organisations';
   static const areaUnits = '/area_units';
-  // static get aboutChurch => '/sabout_church';
   static const prayerTiming = '/preyer_timing';
   static const downloads = '/downloads';
   static const newsAndEvents = '/news_and_events';
   static const newsAndEventsDetails = '/news_and_events_details';
+  static const members = '/members';
+  static const memberFamily = '/member_family';
+  static const vicars = '/vicars';
+  static const memberSpouset = '/member_spouset';
 }
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -35,10 +42,10 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
 
     case AppRoutes.aboutChurch:
       return MaterialPageRoute(builder: (context) => const AboutChurchScreen());
+
     case AppRoutes.prayerTiming:
       return MaterialPageRoute(
-        builder: (context) => const PreyerTimingScreen(),
-      );
+          builder: (context) => const PreyerTimingScreen());
     case AppRoutes.downloads:
       return MaterialPageRoute(builder: (context) => const DownloadScreen());
 
@@ -67,6 +74,20 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
     case AppRoutes.newsAndEventsDetails:
       return MaterialPageRoute(
           builder: (context) => const NewsAndEventsDetailsScreen());
+
+    case AppRoutes.members:
+      return MaterialPageRoute(builder: (context) => const MembersScreen());
+
+    case AppRoutes.vicars:
+      return MaterialPageRoute(builder: (context) => const VicarsScreen());
+
+    case AppRoutes.memberFamily:
+      return MaterialPageRoute(
+          builder: (context) => const MembersFamilyScreen());
+
+    case AppRoutes.memberSpouset:
+      return MaterialPageRoute(
+          builder: (context) => const MemberAndSpousetScreen());
 
     default:
       return MaterialPageRoute(builder: (context) => const HomeScreen());

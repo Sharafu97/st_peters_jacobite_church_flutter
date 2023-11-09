@@ -20,12 +20,12 @@ class HomeScreen extends StatelessWidget {
           Positioned(
             right: -30,
             top: 30,
-            child: Image.asset(AppAssets.logoWatermark, scale: 3),
+            child: Image.asset(AppAssets.imageLogoWatermark, scale: 3),
           ),
           Positioned(
             right: 0,
             bottom: 45,
-            child: Image.asset(AppAssets.church, scale: 4),
+            child: Image.asset(AppAssets.imageChurch, scale: 4),
           ),
           Column(
             children: [

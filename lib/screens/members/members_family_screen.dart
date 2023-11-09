@@ -6,8 +6,8 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
-class AreaUnitsScreen extends StatelessWidget {
-  const AreaUnitsScreen({Key? key}) : super(key: key);
+class MembersFamilyScreen extends StatelessWidget {
+  const MembersFamilyScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class AreaUnitsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 55),
-                    const TitleBoard(title: 'AREA UNITS'),
+                    const TitleBoard(title: 'MEMBERS FAMILY'),
                     const SizedBox(height: 5),
                     Flexible(
                       child: ListView.separated(
@@ -47,7 +47,7 @@ class AreaUnitsScreen extends StatelessWidget {
                             onTap: () {},
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
                                   height: 100,
@@ -64,20 +64,18 @@ class AreaUnitsScreen extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(
-                                        height: AppConstants.defaultPadding),
                                     Text(
-                                      'AREA UNIT ${index + 1}',
+                                      'MERIN BAIJU',
                                       style: textStyle.labelLarge!.copyWith(
                                           color: AppColors.black000000),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                    Text(
-                                      'Place',
-                                      style: textStyle.bodyMedium!.copyWith(
-                                          color: AppColors.black000000),
-                                    ),
+                                    _textWidget(
+                                        'Relation - Daughter', textStyle),
+                                    _textWidget('Birthday - 20 Dec', textStyle),
+                                    _textWidget(
+                                        'Residing - Baharain', textStyle),
                                   ],
                                 )
                               ],
@@ -87,10 +85,35 @@ class AreaUnitsScreen extends StatelessWidget {
                         separatorBuilder: (_, __) => const SizedBox(
                           height: AppConstants.defaultPadding,
                         ),
-                        itemCount: 20,
+                        itemCount: 6,
                       ),
                     ),
-                    const SizedBox(height: 45),
+                    Container(
+                      color: AppColors.brown41210A,
+                      margin: const EdgeInsets.only(
+                          top: AppConstants.extraSmallPadding),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.smallPadding,
+                        vertical: AppConstants.extraSmallPadding,
+                      ),
+                      child: Text(
+                        'PERMENENT ADDRESS',
+                        style: textStyle.labelLarge!
+                            .copyWith(color: AppColors.whiteFFFFFF),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 60, vertical: AppConstants.smallPadding),
+                      child: Text(
+                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+                        style: textStyle.bodyLarge!.copyWith(
+                          color: AppColors.black000000,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 60),
                   ],
                 ),
               )
@@ -99,6 +122,13 @@ class AreaUnitsScreen extends StatelessWidget {
         );
       }),
       bottomSheet: const ContactBottomsheet(),
+    );
+  }
+
+  Widget _textWidget(String text, TextTheme textStyle) {
+    return Text(
+      text,
+      style: textStyle.bodyMedium!.copyWith(color: AppColors.black000000),
     );
   }
 }

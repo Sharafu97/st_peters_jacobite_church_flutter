@@ -41,7 +41,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                 right: 1,
                 bottom: -35,
                 child: Image.asset(
-                  AppAssets.topLogos,
+                  AppAssets.imageTopLogos,
                   height: 70,
                 ))
           ],

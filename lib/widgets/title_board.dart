@@ -18,7 +18,7 @@ class TitleBoard extends StatelessWidget {
           alignment: AlignmentDirectional.center,
           children: [
             SvgPicture.asset(
-              AppAssets.nameBoard,
+              AppAssets.imageNameBoard,
               colorFilter: const ColorFilter.mode(
                 AppColors.brown41210A,
                 BlendMode.srcIn,

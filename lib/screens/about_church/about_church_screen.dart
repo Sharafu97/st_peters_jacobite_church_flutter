@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
-import 'package:st_peters_jacobite_church_flutter/config/route.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
@@ -38,7 +38,7 @@ class AboutChurchScreen extends StatelessWidget {
                 top: -50,
                 width: constraints.maxWidth,
                 child: Image.asset(
-                  AppAssets.logoWatermark,
+                  AppAssets.imageLogoWatermark,
                 ),
               ),
               SizedBox(
@@ -56,7 +56,7 @@ class AboutChurchScreen extends StatelessWidget {
                           width: constraints.maxWidth,
                           child: Center(
                             child: Image.asset(
-                              AppAssets.church,
+                              AppAssets.imageChurch,
                               width: constraints.maxWidth * 0.7,
                             ),
                           ),
