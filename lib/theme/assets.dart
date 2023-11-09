@@ -6,6 +6,9 @@ class AppAssets {
   static const nameBoard = 'assets/icons/name_board.svg';
   static const homeSidePic = 'assets/images/home_sidepic.png';
   static const endLine = 'assets/icons/endline.png';
+  static const christ = 'assets/images/christ.png';
+  static const seperator = 'assets/images/seperator.png';
+  static const newsAndEventTileImage = 'assets/images/event_tile_image.jpg';
 
   ///[ICONS]
   /// [HOME_SCREEN]
