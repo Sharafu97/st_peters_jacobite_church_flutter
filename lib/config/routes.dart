@@ -5,6 +5,8 @@ import 'package:st_peters_jacobite_church_flutter/screens/church_officials/churc
 import 'package:st_peters_jacobite_church_flutter/screens/description/description_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/description/description_with_title_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/home/home_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/login/request_otp_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/login/verify_otp_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/members/member_and_spouset_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/members/members_family_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/members/members_screen.dart';
@@ -33,6 +35,8 @@ class AppRoutes {
   static const memberFamily = '/member_family';
   static const vicars = '/vicars';
   static const memberSpouset = '/member_spouset';
+  static const requestOTP = '/request_otp';
+  static const verifyOTP = '/verify_otp';
 }
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -88,6 +92,12 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
     case AppRoutes.memberSpouset:
       return MaterialPageRoute(
           builder: (context) => const MemberAndSpousetScreen());
+
+    case AppRoutes.requestOTP:
+      return MaterialPageRoute(builder: (context) => const RequestOTPScreen());
+
+    case AppRoutes.verifyOTP:
+      return MaterialPageRoute(builder: (context) => const VerifyOTPScreen());
 
     default:
       return MaterialPageRoute(builder: (context) => const HomeScreen());

@@ -36,7 +36,7 @@ class MembersScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 55),
-                    const TitleBoard(title: 'AREA UNITS'),
+                    const TitleBoard(title: 'MEMBERS'),
                     const SizedBox(height: 5),
                     Flexible(
                       child: ListView.separated(
@@ -46,7 +46,7 @@ class MembersScreen extends StatelessWidget {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
                             onTap: () => Navigator.pushNamed(
-                                context, AppRoutes.memberSpouset),
+                                context, AppRoutes.requestOTP),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

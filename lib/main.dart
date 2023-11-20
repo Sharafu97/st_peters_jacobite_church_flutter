@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
+import 'package:st_peters_jacobite_church_flutter/theme/palette.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
 void main() {
@@ -16,8 +17,9 @@ class MyApp extends StatelessWidget {
       title: 'SPJSC BAHRAIN',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.beigeD7CFC5,
+        primarySwatch: Palette.kToDark,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
+          seedColor: Palette.kToDark,
           background: AppColors.beigeD7CFC5,
         ),
         textTheme: textTheme,
