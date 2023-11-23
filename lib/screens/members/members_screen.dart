@@ -46,7 +46,7 @@ class MembersScreen extends StatelessWidget {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
                             onTap: () => Navigator.pushNamed(
-                                context, AppRoutes.requestOTP),
+                                context, AppRoutes.memberFamily),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -70,25 +70,35 @@ class MembersScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  'BAIJU THOMAS',
-                                  style: textStyle.labelLarge!
-                                      .copyWith(color: AppColors.black000000),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'BAIJU THOMAS',
+                                      style: textStyle.labelLarge!.copyWith(
+                                          color: AppColors.black000000),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      'ID: S072',
+                                      style: textStyle.labelLarge!.copyWith(
+                                          color: AppColors.black000000),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                 ),
                                 const Spacer(),
                                 GestureDetector(
                                   behavior: HitTestBehavior.translucent,
-                                  onTap: () => Navigator.pushNamed(
-                                      context, AppRoutes.memberFamily),
-                                  child: Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: AppColors.brown41210A),
-                                      shape: BoxShape.circle,
+                                  onTap: () {},
+                                  child: SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Image.asset(
+                                      AppAssets.iconCall,
+                                      color: AppColors.brown41210A,
                                     ),
                                   ),
                                 )
