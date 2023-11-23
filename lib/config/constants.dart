@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:io';
 
 class AppConstants {
@@ -18,7 +20,6 @@ class AppConstants {
   static const largePadding = 30.0;
   static const extraLargePadding = 40.0;
   bool isIOS = false;
-  static const baseUrl = '';
   String fcmToken = '';
 
   ///[FONT_FAMILIES]
@@ -34,8 +35,19 @@ class AppConstants {
   static const loremIpsum =
       'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:\n“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\nThe purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn\'t distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.\nThe passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it\'s seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum.\nLorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:\n“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\nThe purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn\'t distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.\nThe passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it\'s seen all around the web; on templates, websites, and stock designs. Use our generator to get your own, or read on for the authoritative history of lorem ipsum.';
 
-  // void _setFCMToken() async {
-  //   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  //   fcmToken = await messaging.getToken() ?? '';
-  // }
+  ///[API]
+  static const BASEURL = 'insta-connect.in';
+  static const MEMBERLISTURL = '/churchapplive/api/member-list';
+
+  ///[STATIC WEB PAGES]
+  static const churchHistoryURL =
+      'https://insta-connect.in/churchapplive/history';
+  static const bishopsURL = 'https://insta-connect.in/churchapplive/bishops';
+  static const formerVicarsURL =
+      'https://insta-connect.in/churchapplive/former-vicars';
+  static const catholicosURL =
+      'https://insta-connect.in/churchapplive/catholicos';
+  static const founderMemberURL =
+      'https://insta-connect.in/churchapplive/founder-members';
+  // static const bishopsURL = 'https://insta-connect.in/churchapplive/bishops';
 }

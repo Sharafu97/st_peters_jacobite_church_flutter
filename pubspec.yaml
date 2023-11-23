@@ -28,12 +28,16 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  cached_network_image: ^3.3.0
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_riverpod: ^2.4.8
   flutter_svg: ^2.0.9
   form_field_validator: ^1.1.0
   http: ^1.1.0
+  url_launcher: ^6.2.1
+  webview_flutter: ^4.4.2
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
@@ -53,6 +57,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/icons/home_icons/
+    - assets/ca/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

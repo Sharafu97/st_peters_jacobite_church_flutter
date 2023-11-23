@@ -17,7 +17,7 @@ class ApiProvider {
     dynamic responseJson;
     try {
       final response = await http.get(
-        Uri.https(AppConstants.baseUrl, url, queryParameters),
+        Uri.https(AppConstants.BASEURL, url, queryParameters),
         headers: _headers,
       );
 
@@ -34,7 +34,7 @@ class ApiProvider {
     dynamic responseJson;
     try {
       final response = await http.post(
-        Uri.https(AppConstants.baseUrl, url, queryParameters),
+        Uri.https(AppConstants.BASEURL, url, queryParameters),
         headers: _headers,
         body: formData,
       );
@@ -50,7 +50,7 @@ class ApiProvider {
     dynamic responseJson;
     try {
       final response = await http.delete(
-        Uri.https(AppConstants.baseUrl, url, queryParameters),
+        Uri.https(AppConstants.BASEURL, url, queryParameters),
         headers: _headers,
       );
       responseJson = _response(response);
@@ -65,7 +65,7 @@ class ApiProvider {
 
     try {
       final response = await http.post(
-        Uri.http(AppConstants.baseUrl, url),
+        Uri.http(AppConstants.BASEURL, url),
         headers: _headers,
         body: json.encode(data),
       );
@@ -80,7 +80,7 @@ class ApiProvider {
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body.toString());
 
-      if (responseJson['success'] == true) {
+      if (responseJson['status'] == 1) {
         return responseJson;
       } else {
         throw Exception(responseJson['message']);

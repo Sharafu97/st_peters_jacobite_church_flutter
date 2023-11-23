@@ -22,6 +22,10 @@ class AboutChurchScreen extends StatelessWidget {
     GridItemData(name: 'OLD PHOTOS', icon: AppAssets.iconOldPhotos),
   ];
 
+  navigate(BuildContext context, String url) {
+    Navigator.pushNamed(context, AppRoutes.webView, arguments: url);
+  }
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
@@ -87,19 +91,29 @@ class AboutChurchScreen extends StatelessWidget {
                             onTap: () {
                               switch (index) {
                                 case 0:
+                                  navigate(
+                                      context, AppConstants.churchHistoryURL);
+                                  break;
                                 case 1:
                                 case 2:
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.description);
+                                  navigate(context, AppConstants.catholicosURL);
                                   break;
                                 case 3:
                                 case 4:
+                                  navigate(context, AppConstants.bishopsURL);
+                                  break;
                                 case 5:
+                                  navigate(
+                                      context, AppConstants.formerVicarsURL);
+                                  break;
                                 case 6:
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.vicars);
+                                  navigate(
+                                      context, AppConstants.formerVicarsURL);
                                   break;
                                 case 7:
+                                  navigate(
+                                      context, AppConstants.founderMemberURL);
+                                  break;
                                 case 8:
                                   Navigator.pushNamed(context,
                                       AppRoutes.spiritualOrganisations);

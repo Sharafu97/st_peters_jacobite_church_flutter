@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/about_church/about_church_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/area_units/area_units_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/church_officials/church_officials_screen.dart';
-import 'package:st_peters_jacobite_church_flutter/screens/description/description_screen.dart';
-import 'package:st_peters_jacobite_church_flutter/screens/description/description_with_title_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/about_church/web_view/webview_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/about_church/web_view/description_with_title_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/home/home_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/login/request_otp_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/login/verify_otp_screen.dart';
@@ -22,7 +22,7 @@ class AppRoutes {
   static const init = '/';
   static const home = 'home';
   static const aboutChurch = '/about_church';
-  static const description = '/description';
+  static const webView = '/web_view';
   static const descriptionWithTitle = '/description_with_title';
   static const churchOfficials = '/church_officials';
   static const spiritualOrganisations = '/spiritual_organisations';
@@ -53,8 +53,10 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
     case AppRoutes.downloads:
       return MaterialPageRoute(builder: (context) => const DownloadScreen());
 
-    case AppRoutes.description:
-      return MaterialPageRoute(builder: (context) => const DescriptionScreen());
+    case AppRoutes.webView:
+      return MaterialPageRoute(
+          builder: (context) =>
+              WebViewScreen(url: settings.arguments as String));
 
     case AppRoutes.descriptionWithTitle:
       return MaterialPageRoute(

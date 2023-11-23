@@ -49,8 +49,8 @@ class ChurchOfficialsScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             borderRadius: BorderRadius.circular(10),
-                            onTap: () => Navigator.pushNamed(
-                                context, AppRoutes.description),
+                            onTap: () =>
+                                Navigator.pushNamed(context, AppRoutes.webView),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
