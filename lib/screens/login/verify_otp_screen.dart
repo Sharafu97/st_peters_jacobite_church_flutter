@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/validators.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/login_notifier.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/button.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/textfield.dart';
 
-class VerifyOTPScreen extends StatefulWidget {
-  const VerifyOTPScreen({super.key});
+class VerifyOTPScreen extends ConsumerStatefulWidget {
+  const VerifyOTPScreen({super.key, required this.memberCode});
+  final String memberCode;
 
   @override
-  State<VerifyOTPScreen> createState() => _VerifyOTPScreenState();
+  ConsumerState<VerifyOTPScreen> createState() => _VerifyOTPScreenState();
 }
 
-class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
+class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
+  void _verifyOtp() {
+    if (_formKey.currentState!.validate()) {
+      ref.read(loginProvider).verifyOtp(widget.memberCode, _controller.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
@@ -63,12 +74,17 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                             validator: requiredValidator(),
                           ),
                           const SizedBox(height: AppConstants.largePadding),
-                          CustomButton(
-                            text: 'Login',
-                            onPressed: () => Navigator.pushNamed(
-                                context, AppRoutes.memberFamily),
-                            width: 150,
-                          ),
+                          Consumer(builder: (_, ref, __) {
+                            final data = ref.watch(loginProvider);
+                            return CustomButton(
+                              text: 'Login',
+                              isLoading: data.verifyStatus == ApiStatus.LOADING,
+                              onPressed: _verifyOtp,
+                              // onPressed: () => Navigator.pushNamed(
+                              //     context, AppRoutes.memberFamily),
+                              width: 150,
+                            );
+                          }),
                           const SizedBox(height: AppConstants.defaultPadding),
                           Text(
                             'Enter the OTP sent to your email\nassociated with your member ID',
@@ -82,12 +98,30 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                _loginListener(),
               ],
             ),
           );
         },
       ),
     );
+  }
+
+  Widget _loginListener() {
+    ref.listenManual<LoginNotifier>(loginProvider, (previous, next) {
+      if (next.loginStatus == ApiStatus.SUCCESS) {
+        Navigator.pushNamed(
+          context,
+          AppRoutes.memberFamily,
+        );
+      }
+      if (next.loginStatus == ApiStatus.FAILED) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(next.error)));
+      }
+      next.notifyVerifyState(ApiStatus.INITIALIZE);
+    });
+    return const SizedBox.shrink();
   }
 }

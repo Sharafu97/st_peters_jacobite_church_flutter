@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/config/utils/secure_storage.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
 import '../../../theme/assets.dart';
 
-class MenuWidget extends StatelessWidget {
+class MenuWidget extends StatefulWidget {
   const MenuWidget({super.key});
 
-  static double heightDivider = 28;
-  static double height = 450;
-  static double iconHeight = 24;
+  @override
+  State<MenuWidget> createState() => _MenuWidgetState();
+}
+
+class _MenuWidgetState extends State<MenuWidget> {
+  static const double _heightDivider = 28;
+  static const double _height = 450;
+  static const double _iconHeight = 24;
+  String _memberRoute = '';
+  @override
+  void initState() {
+    super.initState();
+    _getRouteName();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
-        SizedBox(
-          height: height,
-          width: height,
+        const SizedBox(
+          height: _height,
+          width: _height,
         ),
         Positioned(
           left: -200,
@@ -37,8 +49,8 @@ class MenuWidget extends StatelessWidget {
           child: ClipPath(
             clipper: HalfCircleClip(),
             child: Container(
-              height: height,
-              width: height,
+              height: _height,
+              width: _height,
               alignment: Alignment.centerRight,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -52,49 +64,49 @@ class MenuWidget extends StatelessWidget {
         ),
         Positioned(
           left: 120,
-          top: heightDivider,
+          top: _heightDivider,
           child: menuIcons(context, AppAssets.homeAboutChurch,
               'ABOUT THE CHURCH', AppRoutes.aboutChurch),
         ),
         Positioned(
           left: 175,
-          top: (heightDivider * 2) + iconHeight * 1,
+          top: (_heightDivider * 2) + _iconHeight * 1,
           child: menuIcons(context, AppAssets.homeChurchOfficials,
               'CHURCH OFFICIALS', AppRoutes.churchOfficials),
         ),
         Positioned(
           left: 200,
-          top: (heightDivider * 3) + iconHeight * 2,
+          top: (_heightDivider * 3) + _iconHeight * 2,
           child: menuIcons(context, AppAssets.homeSpiritual,
               'SPIRITUAL\nORGANIZATIONS', AppRoutes.spiritualOrganisations),
         ),
         Positioned(
           left: 215,
-          top: (heightDivider * 4) + iconHeight * 3,
+          top: (_heightDivider * 4) + _iconHeight * 3,
           child: menuIcons(context, AppAssets.homeAreaUnit, 'AREA UNITS',
               AppRoutes.areaUnits),
         ),
         Positioned(
           left: 215,
-          top: (heightDivider * 5) + iconHeight * 4,
-          child: menuIcons(
-              context, AppAssets.homeMember, 'MEMBERS', AppRoutes.members),
+          top: (_heightDivider * 5) + _iconHeight * 4,
+          child:
+              menuIcons(context, AppAssets.homeMember, 'MEMBERS', _memberRoute),
         ),
         Positioned(
           left: 205,
-          top: (heightDivider * 6) + iconHeight * 5,
+          top: (_heightDivider * 6) + _iconHeight * 5,
           child: menuIcons(context, AppAssets.homeNewsEvents, 'NEWS & EVENTS',
               AppRoutes.newsAndEvents),
         ),
         Positioned(
           left: 175,
-          top: (heightDivider * 7) + iconHeight * 6,
+          top: (_heightDivider * 7) + _iconHeight * 6,
           child: menuIcons(context, AppAssets.homeDownloads, 'DOWNLOADS',
               AppRoutes.downloads),
         ),
         Positioned(
           left: 120,
-          top: (heightDivider * 8) + iconHeight * 7,
+          top: (_heightDivider * 8) + _iconHeight * 7,
           child: menuIcons(context, AppAssets.homePrayerTime, 'PRAYER TIMES',
               AppRoutes.prayerTiming),
         ),
@@ -117,6 +129,16 @@ class MenuWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _getRouteName() async {
+    final res = await StorageUtils().checkUserAuthentication();
+    if (res) {
+      _memberRoute = AppRoutes.members;
+    } else {
+      _memberRoute = AppRoutes.requestOTP;
+    }
+    setState(() {});
   }
 }
 

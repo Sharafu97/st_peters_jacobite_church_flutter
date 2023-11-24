@@ -99,7 +99,10 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const RequestOTPScreen());
 
     case AppRoutes.verifyOTP:
-      return MaterialPageRoute(builder: (context) => const VerifyOTPScreen());
+      return MaterialPageRoute(
+          builder: (context) => VerifyOTPScreen(
+                memberCode: settings.arguments as String,
+              ));
 
     default:
       return MaterialPageRoute(builder: (context) => const HomeScreen());

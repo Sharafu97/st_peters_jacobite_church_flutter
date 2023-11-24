@@ -38,6 +38,8 @@ class AppConstants {
   ///[API]
   static const BASEURL = 'insta-connect.in';
   static const MEMBERLISTURL = '/churchapplive/api/member-list';
+  static const LOGINURL = '/churchapplive/api/member-login';
+  static const OTPVERIFICATIONURL = 'churchapplive/api/send-otp';
 
   ///[STATIC WEB PAGES]
   static const churchHistoryURL =
