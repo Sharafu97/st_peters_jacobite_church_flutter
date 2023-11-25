@@ -40,6 +40,7 @@ class AppConstants {
   static const MEMBERLISTURL = '/churchapplive/api/member-list';
   static const LOGINURL = '/churchapplive/api/member-login';
   static const OTPVERIFICATIONURL = 'churchapplive/api/send-otp';
+  static const MEMBERDETAILSURL = '/churchapplive/api/member-details';
 
   ///[STATIC WEB PAGES]
   static const churchHistoryURL =
@@ -51,5 +52,13 @@ class AppConstants {
       'https://insta-connect.in/churchapplive/catholicos';
   static const founderMemberURL =
       'https://insta-connect.in/churchapplive/founder-members';
-  // static const bishopsURL = 'https://insta-connect.in/churchapplive/bishops';
+  static const partiarchURL =
+      'https://insta-connect.in/churchapplive/partiarch';
+  static const partiarcalVicarURL =
+      'https://insta-connect.in/churchapplive/patriarcal-vicar';
+  static const currentVicarURL =
+      'https://insta-connect.in/churchapplive/current-vicar';
+  static const formarPartiarcalVicarURL =
+      'https://insta-connect.in/churchapplive/formar-patriarcal-vicars';
+  static const prayerTimingURL = 'https://insta-connect.in/churchapplive/time';
 }

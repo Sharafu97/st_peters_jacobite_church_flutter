@@ -89,7 +89,9 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
 
     case AppRoutes.memberFamily:
       return MaterialPageRoute(
-          builder: (context) => const MembersFamilyScreen());
+        builder: (context) =>
+            MembersFamilyScreen(memberId: settings.arguments as String),
+      );
 
     case AppRoutes.memberSpouset:
       return MaterialPageRoute(

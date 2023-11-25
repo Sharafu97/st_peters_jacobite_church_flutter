@@ -71,7 +71,9 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
                               return InkWell(
                                 borderRadius: BorderRadius.circular(10),
                                 onTap: () => Navigator.pushNamed(
-                                    context, AppRoutes.memberFamily),
+                                    context, AppRoutes.memberFamily,
+                                    arguments:
+                                        dataRef.members[index].memberCode),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

@@ -95,16 +95,21 @@ class AboutChurchScreen extends StatelessWidget {
                                       context, AppConstants.churchHistoryURL);
                                   break;
                                 case 1:
+                                  navigate(context, AppConstants.partiarchURL);
+                                  break;
                                 case 2:
                                   navigate(context, AppConstants.catholicosURL);
                                   break;
                                 case 3:
+                                  navigate(
+                                      context, AppConstants.partiarcalVicarURL);
+                                  break;
                                 case 4:
                                   navigate(context, AppConstants.bishopsURL);
                                   break;
                                 case 5:
-                                  navigate(
-                                      context, AppConstants.formerVicarsURL);
+                                  navigate(context,
+                                      AppConstants.formarPartiarcalVicarURL);
                                   break;
                                 case 6:
                                   navigate(

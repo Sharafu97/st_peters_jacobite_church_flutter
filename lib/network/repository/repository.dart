@@ -1,5 +1,6 @@
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 
+import '../../model/member_details_model.dart';
 import '../../model/member_list_model.dart';
 import '../api_provider/api_provider.dart';
 
@@ -13,6 +14,10 @@ abstract class Repository {
   }
 
   Future<bool>? verifyOtp(Map<String, dynamic> data) {
+    return null;
+  }
+
+  Future<MemberDetailsModel>? getMemberDetails(String memberId) {
     return null;
   }
 }
@@ -39,5 +44,15 @@ class AppRepository implements Repository {
     final res = await provider.post(AppConstants.OTPVERIFICATIONURL,
         queryParameters: data);
     return res['status'] == 1;
+  }
+
+  @override
+  Future<MemberDetailsModel>? getMemberDetails(String memberId) async {
+    final res = await provider.getData(
+      AppConstants.MEMBERDETAILSURL,
+      queryParameters: {'member_code': memberId},
+    );
+
+    return MemberDetailsModel.fromJson(res);
   }
 }
