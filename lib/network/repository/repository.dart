@@ -1,5 +1,6 @@
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/model/areaunits_model.dart';
+import 'package:st_peters_jacobite_church_flutter/model/member_search_model.dart';
 
 import '../../model/member_details_model.dart';
 import '../../model/member_list_model.dart';
@@ -23,6 +24,10 @@ abstract class Repository {
   }
 
   Future<AreaUnitsModel>? getAreaUnits() {
+    return null;
+  }
+
+  Future<SearchMembersModel>? searchMembers(Map<String, dynamic> data) {
     return null;
   }
 }
@@ -66,5 +71,13 @@ class AppRepository implements Repository {
     final res = await provider.getData(AppConstants.AREAUNITSURL);
 
     return AreaUnitsModel.fromJson(res);
+  }
+
+  @override
+  Future<SearchMembersModel>? searchMembers(Map<String, dynamic> data) async {
+    final res = await provider.getData(AppConstants.SEARCHMEMBERURL,
+        queryParameters: data);
+
+    return SearchMembersModel.fromJson(res);
   }
 }

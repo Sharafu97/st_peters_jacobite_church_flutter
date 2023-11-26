@@ -28,7 +28,11 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
     _animationController.addStatusListener((status) {
-      Navigator.pushNamed(context, AppRoutes.home);
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.home,
+        (route) => false,
+      );
     });
   }
 

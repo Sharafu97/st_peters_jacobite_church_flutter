@@ -42,6 +42,7 @@ class AppConstants {
   static const OTPVERIFICATIONURL = 'churchapplive/api/send-otp';
   static const MEMBERDETAILSURL = '/churchapplive/api/member-details';
   static const AREAUNITSURL = '/churchapplive/api/area-unit-list';
+  static const SEARCHMEMBERURL = '/churchapplive/api/search';
 
   ///[STATIC WEB PAGES]
   static const churchHistoryURL =

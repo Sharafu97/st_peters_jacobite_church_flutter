@@ -38,6 +38,25 @@ class MemberNotifier extends ChangeNotifier {
     }
   }
 
+  Future<void> searchMembers(
+      {String searchKey = '', String memberType = ''}) async {
+    if (_status == ApiStatus.LOADING) return;
+    try {
+      notifyState(ApiStatus.LOADING);
+      final data = <String, dynamic>{
+        'search_type_id': memberType,
+        'search': searchKey,
+      };
+      final res = await AppRepository().searchMembers(data);
+      _members = res?.searchData ?? [];
+
+      notifyState(ApiStatus.SUCCESS);
+    } catch (e) {
+      _error = e.toString();
+      notifyState(ApiStatus.FAILED);
+    }
+  }
+
   getMemberDetails(String memberId) async {
     try {
       notifyDetailsState(ApiStatus.LOADING);

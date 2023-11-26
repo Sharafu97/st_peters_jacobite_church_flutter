@@ -9,11 +9,17 @@ class CustomTextField extends StatelessWidget {
     this.isCenterAligned = false,
     this.validator,
     this.keyboardType,
+    this.hintText,
+    this.suffixIcon,
+    this.onChanged,
   });
   final TextEditingController controller;
   final bool isCenterAligned;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final String? hintText;
+  final Widget? suffixIcon;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,13 @@ class CustomTextField extends StatelessWidget {
         ),
         fillColor: AppColors.whiteFFFFFF,
         filled: true,
+        hintText: hintText,
+        hintStyle: textStyle.bodyLarge!.copyWith(
+            fontFamily: AppConstants.fontGotham,
+            color: AppColors.brown41210A.withOpacity(0.7)),
+        suffixIcon: suffixIcon,
       ),
+      onChanged: onChanged,
     );
   }
 }
