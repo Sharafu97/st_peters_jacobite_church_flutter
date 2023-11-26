@@ -41,6 +41,7 @@ class AppConstants {
   static const LOGINURL = '/churchapplive/api/member-login';
   static const OTPVERIFICATIONURL = 'churchapplive/api/send-otp';
   static const MEMBERDETAILSURL = '/churchapplive/api/member-details';
+  static const AREAUNITSURL = '/churchapplive/api/area-unit-list';
 
   ///[STATIC WEB PAGES]
   static const churchHistoryURL =
@@ -61,4 +62,10 @@ class AppConstants {
   static const formarPartiarcalVicarURL =
       'https://insta-connect.in/churchapplive/formar-patriarcal-vicars';
   static const prayerTimingURL = 'https://insta-connect.in/churchapplive/time';
+
+  ///[contact details]
+  static const CHURCHPHONE = '+97317245432';
+  static const CHURCHMAIL = 'stpeters@batelco.com.bh';
+  static const CHURCHWEBSITE = 'http://www.stpetersbahrain.org/';
+  static const CHURCHLOCATION = 'https://maps.app.goo.gl/VokT7tfbyReV5Xzx6';
 }
