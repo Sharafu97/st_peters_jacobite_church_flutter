@@ -1,19 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/config/utils/extensions.dart';
+import 'package:st_peters_jacobite_church_flutter/model/news_event_model.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
-
-import '../../../theme/assets.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 
 class NewsAndEventsListTile extends StatelessWidget {
-  const NewsAndEventsListTile({super.key, required this.index});
-  final int index;
+  const NewsAndEventsListTile({super.key, required this.news});
+  final NewsEvents news;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onDoubleTap: () {
-        Navigator.pushNamed(context, AppRoutes.newsAndEventsDetails);
+      onTap: () {
+        Navigator.pushNamed(context, AppRoutes.newsAndEventsDetails,
+            arguments: news);
       },
       child: Container(
           padding: const EdgeInsets.all(8),
@@ -32,9 +35,13 @@ class NewsAndEventsListTile extends StatelessWidget {
                   color: AppColors.whiteFFFFFF.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Image.asset(
-                  AppAssets.imageNewsAndEventTileImage,
-                  fit: BoxFit.fill,
+                child: CachedNetworkImage(
+                  imageUrl: news.phots?[0] ?? '-',
+                  progressIndicatorBuilder: (context, url, progress) =>
+                      const Center(
+                    child: LoadingWidget(),
+                  ),
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(width: 10),
@@ -45,12 +52,15 @@ class NewsAndEventsListTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text('Event name Comes here',
-                          style: textTheme.labelLarge),
-                      const Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed justo '),
+                      Text(news.newsTitle ?? '-', style: textTheme.labelLarge),
+                      Text(
+                        (news.newsDetails ?? '-').parseHtmlString(),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       const Spacer(),
-                      Text('25-12-2023', style: textTheme.labelLarge),
+                      Text((news.publishingDate ?? '-').dateFormat(),
+                          style: textTheme.labelLarge),
                     ],
                   ),
                 ),

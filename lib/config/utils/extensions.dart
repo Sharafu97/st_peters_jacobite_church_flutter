@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:html/parser.dart';
 
 extension StringExtension on String? {
   String dateFormat([String format = 'dd-MM-yyyy']) {
@@ -12,5 +13,12 @@ extension StringExtension on String? {
 
       return dateFormat.format(date);
     }
+  }
+
+  String parseHtmlString() {
+    final document = parse(this);
+    final String parsedString =
+        parse(document.body?.text).documentElement?.text ?? '-';
+    return parsedString;
   }
 }

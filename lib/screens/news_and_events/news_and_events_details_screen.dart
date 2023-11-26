@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:st_peters_jacobite_church_flutter/screens/newsandevents/widgets/details_widget.dart';
+import 'package:st_peters_jacobite_church_flutter/model/news_event_model.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/news_and_events/widgets/details_widget.dart';
 
 import '../../theme/assets.dart';
 import '../../widgets/appbar.dart';
@@ -7,7 +8,11 @@ import '../../widgets/contact_bottomsheet.dart';
 import '../../widgets/title_board.dart';
 
 class NewsAndEventsDetailsScreen extends StatelessWidget {
-  const NewsAndEventsDetailsScreen({super.key});
+  const NewsAndEventsDetailsScreen({
+    super.key,
+    required this.news,
+  });
+  final NewsEvents news;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +27,8 @@ class NewsAndEventsDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 55),
-            const TitleBoard(title: 'NEWS&EVENTS'),
-            const NewsAndEventsDetailsWidget(),
+            const TitleBoard(title: 'NEWS & EVENTS'),
+            NewsAndEventsDetailsWidget(news: news),
             Image.asset(AppAssets.imageSeperator, scale: 3),
             const SizedBox(height: 40)
           ],

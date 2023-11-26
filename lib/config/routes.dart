@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:st_peters_jacobite_church_flutter/model/news_event_model.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/about_church/about_church_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/area_units/area_units_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/church_officials/church_officials_screen.dart';
@@ -10,13 +11,14 @@ import 'package:st_peters_jacobite_church_flutter/screens/login/verify_otp_scree
 import 'package:st_peters_jacobite_church_flutter/screens/members/member_and_spouset_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/members/members_family_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/members/members_screen.dart';
-import 'package:st_peters_jacobite_church_flutter/screens/newsandevents/newsandevents_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/news_and_events/image_view_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/news_and_events/news_and_events_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/spiritual_organisations/spiritual_organisations_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/splash/splash_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/vicars/vicars_screen.dart';
 
 import '../screens/downloads/download_screen.dart';
-import '../screens/newsandevents/newsandevents_details_screen.dart';
+import '../screens/news_and_events/news_and_events_details_screen.dart';
 import '../screens/prayer_timing/prayer_timing_screen.dart';
 
 class AppRoutes {
@@ -38,6 +40,7 @@ class AppRoutes {
   static const memberSpouset = '/member_spouset';
   static const requestOTP = '/request_otp';
   static const verifyOTP = '/verify_otp';
+  static const imageView = '/image_view';
 }
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -83,7 +86,9 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
 
     case AppRoutes.newsAndEventsDetails:
       return MaterialPageRoute(
-          builder: (context) => const NewsAndEventsDetailsScreen());
+          builder: (context) => NewsAndEventsDetailsScreen(
+                news: settings.arguments as NewsEvents,
+              ));
 
     case AppRoutes.members:
       return MaterialPageRoute(builder: (context) => const MembersScreen());
@@ -109,6 +114,11 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           builder: (context) => VerifyOTPScreen(
                 memberCode: settings.arguments as String,
               ));
+
+    case AppRoutes.imageView:
+      return MaterialPageRoute(
+          builder: (context) =>
+              ImageViewScreen(images: settings.arguments as List<String>));
 
     default:
       return MaterialPageRoute(builder: (context) => const SplashScreen());
