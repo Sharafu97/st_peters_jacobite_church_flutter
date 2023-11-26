@@ -11,27 +11,23 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/button.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/textfield.dart';
 
-class RequestOTPScreen extends ConsumerStatefulWidget {
-  const RequestOTPScreen({Key? key}) : super(key: key);
-
-  @override
-  ConsumerState<RequestOTPScreen> createState() => _RequestOTPScreenState();
-}
-
-class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
+class RequestOTPScreen extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
 
-  void _login() {
+  RequestOTPScreen({super.key});
+
+  void _login(WidgetRef ref) {
     if (_formKey.currentState!.validate()) {
       ref.read(loginProvider).login(_controller.text);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
+    _loginListener(ref, context);
     return Scaffold(
       appBar: const CustomAppbar(),
       body: LayoutBuilder(builder: (context, constraints) {
@@ -72,15 +68,19 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                           validator: requiredValidator(),
                         ),
                         const SizedBox(height: AppConstants.largePadding),
-                        Consumer(builder: (_, ref, __) {
-                          final data = ref.watch(loginProvider);
-                          return CustomButton(
-                            text: 'Get OTP',
-                            isLoading: data.loginStatus == ApiStatus.LOADING,
-                            onPressed: _login,
-                            width: 150,
-                          );
-                        }),
+                        Material(
+                          child: Consumer(builder: (_, ref, __) {
+                            final data = ref.watch(loginProvider);
+                            return CustomButton(
+                              text: 'Get OTP',
+                              isLoading: data.loginStatus == ApiStatus.LOADING,
+                              onPressed: () {
+                                _login(ref);
+                              },
+                              width: 150,
+                            );
+                          }),
+                        ),
                         const SizedBox(height: AppConstants.defaultPadding),
                         Text(
                           'OTP will be sent to your email\nassociated with your member ID',
@@ -95,7 +95,7 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                   ),
                 ),
               ),
-              _loginListener(),
+              // _loginListener(ref, context),
             ],
           ),
         );
@@ -103,18 +103,19 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
     );
   }
 
-  Widget _loginListener() {
-    ref.listenManual<LoginNotifier>(loginProvider, (previous, next) {
+  void _loginListener(WidgetRef ref, BuildContext context) {
+    ref.listen<LoginNotifier>(loginProvider, (previous, next) {
       if (next.loginStatus == ApiStatus.SUCCESS) {
         Navigator.pushNamed(context, AppRoutes.verifyOTP,
             arguments: _controller.text);
+        next.notifyLoginState(ApiStatus.INITIALIZE);
       }
       if (next.loginStatus == ApiStatus.FAILED) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(next.error)));
+        next.notifyLoginState(ApiStatus.INITIALIZE);
       }
-      next.notifyLoginState(ApiStatus.INITIALIZE);
     });
-    return const SizedBox.shrink();
+    // return const SizedBox.shrink();
   }
 }

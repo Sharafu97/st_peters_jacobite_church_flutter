@@ -32,6 +32,7 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
+    _loginListener();
     return Scaffold(
       appBar: const CustomAppbar(),
       body: LayoutBuilder(
@@ -74,17 +75,18 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                             validator: requiredValidator(),
                           ),
                           const SizedBox(height: AppConstants.largePadding),
-                          Consumer(builder: (_, ref, __) {
-                            final data = ref.watch(loginProvider);
-                            return CustomButton(
-                              text: 'Login',
-                              isLoading: data.verifyStatus == ApiStatus.LOADING,
-                              onPressed: _verifyOtp,
-                              // onPressed: () => Navigator.pushNamed(
-                              //     context, AppRoutes.memberFamily),
-                              width: 150,
-                            );
-                          }),
+                          Material(
+                            child: Consumer(builder: (_, ref, __) {
+                              final data = ref.watch(loginProvider);
+                              return CustomButton(
+                                text: 'Login',
+                                isLoading:
+                                    data.verifyStatus == ApiStatus.LOADING,
+                                onPressed: _verifyOtp,
+                                width: 150,
+                              );
+                            }),
+                          ),
                           const SizedBox(height: AppConstants.defaultPadding),
                           Text(
                             'Enter the OTP sent to your email\nassociated with your member ID',
@@ -99,7 +101,6 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                     ),
                   ),
                 ),
-                _loginListener(),
               ],
             ),
           );
@@ -108,20 +109,20 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
     );
   }
 
-  Widget _loginListener() {
-    ref.listenManual<LoginNotifier>(loginProvider, (previous, next) {
-      if (next.loginStatus == ApiStatus.SUCCESS) {
+  void _loginListener() {
+    ref.listen<LoginNotifier>(loginProvider, (previous, next) {
+      if (next.verifyStatus == ApiStatus.SUCCESS) {
         Navigator.pushNamed(
           context,
-          AppRoutes.memberFamily,
+          AppRoutes.members,
         );
+        next.notifyVerifyState(ApiStatus.INITIALIZE);
       }
-      if (next.loginStatus == ApiStatus.FAILED) {
+      if (next.verifyStatus == ApiStatus.FAILED) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(next.error)));
+        next.notifyVerifyState(ApiStatus.INITIALIZE);
       }
-      next.notifyVerifyState(ApiStatus.INITIALIZE);
     });
-    return const SizedBox.shrink();
   }
 }

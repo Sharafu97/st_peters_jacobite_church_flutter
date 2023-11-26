@@ -98,7 +98,7 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           builder: (context) => const MemberAndSpousetScreen());
 
     case AppRoutes.requestOTP:
-      return MaterialPageRoute(builder: (context) => const RequestOTPScreen());
+      return MaterialPageRoute(builder: (context) => RequestOTPScreen());
 
     case AppRoutes.verifyOTP:
       return MaterialPageRoute(
