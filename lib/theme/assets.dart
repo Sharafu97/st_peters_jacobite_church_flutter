@@ -28,13 +28,19 @@ class AppAssets {
   static const homeSpiritual = 'assets/icons/home_icons/sprituals.png';
 
   ///[ABOUT_CHURCH]
-  static const iconChurchWhite = 'assets/icons/church_white.png';
-  static const iconChurchBrown = 'assets/icons/church_brown.png';
-  static const iconBishops = 'assets/icons/bishops.png';
-  static const iconFounderMembers = 'assets/icons/founder_members.png';
-  static const iconOldPhotos = 'assets/icons/old_photos.png';
-  static const iconVicarWhite = 'assets/icons/vicar_white.png';
-  static const iconVicarBrowm = 'assets/icons/vicar_brown.png';
+  static const churchHistory = 'assets/icons/about_church/church_history.png';
+  static const patriarch = 'assets/icons/about_church/patriarch.png';
+  static const catholics = 'assets/icons/about_church/catholicos.png';
+  static const patriarchalVicar =
+      'assets/icons/about_church/patriarchal_vicar.png';
+  static const vicar = 'assets/icons/about_church/vicar.png';
+  static const formerPatriarchalVicar =
+      'assets/icons/about_church/former_patriarchal_vicar.png';
+  static const formerVicar = 'assets/icons/about_church/former_vicar.png';
+  static const bishops = 'assets/icons/about_church/bishop_white.png';
+  static const founderMembers = 'assets/icons/about_church/founder_members.png';
+  static const memories = 'assets/icons/about_church/old_photos.png';
+  static const seperator2 = 'assets/icons/about_church/seperator_2.png';
 
   ///[CONTACT_US]
   static const iconCall = 'assets/icons/call.png';

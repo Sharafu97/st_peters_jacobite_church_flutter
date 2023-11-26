@@ -64,6 +64,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/icons/home_icons/
+    - assets/icons/about_church/
     - assets/ca/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -57,8 +57,8 @@ class ChurchOfficialsScreen extends StatelessWidget {
                                 const SizedBox(height: 10),
                                 Image.asset(
                                   (index % 2 == 0)
-                                      ? AppAssets.iconVicarWhite
-                                      : AppAssets.iconVicarBrowm,
+                                      ? AppAssets.vicar
+                                      : AppAssets.vicar,
                                   scale: 2,
                                 ),
                                 Text(

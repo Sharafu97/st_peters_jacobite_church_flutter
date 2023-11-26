@@ -9,19 +9,6 @@ import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 class AboutChurchScreen extends StatelessWidget {
   const AboutChurchScreen({Key? key}) : super(key: key);
 
-  static final gridItems = <GridItemData>[
-    GridItemData(name: 'CHURCH HISTORY', icon: AppAssets.iconChurchWhite),
-    GridItemData(name: 'OUR PATRIARCH', icon: AppAssets.iconChurchBrown),
-    GridItemData(name: 'OUR CATHOLICS', icon: AppAssets.iconChurchWhite),
-    GridItemData(name: 'OUR PATRIARCHAL VICAR', icon: AppAssets.iconVicarWhite),
-    GridItemData(name: 'OUR BISHOPS', icon: AppAssets.iconBishops),
-    GridItemData(
-        name: 'FORMER PATRIARCHAL VICARS', icon: AppAssets.iconVicarWhite),
-    GridItemData(name: 'FORMER VICARS', icon: AppAssets.iconVicarBrowm),
-    GridItemData(name: 'FOUNDER MEMBERS', icon: AppAssets.iconFounderMembers),
-    GridItemData(name: 'OLD PHOTOS', icon: AppAssets.iconOldPhotos),
-  ];
-
   navigate(BuildContext context, String url) {
     Navigator.pushNamed(context, AppRoutes.webView, arguments: url);
   }
@@ -30,6 +17,7 @@ class AboutChurchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: const CustomAppbar(),
       body: LayoutBuilder(builder: (context, constraints) {
@@ -77,76 +65,151 @@ class AboutChurchScreen extends StatelessWidget {
                       height: screenHeight * 0.03,
                     ),
                     Flexible(
-                      child: GridView.builder(
-                        padding:
-                            const EdgeInsets.all(AppConstants.defaultPadding),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 1.1,
-                        ),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(10),
-                            onTap: () {
-                              switch (index) {
-                                case 0:
-                                  navigate(
-                                      context, AppConstants.churchHistoryURL);
-                                  break;
-                                case 1:
-                                  navigate(context, AppConstants.partiarchURL);
-                                  break;
-                                case 2:
-                                  navigate(context, AppConstants.catholicosURL);
-                                  break;
-                                case 3:
-                                  navigate(
-                                      context, AppConstants.partiarcalVicarURL);
-                                  break;
-                                case 4:
-                                  navigate(context, AppConstants.bishopsURL);
-                                  break;
-                                case 5:
-                                  navigate(context,
-                                      AppConstants.formarPartiarcalVicarURL);
-                                  break;
-                                case 6:
-                                  navigate(
-                                      context, AppConstants.formerVicarsURL);
-                                  break;
-                                case 7:
-                                  navigate(
-                                      context, AppConstants.founderMemberURL);
-                                  break;
-                                case 8:
-                                  Navigator.pushNamed(context,
-                                      AppRoutes.spiritualOrganisations);
-                                  break;
-                              }
-                            },
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const SizedBox(height: 10),
-                                Image.asset(
-                                  gridItems[index].icon,
-                                  scale: 2,
+                                _menuItem(
+                                  textStyle,
+                                  screenWidth,
+                                  icon: AppAssets.churchHistory,
+                                  text: 'CHURCH\nHISTORY',
+                                  onTap: () {
+                                    navigate(
+                                        context, AppConstants.churchHistoryURL);
+                                  },
                                 ),
-                                Text(
-                                  gridItems[index].name,
-                                  style: textStyle.bodySmall,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                _menuItem(
+                                  textStyle,
+                                  screenWidth,
+                                  icon: AppAssets.patriarch,
+                                  text: 'PATRIARCH',
+                                  onTap: () {
+                                    navigate(
+                                        context, AppConstants.partiarchURL);
+                                  },
+                                ),
+                                _menuItem(
+                                  textStyle,
+                                  screenWidth,
+                                  icon: AppAssets.catholics,
+                                  text: 'CATHOLICS',
+                                  onTap: () {
+                                    navigate(
+                                        context, AppConstants.catholicosURL);
+                                  },
                                 ),
                               ],
                             ),
-                          );
-                        },
-                        itemCount: gridItems.length,
+                            Padding(
+                              padding: const EdgeInsets.all(
+                                  AppConstants.defaultPadding),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      _menuItem(
+                                        textStyle,
+                                        screenWidth,
+                                        icon: AppAssets.patriarchalVicar,
+                                        text: 'PATRIARCHAL\nVICAR',
+                                        onTap: () {
+                                          navigate(context,
+                                              AppConstants.partiarcalVicarURL);
+                                        },
+                                      ),
+                                      const SizedBox(
+                                          height: AppConstants.defaultPadding),
+                                      _menuItem(
+                                        textStyle,
+                                        screenWidth,
+                                        icon: AppAssets.formerPatriarchalVicar,
+                                        text: 'FORMER\nPATRIARCHAL VICAR',
+                                        onTap: () {
+                                          navigate(
+                                              context,
+                                              AppConstants
+                                                  .formarPartiarcalVicarURL);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  Image.asset(AppAssets.seperator2, scale: 3),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      _menuItem(
+                                        textStyle,
+                                        screenWidth,
+                                        icon: AppAssets.vicar,
+                                        text: 'VICAR\n',
+                                        onTap: () {
+                                          navigate(context,
+                                              AppConstants.currentVicarURL);
+                                        },
+                                      ),
+                                      const SizedBox(
+                                          height: AppConstants.defaultPadding),
+                                      _menuItem(
+                                        textStyle,
+                                        screenWidth,
+                                        icon: AppAssets.formerVicar,
+                                        text: 'FORMER\nVICAR',
+                                        onTap: () {
+                                          navigate(context,
+                                              AppConstants.formerVicarsURL);
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _menuItem(
+                                  textStyle,
+                                  screenWidth,
+                                  icon: AppAssets.bishops,
+                                  text: 'BISHOPS',
+                                  onTap: () {
+                                    navigate(context, AppConstants.bishopsURL);
+                                  },
+                                ),
+                                _menuItem(
+                                  textStyle,
+                                  screenWidth,
+                                  icon: AppAssets.founderMembers,
+                                  text: 'FOUNDER\nMEMBERS',
+                                  onTap: () {
+                                    navigate(
+                                        context, AppConstants.founderMemberURL);
+                                  },
+                                ),
+                                _menuItem(textStyle, screenWidth,
+                                    icon: AppAssets.memories, text: 'MEMORIES'),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 50),
                   ],
                 ),
               )
@@ -156,6 +219,27 @@ class AboutChurchScreen extends StatelessWidget {
       }),
       bottomSheet: const ContactBottomsheet(),
     );
+  }
+
+  Widget _menuItem(TextTheme textStyle, double width,
+      {required String icon, required String text, void Function()? onTap}) {
+    return InkWell(
+        onTap: onTap,
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          const SizedBox(height: 10),
+          Image.asset(
+            icon,
+            scale: 2,
+            width: (width - (4 * AppConstants.defaultPadding)) / 3,
+          ),
+          Text(
+            text,
+            style: textStyle.bodySmall,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ]));
   }
 }
 
