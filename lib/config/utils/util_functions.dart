@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+
 String getBloodGroup(String bloodGroupId) {
   switch (bloodGroupId) {
     case '1':
@@ -19,4 +23,22 @@ String getBloodGroup(String bloodGroupId) {
     default:
       return '';
   }
+}
+
+Future<String?> getDownloadPath() async {
+  Directory? directory;
+  try {
+    if (Platform.isIOS) {
+      directory = await getApplicationDocumentsDirectory();
+    } else {
+      directory = Directory('/storage/emulated/0/Download');
+
+      if (!await directory.exists()) {
+        directory = await getExternalStorageDirectory();
+      }
+    }
+  } catch (err, stack) {
+    print("Cannot get download folder path");
+  }
+  return directory?.path;
 }

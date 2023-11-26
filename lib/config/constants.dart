@@ -43,6 +43,7 @@ class AppConstants {
   static const MEMBERDETAILSURL = '/churchapplive/api/member-details';
   static const AREAUNITSURL = '/churchapplive/api/area-unit-list';
   static const SEARCHMEMBERURL = '/churchapplive/api/search';
+  static const DOWNLOADLISTURL = '/churchapplive/api/downloads';
 
   ///[STATIC WEB PAGES]
   static const churchHistoryURL =

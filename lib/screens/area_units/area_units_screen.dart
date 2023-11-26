@@ -72,13 +72,14 @@ class _AreaUnitsScreenState extends ConsumerState<AreaUnitsScreen> {
                                   scale: 3);
                             },
                             itemBuilder: (context, index) {
-                              return InkWell(
-                                  borderRadius: BorderRadius.circular(10),
-                                  onTap: () => Navigator.pushNamed(
-                                      context, AppRoutes.descriptionWithTitle),
-                                  child: AreaUnitsListTile(
-                                      index: index,
-                                      areaUnit: data.areaUnits[index]));
+                              return AreaUnitsListTile(
+                                  index: index,
+                                  areaUnit: data.areaUnits[index]);
+                              // InkWell(
+                              //     borderRadius: BorderRadius.circular(10),
+                              //     onTap: () => Navigator.pushNamed(
+                              //         context, AppRoutes.descriptionWithTitle),
+                              //     child: );
                             },
                           ),
                         );

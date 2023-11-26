@@ -19,77 +19,72 @@ class AreaUnitsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return InkWell(
-      onDoubleTap: () {
-        Navigator.pushNamed(context, AppRoutes.newsAndEventsDetails);
-      },
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(8, 10, 8, 30),
-        decoration: BoxDecoration(
-            color: AppColors.whiteFFFFFF.withOpacity(0.5),
-            border: Border.all(color: AppColors.brown41210A.withOpacity(0.3)),
-            borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${index + 1})',
-              style: textTheme.bodyLarge!
-                  .copyWith(fontFamily: AppConstants.fontGotham),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8, 10, 8, 30),
+      decoration: BoxDecoration(
+          color: AppColors.whiteFFFFFF.withOpacity(0.5),
+          border: Border.all(color: AppColors.brown41210A.withOpacity(0.3)),
+          borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '${index + 1})',
+            style: textTheme.bodyLarge!
+                .copyWith(fontFamily: AppConstants.fontGotham),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  areaUnit.areaName ?? 'NILL',
+                  style: textTheme.bodyLarge!
+                      .copyWith(fontFamily: AppConstants.fontGotham),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  color: AppColors.brown41210A,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.smallPadding,
+                    vertical: 5,
+                  ),
+                  child: Text(
+                    'Meeting Day: ${areaUnit.meetingDay ?? 'NILL'}',
+                    style: textTheme.bodySmall!.copyWith(
+                        fontFamily: AppConstants.fontGotham,
+                        color: AppColors.whiteFFFFFF),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  areaUnit.areaUnits ?? 'NILL',
+                  style: textTheme.bodySmall!
+                      .copyWith(fontFamily: AppConstants.fontGotham),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    coordinatorWidget(
+                        textTheme,
+                        'Male Coordinator',
+                        areaUnit.maleCoordinatorName,
+                        areaUnit.maleCoordinatorPhone,
+                        areaUnit.maleCoordinatorPhoto),
+                    coordinatorWidget(
+                        textTheme,
+                        'Female Coordinator',
+                        areaUnit.femaleCoordinatorName,
+                        areaUnit.femaleCoordinatorPhone,
+                        areaUnit.femaleCoordinatorPhoto),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    areaUnit.areaName ?? 'NILL',
-                    style: textTheme.bodyLarge!
-                        .copyWith(fontFamily: AppConstants.fontGotham),
-                  ),
-                  const SizedBox(height: 4),
-                  Container(
-                    color: AppColors.brown41210A,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.smallPadding,
-                      vertical: 5,
-                    ),
-                    child: Text(
-                      'Meeting Day: ${areaUnit.meetingDay ?? 'NILL'}',
-                      style: textTheme.bodySmall!.copyWith(
-                          fontFamily: AppConstants.fontGotham,
-                          color: AppColors.whiteFFFFFF),
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    areaUnit.areaUnits ?? 'NILL',
-                    style: textTheme.bodySmall!
-                        .copyWith(fontFamily: AppConstants.fontGotham),
-                  ),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      coordinatorWidget(
-                          textTheme,
-                          'Male Coordinator',
-                          areaUnit.maleCoordinatorName,
-                          areaUnit.maleCoordinatorPhone,
-                          areaUnit.maleCoordinatorPhoto),
-                      coordinatorWidget(
-                          textTheme,
-                          'Female Coordinator',
-                          areaUnit.femaleCoordinatorName,
-                          areaUnit.femaleCoordinatorPhone,
-                          areaUnit.femaleCoordinatorPhoto),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
