@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/config/utils/extensions.dart';
 import 'package:st_peters_jacobite_church_flutter/model/member_details_model.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/members/widgets/triangle_shape.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
@@ -9,7 +11,9 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
+import '../../config/utils/enums.dart';
 import '../../network/riverpod/providers.dart';
+import '../../widgets/loading_widget.dart';
 
 class MembersFamilyScreen extends ConsumerStatefulWidget {
   const MembersFamilyScreen({Key? key, required this.memberId})
@@ -23,6 +27,8 @@ class MembersFamilyScreen extends ConsumerStatefulWidget {
 }
 
 class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
+  String dateFormatShort = 'dd MMM';
+  String dateFormatLong = 'dd MMM yyyy';
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) =>
@@ -52,91 +58,122 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               ),
               Consumer(builder: (_, ref, __) {
                 final data = ref.watch(memberProvider);
-                return SizedBox(
-                  height: constraints.maxHeight,
-                  width: constraints.maxWidth,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 55),
-                      const TitleBoard(title: 'MEMBERS FAMILY'),
-                      const SizedBox(height: 5),
-                      Flexible(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: AppConstants.largePadding),
-                              _memberNameBoradWidget(data.member?.memberName,
-                                  data.member?.memberJoinedOnDate, textStyle,
-                                  width: constraints.maxWidth),
-                              _memberAndSpouseDetails(
-                                  textStyle, data.husband, data.wife),
-                              ListView.separated(
-                                padding: const EdgeInsets.all(
-                                    AppConstants.defaultPadding),
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    borderRadius: BorderRadius.circular(10),
-                                    onTap: () {},
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Container(
-                                          height: 100,
-                                          width: 100,
-                                          margin: const EdgeInsets.only(
-                                              right:
-                                                  AppConstants.defaultPadding),
-                                          decoration: BoxDecoration(
-                                              color: AppColors.whiteFFFFFF,
-                                              border: Border.all(
-                                                color: AppColors.brown41210A,
-                                              ),
+                if (data.detailsStatus == ApiStatus.LOADING) {
+                  return const Center(child: LoadingWidget());
+                } else if (data.detailsStatus == ApiStatus.FAILED) {
+                  return Center(child: Text(data.error));
+                } else if (data.detailsStatus == ApiStatus.SUCCESS) {
+                  return SizedBox(
+                    height: constraints.maxHeight,
+                    width: constraints.maxWidth,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 55),
+                        const TitleBoard(title: 'MEMBERS FAMILY'),
+                        const SizedBox(height: 5),
+                        Flexible(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                    height: AppConstants.largePadding),
+                                _memberNameBoradWidget(data.member?.memberName,
+                                    data.member?.memberJoinedOnDate, textStyle,
+                                    width: constraints.maxWidth),
+                                _memberAndSpouseDetails(textStyle, data.member,
+                                    data.husband, data.wife),
+                                ListView.separated(
+                                  padding: const EdgeInsets.all(
+                                      AppConstants.defaultPadding),
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: data.familyDetails.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      borderRadius: BorderRadius.circular(10),
+                                      onTap: () {},
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            height: 100,
+                                            width: 100,
+                                            margin: const EdgeInsets.only(
+                                                right: AppConstants
+                                                    .defaultPadding),
+                                            decoration: BoxDecoration(
+                                                color: AppColors.whiteFFFFFF,
+                                                border: Border.all(
+                                                  color: AppColors.brown41210A,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(10)),
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'MERIN BAIJU',
-                                              style: textStyle.labelLarge!
-                                                  .copyWith(
-                                                      color: AppColors
-                                                          .black000000),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                                                  BorderRadius.circular(10),
+                                              child: CachedNetworkImage(
+                                                imageUrl: data
+                                                        .familyDetails[index]
+                                                        .photo ??
+                                                    '',
+                                                fit: BoxFit.fill,
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                        child: LoadingWidget()),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                              ),
                                             ),
-                                            _textWidget('Relation - Daughter',
-                                                textStyle),
-                                            _textWidget(
-                                                'Birthday - 20 Dec', textStyle),
-                                            _textWidget('Residing - Baharain',
-                                                textStyle),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                },
-                                separatorBuilder: (_, __) => const SizedBox(
-                                  height: AppConstants.defaultPadding,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data.familyDetails[index]
+                                                        .name ??
+                                                    'NILL',
+                                                style: textStyle.labelLarge!
+                                                    .copyWith(
+                                                        color: AppColors
+                                                            .black000000),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              _textWidget(
+                                                  'Relation - ${data.familyDetails[index].relationship ?? 'NILL'}',
+                                                  textStyle),
+                                              _textWidget(
+                                                  'Birthday - ${data.familyDetails[index].dateOfBirth ?? 'NILL'}',
+                                                  textStyle),
+                                              _textWidget(
+                                                  'Residing - ${data.familyDetails[index].location ?? 'NILL'}',
+                                                  textStyle),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (_, __) => const SizedBox(
+                                    height: AppConstants.defaultPadding,
+                                  ),
                                 ),
-                                itemCount: 6,
-                              ),
-                              _permenantAddressWidget(textStyle),
-                            ],
+                                _permenantAddressWidget(data.member, textStyle),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 45),
-                    ],
-                  ),
-                );
+                        const SizedBox(height: 45),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
               })
             ],
           ),
@@ -165,7 +202,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
         alignment: AlignmentDirectional.center,
         children: [
           Text(
-            'Joining date: $date',
+            'Joining date: ${date.dateFormat(dateFormatLong)}',
             style: textStyle.labelLarge!.copyWith(color: AppColors.black000000),
           ),
           Positioned(
@@ -188,8 +225,8 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  Widget _memberAndSpouseDetails(
-      TextTheme textStyle, FamilyDetails? husband, FamilyDetails? wife) {
+  Widget _memberAndSpouseDetails(TextTheme textStyle, Member? member,
+      FamilyDetails? husband, FamilyDetails? wife) {
     return Column(
       children: [
         Padding(
@@ -200,12 +237,12 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
             children: [
               _nameAndPhoto(
                 textStyle,
-                name: husband?.name ?? '',
+                name: husband?.name ?? 'NILL',
                 photo: husband?.photo ?? '',
               ),
               _nameAndPhoto(
                 textStyle,
-                name: wife?.name ?? '',
+                name: wife?.name ?? 'NILL',
                 photo: wife?.photo ?? '',
                 right: true,
               ),
@@ -215,40 +252,40 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
         _detailRow(
           textStyle,
           detail: 'BIRTHDAY',
-          text1: husband?.dateOfBirth ?? '',
-          text2: wife?.dateOfBirth ?? '',
+          text1: husband?.dateOfBirth?.dateFormat(dateFormatShort),
+          text2: wife?.dateOfBirth.dateFormat(dateFormatShort),
         ),
         _detailRow(
           textStyle,
           detail: 'MOBILE',
-          text1: husband?.mobile ?? '',
-          text2: wife?.mobile ?? '',
+          text1: husband?.mobile,
+          text2: wife?.mobile,
         ),
         _detailRow(
           textStyle,
           detail: 'BLOOD GROUP',
-          text1: husband?.bloodGroup ?? '',
-          text2: wife?.bloodGroup ?? '',
+          text1: husband?.bloodGroup,
+          text2: wife?.bloodGroup,
         ),
         _detailRow(
           textStyle,
           detail: 'EMAIL',
-          text1: husband?.emailAddress ?? '',
-          text2: wife?.emailAddress ?? '',
+          text1: husband?.emailAddress,
+          text2: wife?.emailAddress,
         ),
         _detailRow(
           textStyle,
           detail: 'HOME PARISH',
-          text1: husband?.homeParish ?? '',
-          text2: wife?.homeParish ?? '',
+          text1: husband?.homeParish,
+          text2: wife?.homeParish,
         ),
         _detailRow(
           textStyle,
           detail: 'OFFICE ADDRESS',
-          text1: husband?.officeAddress ?? '',
-          text2: wife?.officeAddress ?? '',
+          text1: husband?.officeAddress,
+          text2: wife?.officeAddress,
         ),
-        _horizontalWidget(textStyle),
+        _horizontalWidget(textStyle, member),
         const SizedBox(height: AppConstants.defaultPadding),
         Image.asset(
           AppAssets.imageEndLine,
@@ -269,13 +306,22 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           Container(
             height: 120,
             width: 120,
+            clipBehavior: Clip.hardEdge,
             margin: const EdgeInsets.only(top: AppConstants.defaultPadding),
             decoration: BoxDecoration(
                 color: AppColors.whiteFFFFFF,
-                border: Border.all(
-                  color: AppColors.brown41210A,
-                ),
+                border: Border.all(color: AppColors.brown41210A),
                 borderRadius: BorderRadius.circular(10)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                imageUrl: photo,
+                fit: BoxFit.fill,
+                placeholder: (context, url) =>
+                    const Center(child: LoadingWidget()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
           ),
           const SizedBox(
             height: AppConstants.smallPadding,
@@ -293,8 +339,8 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
   Widget _detailRow(
     TextTheme textStyle, {
     required String detail,
-    required String text1,
-    required String text2,
+    required String? text1,
+    required String? text2,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -314,7 +360,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               ),
               alignment: Alignment.center,
               child: Text(
-                text1,
+                text1 != null && text1.isNotEmpty ? text1 : 'NILL',
                 style: textStyle.bodyMedium!.copyWith(
                   color: AppColors.black000000,
                 ),
@@ -351,7 +397,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               ),
               alignment: Alignment.center,
               child: Text(
-                text2,
+                text2 != null && text2.isNotEmpty ? text2 : 'NILL',
                 style: textStyle.bodyMedium!.copyWith(
                   color: AppColors.black000000,
                 ),
@@ -363,45 +409,52 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  Widget _horizontalWidget(TextTheme textStyle) {
+  Widget _horizontalWidget(TextTheme textStyle, Member? member) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppConstants.largePadding),
       child: SizedBox(
-        height: 30,
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Row(
-              children: [
-                Container(
-                  color: AppColors.brown41210A,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.extraSmallPadding, vertical: 2),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'WEDDING DAY',
-                    style: textStyle.bodyLarge!
-                        .copyWith(color: AppColors.whiteFFFFFF),
-                  ),
-                ),
-                const TriangleShape(
-                  color: AppColors.brown41210A,
-                  size: Size(10, 30),
-                ),
-                const SizedBox(width: AppConstants.smallPadding),
-                Text(
-                  '20 Jan 1995',
-                  style: textStyle.bodyLarge!
-                      .copyWith(color: AppColors.black000000),
-                )
-              ],
-            );
-          },
-          separatorBuilder: (_, __) =>
-              const SizedBox(width: AppConstants.smallPadding),
-          itemCount: 4,
-        ),
-      ),
+          height: 30,
+          child: Wrap(
+            children: List.generate(
+                3,
+                (index) => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          color: AppColors.brown41210A,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppConstants.extraSmallPadding,
+                              vertical: 2),
+                          alignment: Alignment.center,
+                          child: Text(
+                            index == 0
+                                ? 'WEDDING DAY'
+                                : index == 1
+                                    ? 'AREA UNIT'
+                                    : 'DIOCESE',
+                            style: textStyle.bodyLarge!
+                                .copyWith(color: AppColors.whiteFFFFFF),
+                          ),
+                        ),
+                        const TriangleShape(
+                          color: AppColors.brown41210A,
+                          size: Size(10, 30),
+                        ),
+                        const SizedBox(width: AppConstants.smallPadding),
+                        Text(
+                          index == 0
+                              ? member?.memberWeddingDate
+                                      .dateFormat(dateFormatLong) ??
+                                  'NILL'
+                              : index == 1
+                                  ? member?.areaUnitName ?? 'NILL'
+                                  : member?.memberDiocese ?? 'NILL',
+                          style: textStyle.bodyLarge!
+                              .copyWith(color: AppColors.black000000),
+                        )
+                      ],
+                    )),
+          )),
     );
   }
 
@@ -442,7 +495,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  Widget _permenantAddressWidget(TextTheme textStyle) {
+  Widget _permenantAddressWidget(Member? member, TextTheme textStyle) {
     return Column(
       children: [
         Container(
@@ -461,7 +514,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           padding: const EdgeInsets.symmetric(
               horizontal: 60, vertical: AppConstants.smallPadding),
           child: Text(
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+            'Flat no: ${member?.memberFlatNo}, Building no: ${member?.memberBuildingNo}, Road:${member?.memberRoadNo}, Block:${member?.memberBlockNo}, ${member?.memberArea} ',
             style: textStyle.bodyLarge!.copyWith(
               color: AppColors.black000000,
             ),

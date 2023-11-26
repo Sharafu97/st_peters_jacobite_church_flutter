@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
+import 'package:st_peters_jacobite_church_flutter/config/utils/util_functions.dart';
 import 'package:st_peters_jacobite_church_flutter/model/member_details_model.dart';
 
 import '../../../model/member_list_model.dart';
@@ -43,10 +44,44 @@ class MemberNotifier extends ChangeNotifier {
       final res = await AppRepository().getMemberDetails(memberId);
       _member = res?.member?[0];
       _familyDetails = res?.familyDetails ?? [];
-      _husband = _familyDetails
-          .firstWhere((element) => element.relationship == 'Husband');
-      _wife = _familyDetails
-          .firstWhere((element) => element.relationship == 'Wife');
+      _husband = _familyDetails.firstWhere(
+        (element) => element.relationship == 'Husband',
+        orElse: () => FamilyDetails(
+            name: _member?.memberName,
+            relationship: 'Husband',
+            homeParish: _member?.memberHomeParish,
+            officeAddress: _member?.memberCompanyAddress,
+            dateOfBirth: _member?.memberDateOfBirth,
+            cprNumber: _member?.memberCpr,
+// occupation:_member?.,
+            photo: _member?.photo,
+            location: _member?.memberLocation,
+            mobile: _member?.memberMobile,
+            emailAddress: _member?.memberEmailAddress,
+            bloodGroupId: _member?.memberBloodGroupId,
+            bloodGroup: getBloodGroup(_member?.memberBloodGroupId ?? '')),
+      );
+
+      _familyDetails
+          .removeWhere((element) => element.relationship == 'Husband');
+      _wife = _familyDetails.firstWhere(
+        (element) => element.relationship == 'Wife',
+        orElse: () => FamilyDetails(
+            name: _member?.memberName,
+            relationship: 'Wife',
+            homeParish: _member?.memberHomeParish,
+            officeAddress: _member?.memberCompanyAddress,
+            dateOfBirth: _member?.memberDateOfBirth,
+            cprNumber: _member?.memberCpr,
+// occupation:_member?.,
+            photo: _member?.photo,
+            location: _member?.memberLocation,
+            mobile: _member?.memberMobile,
+            emailAddress: _member?.memberEmailAddress,
+            bloodGroupId: _member?.memberBloodGroupId,
+            bloodGroup: getBloodGroup(_member?.memberBloodGroupId ?? '')),
+      );
+      _familyDetails.removeWhere((element) => element.relationship == 'Wife');
 
       notifyDetailsState(ApiStatus.SUCCESS);
     } catch (e) {
