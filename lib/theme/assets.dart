@@ -45,6 +45,10 @@ class AppAssets {
   ///[CONTACT_US]
   static const iconCall = 'assets/icons/call.png';
   static const iconMessage = 'assets/icons/message.png';
+
+  ///[CHURCH_OFFICIALS]
+  static const churchOfficialWhite = 'assets/icons/vicar_white.png';
+  static const churchOfficialBrown = 'assets/icons/vicar_brown.png';
 }
 
 class AppIcons {}

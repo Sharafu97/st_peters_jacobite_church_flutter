@@ -12,6 +12,7 @@ import 'package:st_peters_jacobite_church_flutter/screens/members/members_family
 import 'package:st_peters_jacobite_church_flutter/screens/members/members_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/newsandevents/newsandevents_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/spiritual_organisations/spiritual_organisations_screen.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/splash/splash_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/vicars/vicars_screen.dart';
 
 import '../screens/downloads/download_screen.dart';
@@ -41,6 +42,9 @@ class AppRoutes {
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case AppRoutes.init:
+      return MaterialPageRoute(builder: (context) => const SplashScreen());
+
     case AppRoutes.home:
       return MaterialPageRoute(builder: (context) => const HomeScreen());
 
@@ -107,6 +111,6 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
               ));
 
     default:
-      return MaterialPageRoute(builder: (context) => const HomeScreen());
+      return MaterialPageRoute(builder: (context) => const SplashScreen());
   }
 }
