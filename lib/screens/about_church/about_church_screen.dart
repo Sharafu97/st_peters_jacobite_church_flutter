@@ -96,7 +96,7 @@ class AboutChurchScreen extends StatelessWidget {
                                   textStyle,
                                   screenWidth,
                                   icon: AppAssets.catholics,
-                                  text: 'CATHOLICS',
+                                  text: 'CATHOLICOS',
                                   onTap: () {
                                     navigate(
                                         context, AppConstants.catholicosURL);

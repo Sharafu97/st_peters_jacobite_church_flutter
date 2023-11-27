@@ -1,13 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/model/areaunits_model.dart';
 
-import '../../../config/routes.dart';
-import '../../../theme/assets.dart';
 import '../../../theme/color.dart';
-import '../../../theme/text_theme.dart';
 import '../../../widgets/loading_widget.dart';
 
 class AreaUnitsListTile extends StatelessWidget {
@@ -66,6 +62,27 @@ class AreaUnitsListTile extends StatelessWidget {
                 const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Male Coordinator',
+                        style: textTheme.bodyMedium!
+                            .copyWith(fontFamily: AppConstants.fontGotham),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        'Female Coordinator',
+                        style: textTheme.bodyMedium!
+                            .copyWith(fontFamily: AppConstants.fontGotham),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     coordinatorWidget(
                         textTheme,
@@ -95,11 +112,6 @@ class AreaUnitsListTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            coordinator,
-            style: textTheme.bodyMedium!
-                .copyWith(fontFamily: AppConstants.fontGotham),
-          ),
           const SizedBox(height: 8),
           Container(
             height: 120,

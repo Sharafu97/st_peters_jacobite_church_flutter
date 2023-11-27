@@ -30,11 +30,17 @@ class HomeScreen extends StatelessWidget {
           Column(
             children: [
               const SizedBox(height: 40),
-              Text(
-                "St. Peter's Jacobite Syrian Orthodox Church",
-                style: textTheme.titleLarge?.copyWith(
-                  fontFamily: AppConstants.fontGregorian,
-                  color: AppColors.yellow,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.defaultPadding),
+                child: FittedBox(
+                  child: Text(
+                    "St. Peter's Jacobite Syrian Orthodox Church",
+                    style: textTheme.titleLarge?.copyWith(
+                      fontFamily: AppConstants.fontGregorian,
+                      color: AppColors.redDD2127,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 1),

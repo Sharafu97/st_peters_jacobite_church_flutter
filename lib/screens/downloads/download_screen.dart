@@ -62,11 +62,12 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
               } else {
                 return const SizedBox.shrink();
               }
-            })
+            }),
+            const SizedBox(height: 20)
           ],
         ),
       ),
-      bottomSheet: const ContactBottomsheet(showContact: false),
+      bottomSheet: const ContactBottomsheet(),
     );
   }
 }

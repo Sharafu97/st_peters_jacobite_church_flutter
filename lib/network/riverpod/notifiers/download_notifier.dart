@@ -10,10 +10,16 @@ import '../../repository/repository.dart';
 class DownloadNotifier extends ChangeNotifier {
   ApiStatus _status = ApiStatus.INITIALIZE;
   List<Downloads> _downloadItems = [];
+  bool _isDownloading = false;
+  String _downloadingUrl = '';
+  String _downloadPerc = '';
   String _error = '';
 
   ApiStatus get status => _status;
   List<Downloads> get downloadItems => _downloadItems;
+  bool get isDownloading => _isDownloading;
+  String get downloadingUrl => _downloadingUrl;
+  String get downloadPerc => _downloadPerc;
   String get error => _error;
   downloadList() async {
     try {
@@ -28,13 +34,18 @@ class DownloadNotifier extends ChangeNotifier {
     }
   }
 
-  Future<bool> downLoadFile(String fileUrl) async {
+  Future<bool> downLoadFile(
+    String fileUrl,
+  ) async {
     if (!await Permission.storage.request().isGranted) {
       Map<Permission, PermissionStatus> statuses = await [
         Permission.storage,
         //add more permission to request here.
       ].request();
     }
+
+    notifyDownloadState(fileUrl, true);
+
     try {
       var dir = await getDownloadPath();
       if (dir != null) {
@@ -45,20 +56,29 @@ class DownloadNotifier extends ChangeNotifier {
         await Dio().download(fileUrl, savePath,
             onReceiveProgress: (received, total) {
           if (total != -1) {
-            print("${(received / total * 100).toStringAsFixed(0)}%");
+            _downloadPerc = "${(received / total * 100).toStringAsFixed(0)}%";
+            notifyListeners();
           }
         });
         print("File is saved to download folder.");
       }
+      notifyDownloadState('', false);
       return true;
     } catch (e) {
       print(e.toString());
+      notifyDownloadState('', false);
       return false;
     }
   }
 
   notifyState(ApiStatus st) {
     _status = st;
+    notifyListeners();
+  }
+
+  notifyDownloadState(String url, bool downloading) {
+    _downloadingUrl = url;
+    _isDownloading = downloading;
     notifyListeners();
   }
 }

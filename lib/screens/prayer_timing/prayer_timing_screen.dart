@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
-import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../widgets/contact_bottomsheet.dart';
-import 'widgets/prayer_timing_listtile.dart';
 
 class PreyerTimingScreen extends StatelessWidget {
   const PreyerTimingScreen({super.key});
@@ -16,6 +14,7 @@ class PreyerTimingScreen extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppbar(),
       body: Container(
+        padding: const EdgeInsets.only(bottom: 30),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(AppAssets.imageLogoWatermark),
@@ -58,7 +57,7 @@ class PreyerTimingScreen extends StatelessWidget {
         //   ],
         // ),
       ),
-      bottomSheet: const ContactBottomsheet(showContact: false),
+      bottomSheet: const ContactBottomsheet(),
     );
   }
 }

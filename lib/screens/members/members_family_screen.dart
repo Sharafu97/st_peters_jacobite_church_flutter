@@ -69,7 +69,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
                     child: Column(
                       children: [
                         const SizedBox(height: 55),
-                        const TitleBoard(title: 'MEMBERS FAMILY'),
+                        const TitleBoard(title: 'MEMBER DETAILS'),
                         const SizedBox(height: 5),
                         Flexible(
                           child: SingleChildScrollView(
@@ -77,8 +77,11 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
                               children: [
                                 const SizedBox(
                                     height: AppConstants.largePadding),
-                                _memberNameBoradWidget(data.member?.memberName,
-                                    data.member?.memberJoinedOnDate, textStyle,
+                                _memberNameBoradWidget(
+                                    data.member?.memberName,
+                                    data.member?.memberCode,
+                                    data.member?.memberJoinedOnDate,
+                                    textStyle,
                                     width: constraints.maxWidth),
                                 _memberAndSpouseDetails(textStyle, data.member,
                                     data.husband, data.wife),
@@ -183,7 +186,8 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  Widget _memberNameBoradWidget(String? name, String? date, TextTheme textStyle,
+  Widget _memberNameBoradWidget(
+      String? name, String? id, String? date, TextTheme textStyle,
       {required double width}) {
     return Container(
       height: 60,
@@ -201,9 +205,20 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
         clipBehavior: Clip.none,
         alignment: AlignmentDirectional.center,
         children: [
-          Text(
-            'Joining date: ${date.dateFormat(dateFormatLong)}',
-            style: textStyle.labelLarge!.copyWith(color: AppColors.black000000),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'Member id: $id',
+                style: textStyle.labelLarge!
+                    .copyWith(color: AppColors.black000000),
+              ),
+              Text(
+                'Joining date: ${date.dateFormat(dateFormatLong)}',
+                style: textStyle.labelLarge!
+                    .copyWith(color: AppColors.black000000),
+              ),
+            ],
           ),
           Positioned(
             top: -20,
@@ -285,7 +300,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           text1: husband?.officeAddress,
           text2: wife?.officeAddress,
         ),
-        _horizontalWidget(textStyle, member),
+        _centerDetails(textStyle, member),
         const SizedBox(height: AppConstants.defaultPadding),
         Image.asset(
           AppAssets.imageEndLine,
@@ -409,52 +424,52 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  Widget _horizontalWidget(TextTheme textStyle, Member? member) {
+  Widget _centerDetails(TextTheme textStyle, Member? member) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppConstants.largePadding),
-      child: SizedBox(
-          height: 30,
-          child: Wrap(
-            children: List.generate(
-                3,
-                (index) => Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          color: AppColors.brown41210A,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: AppConstants.extraSmallPadding,
-                              vertical: 2),
-                          alignment: Alignment.center,
-                          child: Text(
-                            index == 0
-                                ? 'WEDDING DAY'
-                                : index == 1
-                                    ? 'AREA UNIT'
-                                    : 'DIOCESE',
-                            style: textStyle.bodyLarge!
-                                .copyWith(color: AppColors.whiteFFFFFF),
-                          ),
-                        ),
-                        const TriangleShape(
-                          color: AppColors.brown41210A,
-                          size: Size(10, 30),
-                        ),
-                        const SizedBox(width: AppConstants.smallPadding),
-                        Text(
-                          index == 0
-                              ? member?.memberWeddingDate
-                                      .dateFormat(dateFormatLong) ??
-                                  'NILL'
-                              : index == 1
-                                  ? member?.areaUnitName ?? 'NILL'
-                                  : member?.memberDiocese ?? 'NILL',
-                          style: textStyle.bodyLarge!
-                              .copyWith(color: AppColors.black000000),
-                        )
-                      ],
-                    )),
-          )),
+      padding: const EdgeInsets.symmetric(
+          vertical: AppConstants.smallPadding,
+          horizontal: AppConstants.defaultPadding),
+      child: Column(
+        children: List.generate(
+            3,
+            (index) => Row(
+                  children: [
+                    Container(
+                      color: AppColors.brown41210A,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: AppConstants.extraSmallPadding,
+                          vertical: 2),
+                      alignment: Alignment.center,
+                      child: Text(
+                        index == 0
+                            ? 'WEDDING DAY'
+                            : index == 1
+                                ? 'AREA UNIT'
+                                : 'DIOCESE',
+                        style: textStyle.bodyLarge!
+                            .copyWith(color: AppColors.whiteFFFFFF),
+                      ),
+                    ),
+                    const TriangleShape(
+                      color: AppColors.brown41210A,
+                      size: Size(10, 30),
+                    ),
+                    const SizedBox(width: AppConstants.smallPadding),
+                    const Spacer(),
+                    Text(
+                      index == 0
+                          ? member?.memberWeddingDate
+                                  .dateFormat(dateFormatLong) ??
+                              'NILL'
+                          : index == 1
+                              ? member?.areaUnitName ?? 'NILL'
+                              : member?.memberDiocese ?? 'NILL',
+                      style: textStyle.bodyLarge!
+                          .copyWith(color: AppColors.black000000),
+                    )
+                  ],
+                )),
+      ),
     );
   }
 

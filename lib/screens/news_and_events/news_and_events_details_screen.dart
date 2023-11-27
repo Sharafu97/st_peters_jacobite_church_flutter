@@ -30,11 +30,11 @@ class NewsAndEventsDetailsScreen extends StatelessWidget {
             const TitleBoard(title: 'NEWS & EVENTS'),
             NewsAndEventsDetailsWidget(news: news),
             Image.asset(AppAssets.imageSeperator, scale: 3),
-            const SizedBox(height: 40)
+            const SizedBox(height: 50)
           ],
         ),
       ),
-      bottomSheet: const ContactBottomsheet(showContact: false),
+      bottomSheet: const ContactBottomsheet(),
     );
   }
 }

@@ -18,6 +18,7 @@ import 'package:st_peters_jacobite_church_flutter/screens/splash/splash_screen.d
 import 'package:st_peters_jacobite_church_flutter/screens/vicars/vicars_screen.dart';
 
 import '../screens/downloads/download_screen.dart';
+import '../screens/downloads/file_view.dart';
 import '../screens/news_and_events/news_and_events_details_screen.dart';
 import '../screens/prayer_timing/prayer_timing_screen.dart';
 
@@ -41,6 +42,7 @@ class AppRoutes {
   static const requestOTP = '/request_otp';
   static const verifyOTP = '/verify_otp';
   static const imageView = '/image_view';
+  static const fileView = '/file_view';
 }
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -119,6 +121,11 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) =>
               ImageViewScreen(images: settings.arguments as List<String>));
+
+    case AppRoutes.fileView:
+      return MaterialPageRoute(
+          builder: (context) =>
+              FileViewScreen(filePath: settings.arguments as String));
 
     default:
       return MaterialPageRoute(builder: (context) => const SplashScreen());

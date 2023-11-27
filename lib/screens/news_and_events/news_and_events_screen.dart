@@ -68,10 +68,11 @@ class _NewsAndEventsScreenState extends ConsumerState<NewsAndEventsScreen> {
                 }
               },
             ),
+            const SizedBox(height: 20)
           ],
         ),
       ),
-      bottomSheet: const ContactBottomsheet(showContact: false),
+      bottomSheet: const ContactBottomsheet(),
     );
   }
 }

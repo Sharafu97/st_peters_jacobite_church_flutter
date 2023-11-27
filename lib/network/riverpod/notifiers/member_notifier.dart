@@ -31,6 +31,8 @@ class MemberNotifier extends ChangeNotifier {
       final res = await AppRepository().getMemberList();
       _members = res?.members ?? [];
 
+      _members.sort((a, b) => a.memberCode!.compareTo(b.memberCode!));
+
       notifyState(ApiStatus.SUCCESS);
     } catch (e) {
       _error = e.toString();
