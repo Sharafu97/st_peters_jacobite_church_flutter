@@ -201,8 +201,15 @@ class AboutChurchScreen extends StatelessWidget {
                                         context, AppConstants.founderMemberURL);
                                   },
                                 ),
-                                _menuItem(textStyle, screenWidth,
-                                    icon: AppAssets.memories, text: 'MEMORIES'),
+                                _menuItem(
+                                  textStyle,
+                                  screenWidth,
+                                  icon: AppAssets.memories,
+                                  text: 'MEMORIES',
+                                  onTap: () {
+                                    navigate(context, AppConstants.memoriesURL);
+                                  },
+                                ),
                               ],
                             ),
                           ],

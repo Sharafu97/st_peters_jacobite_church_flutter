@@ -1,18 +1,40 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
+import 'package:st_peters_jacobite_church_flutter/model/committee_model.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
+import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
-class ChurchOfficialsScreen extends StatelessWidget {
+class ChurchOfficialsScreen extends ConsumerStatefulWidget {
   const ChurchOfficialsScreen({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<ChurchOfficialsScreen> createState() =>
+      _ChurchOfficialsScreenState();
+}
+
+class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(committeeProvider).getCommittee();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: const CustomAppbar(),
       body: LayoutBuilder(builder: (context, constraints) {
@@ -32,58 +54,205 @@ class ChurchOfficialsScreen extends StatelessWidget {
               SizedBox(
                 height: constraints.maxHeight,
                 width: constraints.maxWidth,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 55),
-                    const TitleBoard(title: 'CHURCH OFFICIALS'),
-                    const SizedBox(height: 5),
-                    Flexible(
-                      child: GridView.builder(
-                        padding:
-                            const EdgeInsets.all(AppConstants.defaultPadding),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 1.1,
-                        ),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(10),
-                            onTap: () =>
-                                Navigator.pushNamed(context, AppRoutes.webView),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(height: 10),
-                                Image.asset(
-                                  (index % 2 == 0)
-                                      ? AppAssets.churchOfficialBrown
-                                      : AppAssets.churchOfficialWhite,
-                                  scale: 2,
-                                ),
-                                Text(
-                                  'CHURCH OFFICIAL ${index + 1}',
-                                  style: textStyle.bodySmall,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                child: Consumer(builder: (_, ref, __) {
+                  final data = ref.watch(committeeProvider);
+                  if (data.status == ApiStatus.LOADING) {
+                    return const Center(child: LoadingWidget());
+                  } else if (data.status == ApiStatus.SUCCESS) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 55),
+                          const TitleBoard(title: 'CHURCH OFFICIALS'),
+                          const SizedBox(height: 5),
+                          _presidentWidget(
+                            textStyle,
+                            screenWidth: screenWidth,
+                            member: data.predident,
+                          ),
+                          const SizedBox(height: AppConstants.defaultPadding),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: AppConstants.defaultPadding,
+                            runSpacing: AppConstants.defaultPadding,
+                            children: List.generate(
+                              data.coreCommittee.length,
+                              (index) => _committeeMemberWidget(
+                                textStyle,
+                                width: (screenWidth -
+                                        (4 * AppConstants.defaultPadding)) /
+                                    3,
+                                member: data.coreCommittee[index],
+                              ),
                             ),
-                          );
-                        },
-                        itemCount: 20,
+                          ),
+                          const SizedBox(
+                              height: AppConstants.extraLargePadding),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: AppConstants.defaultPadding,
+                            runSpacing: AppConstants.defaultPadding,
+                            children: List.generate(
+                              data.committeeMembers.length,
+                              (index) => _committeeMemberWidget(
+                                textStyle,
+                                width: (screenWidth -
+                                        (5 * AppConstants.defaultPadding)) /
+                                    3,
+                                member: data.committeeMembers[index],
+                              ),
+                            ),
+                          ),
+                          const Divider(
+                            color: AppColors.brown41210A,
+                            indent: AppConstants.defaultPadding,
+                            endIndent: AppConstants.defaultPadding,
+                            height: 2 * AppConstants.extraLargePadding,
+                          ),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: AppConstants.defaultPadding,
+                            runSpacing: AppConstants.defaultPadding,
+                            children: List.generate(
+                              data.auditors.length,
+                              (index) => _committeeMemberWidget(
+                                textStyle,
+                                width: (screenWidth -
+                                        (6 * AppConstants.defaultPadding)) /
+                                    3,
+                                member: data.auditors[index],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 45),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 45),
-                  ],
-                ),
+                    );
+                  } else if (data.status == ApiStatus.FAILED) {
+                    return Center(
+                      child: Text(data.error),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                }),
               )
             ],
           ),
         );
       }),
       bottomSheet: const ContactBottomsheet(),
+    );
+  }
+
+  Widget _cachedImage(String url) {
+    return CachedNetworkImage(
+      imageUrl: url,
+      progressIndicatorBuilder: (context, url, progress) => const Center(
+        child: LoadingWidget(),
+      ),
+      fit: BoxFit.cover,
+    );
+  }
+
+  Widget _presidentWidget(
+    TextTheme textStyle, {
+    required double screenWidth,
+    required CommitteeMember member,
+  }) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: screenWidth / 2.8,
+          decoration:
+              BoxDecoration(border: Border.all(color: AppColors.brown41210A)),
+          child: _cachedImage(member.photo ?? ''),
+        ),
+        const Divider(
+          color: AppColors.brown41210A,
+          height: 0,
+          indent: AppConstants.defaultPadding,
+          endIndent: AppConstants.defaultPadding,
+        ),
+        Text(
+          (member.personName ?? '-').toUpperCase(),
+          style: textStyle.bodyLarge!.copyWith(
+            fontFamily: AppConstants.fontGotham,
+            fontSize: 15,
+          ),
+        ),
+        Text(
+          member.designation ?? '-',
+          style: textStyle.bodyMedium!.copyWith(
+            fontFamily: AppConstants.fontGotham,
+            fontSize: 13,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _committeeMemberWidget(
+    TextTheme textStyle, {
+    required double width,
+    required CommitteeMember member,
+  }) {
+    return SizedBox(
+      width: width,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: width,
+                height: width * 1.2,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.brown41210A),
+                ),
+                child: _cachedImage(member.photo ?? '-'),
+              ),
+              Positioned(
+                bottom: 0,
+                left: -6,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: AppColors.yellowFBAF43,
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                  child: Text(
+                    member.memberId ?? '-',
+                    style: textStyle.bodySmall!.copyWith(
+                      fontFamily: AppConstants.fontGotham,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: AppConstants.extraSmallPadding),
+          Text(
+            (member.personName ?? '-').toUpperCase(),
+            style: textStyle.bodyMedium!.copyWith(
+              fontFamily: AppConstants.fontGotham,
+              fontSize: 12,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            member.designation ?? '-',
+            style: textStyle.bodyMedium!.copyWith(
+              fontFamily: AppConstants.fontGotham,
+              fontSize: 11,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
