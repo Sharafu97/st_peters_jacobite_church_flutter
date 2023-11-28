@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/model/areaunits_model.dart';
 
+import '../../../theme/assets.dart';
 import '../../../theme/color.dart';
 import '../../../widgets/loading_widget.dart';
 
@@ -35,7 +36,7 @@ class AreaUnitsListTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  areaUnit.areaName ?? 'NILL',
+                  areaUnit.areaName ?? 'NIL',
                   style: textTheme.bodyLarge!
                       .copyWith(fontFamily: AppConstants.fontGotham),
                 ),
@@ -47,7 +48,7 @@ class AreaUnitsListTile extends StatelessWidget {
                     vertical: 5,
                   ),
                   child: Text(
-                    'Meeting Day: ${areaUnit.meetingDay ?? 'NILL'}',
+                    'Meeting Day: ${areaUnit.meetingDay ?? 'NIL'}',
                     style: textTheme.bodySmall!.copyWith(
                         fontFamily: AppConstants.fontGotham,
                         color: AppColors.whiteFFFFFF),
@@ -55,7 +56,7 @@ class AreaUnitsListTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  areaUnit.areaUnits ?? 'NILL',
+                  areaUnit.areaUnits ?? 'NIL',
                   style: textTheme.bodySmall!
                       .copyWith(fontFamily: AppConstants.fontGotham),
                 ),
@@ -86,7 +87,7 @@ class AreaUnitsListTile extends StatelessWidget {
                   children: [
                     coordinatorWidget(
                         textTheme,
-                        'Male Coordinator',
+                        'Male',
                         areaUnit.maleCoordinatorName,
                         areaUnit.maleCoordinatorPhone,
                         areaUnit.maleCoordinatorPhoto),
@@ -128,19 +129,22 @@ class AreaUnitsListTile extends StatelessWidget {
                 fit: BoxFit.fill,
                 placeholder: (context, url) =>
                     const Center(child: LoadingWidget()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => Image.asset(
+                    coordinator == 'Male'
+                        ? AppAssets.maleAvtar
+                        : AppAssets.fenaleAvtar),
               ),
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Name: ${name ?? 'NILL'} ',
+            'Name: ${name ?? 'NIL'} ',
             overflow: TextOverflow.ellipsis,
             style: textTheme.bodySmall!
                 .copyWith(fontFamily: AppConstants.fontGotham),
           ),
           Text(
-            'Contact: ${phone ?? 'NILL'}',
+            'Contact: ${phone ?? 'NIL'}',
             style: textTheme.bodySmall!
                 .copyWith(fontFamily: AppConstants.fontGotham),
           ),

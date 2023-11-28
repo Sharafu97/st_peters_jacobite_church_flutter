@@ -64,7 +64,7 @@ class _DownloadListTileState extends ConsumerState<DownloadListTile> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
-                child: Text(widget.file.title ?? 'NILL', style: timeStyle),
+                child: Text(widget.file.title ?? 'NIL', style: timeStyle),
               ),
               if (!ifPathExist) ...[
                 data.isDownloading && data.downloadingUrl == widget.file.phots

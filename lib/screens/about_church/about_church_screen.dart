@@ -122,7 +122,7 @@ class AboutChurchScreen extends StatelessWidget {
                                         textStyle,
                                         screenWidth,
                                         icon: AppAssets.patriarchalVicar,
-                                        text: 'PATRIARCHAL\nVICAR',
+                                        text: 'PATRIARCHAL\nVICARS',
                                         onTap: () {
                                           navigate(context,
                                               AppConstants.partiarcalVicarURL);
@@ -134,7 +134,7 @@ class AboutChurchScreen extends StatelessWidget {
                                         textStyle,
                                         screenWidth,
                                         icon: AppAssets.formerPatriarchalVicar,
-                                        text: 'FORMER\nPATRIARCHAL VICAR',
+                                        text: 'FORMER\nPATRIARCHAL VICARS',
                                         onTap: () {
                                           navigate(
                                               context,
@@ -155,7 +155,7 @@ class AboutChurchScreen extends StatelessWidget {
                                         textStyle,
                                         screenWidth,
                                         icon: AppAssets.vicar,
-                                        text: 'VICAR\n',
+                                        text: 'VICARS\n',
                                         onTap: () {
                                           navigate(context,
                                               AppConstants.currentVicarURL);
@@ -167,7 +167,7 @@ class AboutChurchScreen extends StatelessWidget {
                                         textStyle,
                                         screenWidth,
                                         icon: AppAssets.formerVicar,
-                                        text: 'FORMER\nVICAR',
+                                        text: 'FORMER\nVICARS',
                                         onTap: () {
                                           navigate(context,
                                               AppConstants.formerVicarsURL);

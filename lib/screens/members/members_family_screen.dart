@@ -125,37 +125,41 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
                                                 placeholder: (context, url) =>
                                                     const Center(
                                                         child: LoadingWidget()),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Image.asset(
+                                                        AppAssets.maleAvtar),
                                               ),
                                             ),
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                data.familyDetails[index]
-                                                        .name ??
-                                                    'NILL',
-                                                style: textStyle.labelLarge!
-                                                    .copyWith(
-                                                        color: AppColors
-                                                            .black000000),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              _textWidget(
-                                                  'Relation - ${data.familyDetails[index].relationship ?? 'NILL'}',
-                                                  textStyle),
-                                              _textWidget(
-                                                  'Birthday - ${data.familyDetails[index].dateOfBirth ?? 'NILL'}',
-                                                  textStyle),
-                                              _textWidget(
-                                                  'Residing - ${data.familyDetails[index].location ?? 'NILL'}',
-                                                  textStyle),
-                                            ],
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  data.familyDetails[index]
+                                                          .name ??
+                                                      'NIL',
+                                                  style: textStyle.labelLarge!
+                                                      .copyWith(
+                                                          color: AppColors
+                                                              .black000000),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                _textWidget(
+                                                    'Relation - ${data.familyDetails[index].relationship ?? 'NIL'}',
+                                                    textStyle),
+                                                _textWidget(
+                                                    'Birthday - ${data.familyDetails[index].dateOfBirth != null ? data.familyDetails[index].dateOfBirth.dateFormat(dateFormatShort) : 'NIL'}',
+                                                    textStyle),
+                                                _textWidget(
+                                                    'Residing - ${data.familyDetails[index].location ?? 'NIL'}',
+                                                    textStyle),
+                                              ],
+                                            ),
                                           )
                                         ],
                                       ),
@@ -190,7 +194,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
       String? name, String? id, String? date, TextTheme textStyle,
       {required double width}) {
     return Container(
-      height: 60,
+      // height: 60,
       width: width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -208,6 +212,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              const SizedBox(height: 15),
               Text(
                 'Member id: $id',
                 style: textStyle.labelLarge!
@@ -252,12 +257,12 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
             children: [
               _nameAndPhoto(
                 textStyle,
-                name: husband?.name ?? 'NILL',
+                name: husband?.name ?? 'NIL',
                 photo: husband?.photo ?? '',
               ),
               _nameAndPhoto(
                 textStyle,
-                name: wife?.name ?? 'NILL',
+                name: wife?.name ?? 'NIL',
                 photo: wife?.photo ?? '',
                 right: true,
               ),
@@ -334,7 +339,8 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
                 fit: BoxFit.fill,
                 placeholder: (context, url) =>
                     const Center(child: LoadingWidget()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => Image.asset(
+                    right ? AppAssets.fenaleAvtar : AppAssets.maleAvtar),
               ),
             ),
           ),
@@ -344,7 +350,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           Text(
             name,
             style: textStyle.labelLarge!.copyWith(color: AppColors.black000000),
-            textAlign: TextAlign.center,
+            textAlign: right ? TextAlign.end : TextAlign.left,
           ),
         ],
       ),
@@ -375,7 +381,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               ),
               alignment: Alignment.center,
               child: Text(
-                text1 != null && text1.isNotEmpty ? text1 : 'NILL',
+                text1 != null && text1.isNotEmpty ? text1 : 'NIL',
                 style: textStyle.bodyMedium!.copyWith(
                   color: AppColors.black000000,
                 ),
@@ -412,7 +418,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               ),
               alignment: Alignment.center,
               child: Text(
-                text2 != null && text2.isNotEmpty ? text2 : 'NILL',
+                text2 != null && text2.isNotEmpty ? text2 : 'NIL',
                 style: textStyle.bodyMedium!.copyWith(
                   color: AppColors.black000000,
                 ),
@@ -432,42 +438,45 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
       child: Column(
         children: List.generate(
             3,
-            (index) => Row(
-                  children: [
-                    Container(
-                      color: AppColors.brown41210A,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: AppConstants.extraSmallPadding,
-                          vertical: 2),
-                      alignment: Alignment.center,
-                      child: Text(
-                        index == 0
-                            ? 'WEDDING DAY'
-                            : index == 1
-                                ? 'AREA UNIT'
-                                : 'DIOCESE',
-                        style: textStyle.bodyLarge!
-                            .copyWith(color: AppColors.whiteFFFFFF),
+            (index) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Row(
+                    children: [
+                      Container(
+                        color: AppColors.brown41210A,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: AppConstants.extraSmallPadding,
+                            vertical: 2),
+                        alignment: Alignment.center,
+                        child: Text(
+                          index == 0
+                              ? 'WEDDING DAY'
+                              : index == 1
+                                  ? 'AREA UNIT'
+                                  : 'DIOCESE',
+                          style: textStyle.bodyLarge!
+                              .copyWith(color: AppColors.whiteFFFFFF),
+                        ),
                       ),
-                    ),
-                    const TriangleShape(
-                      color: AppColors.brown41210A,
-                      size: Size(10, 30),
-                    ),
-                    const SizedBox(width: AppConstants.smallPadding),
-                    const Spacer(),
-                    Text(
-                      index == 0
-                          ? member?.memberWeddingDate
-                                  .dateFormat(dateFormatLong) ??
-                              'NILL'
-                          : index == 1
-                              ? member?.areaUnitName ?? 'NILL'
-                              : member?.memberDiocese ?? 'NILL',
-                      style: textStyle.bodyLarge!
-                          .copyWith(color: AppColors.black000000),
-                    )
-                  ],
+                      const TriangleShape(
+                        color: AppColors.brown41210A,
+                        size: Size(10, 30),
+                      ),
+                      const SizedBox(width: AppConstants.smallPadding),
+                      const Spacer(),
+                      Text(
+                        index == 0
+                            ? member?.memberWeddingDate
+                                    .dateFormat(dateFormatLong) ??
+                                'NIL'
+                            : index == 1
+                                ? member?.areaUnitName ?? 'NIL'
+                                : member?.memberDiocese ?? 'NIL',
+                        style: textStyle.bodyLarge!
+                            .copyWith(color: AppColors.black000000),
+                      )
+                    ],
+                  ),
                 )),
       ),
     );
@@ -529,7 +538,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           padding: const EdgeInsets.symmetric(
               horizontal: 60, vertical: AppConstants.smallPadding),
           child: Text(
-            'Flat no: ${member?.memberFlatNo}, Building no: ${member?.memberBuildingNo}, Road:${member?.memberRoadNo}, Block:${member?.memberBlockNo}, ${member?.memberArea} ',
+            'Flat: ${member?.memberFlatNo ?? 'NIL'}, Building: ${member?.memberBuildingNo ?? 'NIL'}, Road:${member?.memberRoadNo ?? 'NIL'}, Block:${member?.memberBlockNo ?? 'NIL'}, ${member?.memberArea} ',
             style: textStyle.bodyLarge!.copyWith(
               color: AppColors.black000000,
             ),

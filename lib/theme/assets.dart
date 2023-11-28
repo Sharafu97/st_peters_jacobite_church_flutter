@@ -10,6 +10,8 @@ class AppAssets {
   static const imageSeperator = 'assets/images/seperator.png';
   static const imageNewsAndEventTileImage =
       'assets/images/event_tile_image.jpg';
+  static const maleAvtar = 'assets/images/male_avtar.png';
+  static const fenaleAvtar = 'assets/images/female_avtar.png';
 
   ///[TEMP]
   static const imageMan = 'assets/images/man.jpg';

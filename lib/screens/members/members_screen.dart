@@ -27,13 +27,13 @@ class MembersScreen extends ConsumerStatefulWidget {
 class _MembersScreenState extends ConsumerState<MembersScreen> {
   final TextEditingController _searchController = TextEditingController();
   final List<MemberType> _memberTypes = [
-    MemberType(id: '1', name: 'Code'),
+    MemberType(id: '1', name: 'Member id'),
     MemberType(id: '2', name: 'Name'),
     MemberType(id: '3', name: 'Mobile number'),
     MemberType(id: '4', name: 'Area unit'),
     MemberType(id: '5', name: 'Family member'),
   ];
-  MemberType _selectedType = MemberType(id: '1', name: 'Code');
+  MemberType _selectedType = MemberType(id: '1', name: 'Member id');
 
   Timer? timer;
   String _prevText = '';

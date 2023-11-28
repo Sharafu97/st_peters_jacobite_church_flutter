@@ -89,8 +89,8 @@ class _MenuWidgetState extends State<MenuWidget> {
         Positioned(
           left: 215,
           top: (_heightDivider * 5) + _iconHeight * 4,
-          child:
-              menuIcons(context, AppAssets.homeMember, 'MEMBERS', _memberRoute),
+          child: menuIcons(
+              context, AppAssets.homeMember, 'MEMBERS', AppRoutes.members),
         ),
         Positioned(
           left: 205,

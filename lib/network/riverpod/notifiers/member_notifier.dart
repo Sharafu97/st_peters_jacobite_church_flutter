@@ -82,27 +82,30 @@ class MemberNotifier extends ChangeNotifier {
             bloodGroupId: _member?.memberBloodGroupId,
             bloodGroup: getBloodGroup(_member?.memberBloodGroupId ?? '')),
       );
-
       _familyDetails
           .removeWhere((element) => element.relationship == 'Husband');
-      _wife = _familyDetails.firstWhere(
-        (element) => element.relationship == 'Wife',
-        orElse: () => FamilyDetails(
-            name: _member?.memberName,
-            relationship: 'Wife',
-            homeParish: _member?.memberHomeParish,
-            officeAddress: _member?.memberCompanyAddress,
-            dateOfBirth: _member?.memberDateOfBirth,
-            cprNumber: _member?.memberCpr,
+      if (_member?.memberMaritalStatus == 'married') {
+        _wife = _familyDetails.firstWhere(
+          (element) => element.relationship == 'Wife',
+          orElse: () => FamilyDetails(
+              name: _member?.memberName,
+              relationship: 'Wife',
+              homeParish: _member?.memberHomeParish,
+              officeAddress: _member?.memberCompanyAddress,
+              dateOfBirth: _member?.memberDateOfBirth,
+              cprNumber: _member?.memberCpr,
 // occupation:_member?.,
-            photo: _member?.photo,
-            location: _member?.memberLocation,
-            mobile: _member?.memberMobile,
-            emailAddress: _member?.memberEmailAddress,
-            bloodGroupId: _member?.memberBloodGroupId,
-            bloodGroup: getBloodGroup(_member?.memberBloodGroupId ?? '')),
-      );
-      _familyDetails.removeWhere((element) => element.relationship == 'Wife');
+              photo: _member?.photo,
+              location: _member?.memberLocation,
+              mobile: _member?.memberMobile,
+              emailAddress: _member?.memberEmailAddress,
+              bloodGroupId: _member?.memberBloodGroupId,
+              bloodGroup: getBloodGroup(_member?.memberBloodGroupId ?? '')),
+        );
+        _familyDetails.removeWhere((element) => element.relationship == 'Wife');
+      } else {
+        _wife = FamilyDetails();
+      }
 
       notifyDetailsState(ApiStatus.SUCCESS);
     } catch (e) {
