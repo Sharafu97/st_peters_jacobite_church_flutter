@@ -7,7 +7,7 @@ snackBar(BuildContext context, {String content = '', int seconds = 4}) {
     SnackBar(
       content: Text(
         content,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: AppColors.whiteFFFFFF),
         textAlign: TextAlign.center,
       ),
       duration: Duration(seconds: seconds),

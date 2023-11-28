@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/extensions.dart';
 import 'package:st_peters_jacobite_church_flutter/model/member_details_model.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/members/widgets/triangle_shape.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
@@ -27,6 +28,8 @@ class MembersFamilyScreen extends ConsumerStatefulWidget {
 }
 
 class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   String dateFormatShort = 'dd MMM';
   String dateFormatLong = 'dd MMM yyyy';
   @override
@@ -41,7 +44,9 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,
@@ -482,35 +487,35 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  Widget _address(TextTheme textStyle, {required String address}) {
-    return Column(
-      children: [
-        Container(
-          color: AppColors.brown41210A,
-          margin: const EdgeInsets.only(top: AppConstants.extraSmallPadding),
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.smallPadding,
-            vertical: AppConstants.extraSmallPadding,
-          ),
-          child: Text(
-            'PERMENENT ADDRESS',
-            style: textStyle.labelLarge!.copyWith(color: AppColors.whiteFFFFFF),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 60, vertical: AppConstants.smallPadding),
-          child: Text(
-            address,
-            style: textStyle.bodyLarge!.copyWith(
-              color: AppColors.black000000,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _address(TextTheme textStyle, {required String address}) {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         color: AppColors.brown41210A,
+  //         margin: const EdgeInsets.only(top: AppConstants.extraSmallPadding),
+  //         padding: const EdgeInsets.symmetric(
+  //           horizontal: AppConstants.smallPadding,
+  //           vertical: AppConstants.extraSmallPadding,
+  //         ),
+  //         child: Text(
+  //           'PERMENENT ADDRESS',
+  //           style: textStyle.labelLarge!.copyWith(color: AppColors.whiteFFFFFF),
+  //         ),
+  //       ),
+  //       Padding(
+  //         padding: const EdgeInsets.symmetric(
+  //             horizontal: 60, vertical: AppConstants.smallPadding),
+  //         child: Text(
+  //           address,
+  //           style: textStyle.bodyLarge!.copyWith(
+  //             color: AppColors.black000000,
+  //           ),
+  //           textAlign: TextAlign.center,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _textWidget(String text, TextTheme textStyle) {
     return Text(

@@ -51,7 +51,7 @@ class DownloadNotifier extends ChangeNotifier {
       if (dir != null) {
         String savename = fileUrl.split('/').last;
         String savePath = "$dir/$savename";
-        print(savePath);
+        debugPrint(savePath);
 
         await Dio().download(fileUrl, savePath,
             onReceiveProgress: (received, total) {
@@ -60,12 +60,12 @@ class DownloadNotifier extends ChangeNotifier {
             notifyListeners();
           }
         });
-        print("File is saved to download folder.");
+        debugPrint("File is saved to download folder.");
       }
       notifyDownloadState('', false);
       return true;
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       notifyDownloadState('', false);
       return false;
     }

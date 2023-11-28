@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/model/news_event_model.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/news_and_events/widgets/details_widget.dart';
 
 import '../../theme/assets.dart';
@@ -14,10 +15,14 @@ class NewsAndEventsDetailsScreen extends StatelessWidget {
   });
   final NewsEvents news;
 
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

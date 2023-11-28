@@ -49,7 +49,6 @@ dependencies:
   url_launcher: ^6.2.1
   webview_flutter: ^4.4.2
 
-
 dev_dependencies:
   build_runner: ^2.4.6
   custom_lint: ^0.5.7
@@ -83,6 +82,7 @@ flutter:
     - assets/icons/
     - assets/icons/home_icons/
     - assets/icons/about_church/
+    - assets/icons/drawer/
     - assets/ca/
 
   # An image asset can refer to one or more resolution-specific "variants", see

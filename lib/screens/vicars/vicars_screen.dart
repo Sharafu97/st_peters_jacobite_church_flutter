@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
@@ -9,12 +10,16 @@ import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 class VicarsScreen extends StatelessWidget {
   const VicarsScreen({Key? key}) : super(key: key);
 
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,

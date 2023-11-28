@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
@@ -18,6 +19,8 @@ class DownloadScreen extends ConsumerStatefulWidget {
 }
 
 class _DownloadScreenState extends ConsumerState<DownloadScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -29,7 +32,9 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

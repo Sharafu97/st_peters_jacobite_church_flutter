@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 String getBloodGroup(String bloodGroupId) {
@@ -37,8 +38,8 @@ Future<String?> getDownloadPath() async {
         directory = await getExternalStorageDirectory();
       }
     }
-  } catch (err, stack) {
-    print("Cannot get download folder path");
+  } catch (e) {
+    debugPrint("Cannot get download folder path");
   }
   return directory?.path;
 }

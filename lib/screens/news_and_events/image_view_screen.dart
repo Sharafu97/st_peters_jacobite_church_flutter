@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 
@@ -12,13 +13,15 @@ class ImageViewScreen extends StatefulWidget {
 }
 
 class _ImageViewScreenState extends State<ImageViewScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    // final textStyle = Theme.of(context).textTheme;
-
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: PageView.builder(
         itemCount: widget.images.length,
         itemBuilder: (context, index) {
@@ -26,7 +29,7 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height -
-                  const CustomAppbar().preferredSize.height,
+                  CustomAppbar(drawerKey: _drawerKey).preferredSize.height,
               child: CachedNetworkImage(
                 imageUrl: widget.images[index],
                 fit: BoxFit.fitWidth,

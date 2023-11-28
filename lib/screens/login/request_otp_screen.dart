@@ -56,11 +56,12 @@ class RequestOTPScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Enter your member ID',
+                          'Enter your member ID\n to get started',
                           style: textStyle.bodyLarge!.copyWith(
                             fontFamily: AppConstants.fontGotham,
                             fontWeight: FontWeight.w400,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: AppConstants.extraLargePadding),
                         CustomTextField(
@@ -68,11 +69,20 @@ class RequestOTPScreen extends ConsumerWidget {
                           validator: requiredValidator(),
                         ),
                         const SizedBox(height: AppConstants.largePadding),
+                        Text(
+                          'An OTP will be sent to your email\nassociated with your member ID',
+                          textAlign: TextAlign.center,
+                          style: textStyle.bodyMedium!.copyWith(
+                            fontFamily: AppConstants.fontGotham,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        const SizedBox(height: AppConstants.largePadding),
                         Material(
                           child: Consumer(builder: (_, ref, __) {
                             final data = ref.watch(loginProvider);
                             return CustomButton(
-                              text: 'Get OTP',
+                              text: 'Proceed',
                               isLoading: data.loginStatus == ApiStatus.LOADING,
                               onPressed: () {
                                 _login(ref);
@@ -83,7 +93,7 @@ class RequestOTPScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: AppConstants.defaultPadding),
                         Text(
-                          'OTP will be sent to your email\nassociated with your member ID',
+                          'I have read and agree to the terms & conditions and privacy policy.',
                           textAlign: TextAlign.center,
                           style: textStyle.bodySmall!.copyWith(
                             fontFamily: AppConstants.fontGotham,
@@ -95,7 +105,6 @@ class RequestOTPScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              // _loginListener(ref, context),
             ],
           ),
         );

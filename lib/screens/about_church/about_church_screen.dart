@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
@@ -13,13 +14,17 @@ class AboutChurchScreen extends StatelessWidget {
     Navigator.pushNamed(context, AppRoutes.webView, arguments: url);
   }
 
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,

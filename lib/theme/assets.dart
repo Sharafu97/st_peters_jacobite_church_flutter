@@ -52,6 +52,14 @@ class AppAssets {
   ///[CHURCH_OFFICIALS]
   static const churchOfficialWhite = 'assets/icons/vicar_white.png';
   static const churchOfficialBrown = 'assets/icons/vicar_brown.png';
+
+  ///[DRAWER]
+  static const drawerLogin = 'assets/icons/drawer/login.png';
+  static const drawerTerms = 'assets/icons/drawer/terms_of_use.png';
+  static const drawerPrivacyPolicy = 'assets/icons/drawer/privacy_policy.png';
+  static const drawerCopyright = 'assets/icons/drawer/copyright.png';
+  static const drawerAbout = 'assets/icons/drawer/about.png';
+  static const drawerContact = 'assets/icons/drawer/contact.png';
 }
 
 class AppIcons {}

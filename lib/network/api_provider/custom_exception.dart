@@ -1,6 +1,6 @@
 class CustomException implements Exception {
-  final message;
-  final prefix;
+  final dynamic message;
+  final dynamic prefix;
 
   CustomException([this.message, this.prefix]);
 

@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
-import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/model/committee_model.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
@@ -22,6 +22,8 @@ class ChurchOfficialsScreen extends ConsumerStatefulWidget {
 }
 
 class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -36,7 +38,9 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,
@@ -125,7 +129,7 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 45),
+                          const SizedBox(height: 60),
                         ],
                       ),
                     );

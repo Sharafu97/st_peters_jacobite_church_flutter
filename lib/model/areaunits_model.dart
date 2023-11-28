@@ -7,15 +7,15 @@ class AreaUnitsModel {
     if (json['area_units'] != null) {
       areaUnits = <AreaUnits>[];
       json['area_units'].forEach((v) {
-        areaUnits!.add(new AreaUnits.fromJson(v));
+        areaUnits!.add(AreaUnits.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.areaUnits != null) {
-      data['area_units'] = this.areaUnits!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (areaUnits != null) {
+      data['area_units'] = areaUnits!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -59,17 +59,17 @@ class AreaUnits {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['area_name'] = this.areaName;
-    data['meeting_day'] = this.meetingDay;
-    data['area_units'] = this.areaUnits;
-    data['female_coordinator_name'] = this.femaleCoordinatorName;
-    data['female_coordinator_phone'] = this.femaleCoordinatorPhone;
-    data['female_coordinator_photo'] = this.femaleCoordinatorPhoto;
-    data['male_coordinator_name'] = this.maleCoordinatorName;
-    data['male_coordinator_phone'] = this.maleCoordinatorPhone;
-    data['male_coordinator_photo'] = this.maleCoordinatorPhoto;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['area_name'] = areaName;
+    data['meeting_day'] = meetingDay;
+    data['area_units'] = areaUnits;
+    data['female_coordinator_name'] = femaleCoordinatorName;
+    data['female_coordinator_phone'] = femaleCoordinatorPhone;
+    data['female_coordinator_photo'] = femaleCoordinatorPhoto;
+    data['male_coordinator_name'] = maleCoordinatorName;
+    data['male_coordinator_phone'] = maleCoordinatorPhone;
+    data['male_coordinator_photo'] = maleCoordinatorPhoto;
     return data;
   }
 }

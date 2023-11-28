@@ -7,6 +7,7 @@ import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
@@ -38,7 +39,9 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
   Timer? timer;
   String _prevText = '';
 
-  void search(String text) async {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
+  void _search(String text) async {
     if (timer != null) {
       timer!.cancel();
       timer = null;
@@ -72,7 +75,9 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,
@@ -103,7 +108,7 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
                         controller: _searchController,
                         hintText:
                             'Search by ${_selectedType.name.toLowerCase()}...',
-                        onChanged: search,
+                        onChanged: _search,
                         suffixIcon: PopupMenuButton(
                           onSelected: (type) {
                             setState(() {

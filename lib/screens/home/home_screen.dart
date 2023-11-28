@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/home/widgets/menu_widgets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
@@ -11,10 +12,14 @@ import '../../widgets/contact_bottomsheet.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: Stack(
         children: [
           Positioned(

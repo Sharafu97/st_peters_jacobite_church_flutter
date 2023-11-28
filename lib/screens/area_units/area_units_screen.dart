@@ -4,6 +4,7 @@ import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/area_units/widgets/areaunits_tile.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
@@ -18,6 +19,8 @@ class AreaUnitsScreen extends ConsumerStatefulWidget {
 }
 
 class _AreaUnitsScreenState extends ConsumerState<AreaUnitsScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -30,7 +33,11 @@ class _AreaUnitsScreenState extends ConsumerState<AreaUnitsScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(
+        drawerKey: _drawerKey,
+      ),
+      drawer: const SideDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
           height: constraints.maxHeight,

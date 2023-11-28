@@ -6,6 +6,7 @@ import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/validators.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/login_notifier.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/button.dart';
@@ -20,6 +21,8 @@ class VerifyOTPScreen extends ConsumerStatefulWidget {
 }
 
 class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
   void _verifyOtp() {
@@ -34,7 +37,9 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     _loginListener();
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SizedBox(

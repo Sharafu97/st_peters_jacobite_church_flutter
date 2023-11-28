@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
@@ -19,6 +20,8 @@ class NewsAndEventsScreen extends ConsumerStatefulWidget {
 }
 
 class _NewsAndEventsScreenState extends ConsumerState<NewsAndEventsScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -30,7 +33,9 @@ class _NewsAndEventsScreenState extends ConsumerState<NewsAndEventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

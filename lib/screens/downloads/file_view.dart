@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 
 import '../../widgets/appbar.dart';
 // import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -14,6 +15,8 @@ class FileViewScreen extends StatefulWidget {
 }
 
 class _FileViewScreenState extends State<FileViewScreen> {
+  static final _drawerKey = GlobalKey<ScaffoldState>();
+
   bool isPdf = false;
   @override
   void initState() {
@@ -23,7 +26,9 @@ class _FileViewScreenState extends State<FileViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppbar(),
+        key: _drawerKey,
+        appBar: CustomAppbar(drawerKey: _drawerKey),
+        drawer: const SideDrawer(),
         body: Center(
           child: Image.file(
             File(widget.filePath),
