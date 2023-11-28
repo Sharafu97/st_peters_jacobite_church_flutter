@@ -1,5 +1,8 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
@@ -21,11 +24,26 @@ class DownloadScreen extends ConsumerStatefulWidget {
 class _DownloadScreenState extends ConsumerState<DownloadScreen> {
   static final _drawerKey = GlobalKey<ScaffoldState>();
 
+  void _checkStoragePermission() async {
+    if (AppConstants().isIOS) {
+      await Permission.storage.request();
+    } else {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.version.sdkInt >= 33) {
+        await Permission.manageExternalStorage.request();
+      } else {
+        await Permission.storage.request();
+      }
+    }
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(downloadProvider).downloadList();
     });
+    _checkStoragePermission();
     super.initState();
   }
 
@@ -48,9 +66,9 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
             Consumer(builder: (_, ref, __) {
               final data = ref.watch(downloadProvider);
               if (data.status == ApiStatus.LOADING) {
-                return const Center(child: LoadingWidget());
+                return const Expanded(child: Center(child: LoadingWidget()));
               } else if (data.status == ApiStatus.FAILED) {
-                return Center(child: Text(data.error));
+                return Expanded(child: Center(child: Text(data.error)));
               } else if (data.status == ApiStatus.SUCCESS) {
                 return Expanded(
                   child: ListView.separated(

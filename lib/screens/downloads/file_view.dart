@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 
 import '../../widgets/appbar.dart';
-// import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class FileViewScreen extends StatefulWidget {
   const FileViewScreen({super.key, required this.filePath});
@@ -17,31 +17,33 @@ class FileViewScreen extends StatefulWidget {
 class _FileViewScreenState extends State<FileViewScreen> {
   static final _drawerKey = GlobalKey<ScaffoldState>();
 
-  bool isPdf = false;
+  bool _isPdf = false;
   @override
   void initState() {
     super.initState();
+    final ext = widget.filePath.split('.').last;
+    _isPdf = ext.toLowerCase() == 'pdf';
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _drawerKey,
-        appBar: CustomAppbar(drawerKey: _drawerKey),
-        drawer: const SideDrawer(),
-        body: Center(
-          child: Image.file(
-            File(widget.filePath),
-          ),
-        )
-        // Placeholder()
-        // PDFView(
-        //   filePath: widget.filePath,
-        //   enableSwipe: true,
-        //   swipeHorizontal: true,
-        //   autoSpacing: false,
-        //   pageFling: false,
-        // ),
-        );
+      key: _drawerKey,
+      appBar: CustomAppbar(drawerKey: _drawerKey),
+      drawer: const SideDrawer(),
+      body: _isPdf
+          ? PDFView(
+              filePath: widget.filePath,
+              enableSwipe: true,
+              swipeHorizontal: true,
+              autoSpacing: false,
+              pageFling: false,
+            )
+          : Center(
+              child: Image.file(
+                File(widget.filePath),
+              ),
+            ),
+    );
   }
 }
