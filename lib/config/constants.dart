@@ -67,6 +67,14 @@ class AppConstants {
       'https://insta-connect.in/churchapplive/formar-patriarcal-vicars';
   static const prayerTimingURL = 'https://insta-connect.in/churchapplive/time';
   static const memoriesURL = 'https://insta-connect.in/churchapplive/memories';
+  static const contactURL = 'https://insta-connect.in/churchapplive/contact';
+  static const copyrightURL =
+      'https://insta-connect.in/churchapplive/copyrights';
+  static const privacyPolicyURL =
+      'https://insta-connect.in/churchapplive/privacy-policy';
+  static const termsOfUseURL =
+      'https://insta-connect.in/churchapplive/terms-of-use';
+  static const aboutURL = 'https://insta-connect.in/churchapplive/about';
 
   ///[CONTACT_DETAILS]
   static const CHURCHPHONE = '+97317245432';

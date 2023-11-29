@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation _animation;
-  final _duration = const Duration(seconds: 2);
+  final _duration = const Duration(seconds: 1);
 
   @override
   void initState() {
@@ -22,18 +22,17 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController =
         AnimationController(vsync: this, duration: _duration);
 
-    _animation = Tween(begin: 0.0, end: 1.0).animate(
+    _animation = Tween(begin: 0.9, end: 1.0).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
     );
 
-    _animationController.forward();
-    _animationController.addStatusListener((status) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        AppRoutes.home,
-        (route) => false,
-      );
-    });
+    _animationController
+        .forward()
+        .whenComplete(() => Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.home,
+              (route) => false,
+            ));
   }
 
   @override
@@ -46,12 +45,15 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FadeTransition(
-          opacity: _animation as Animation<double>,
-          child: SizedBox(
-            child: Image.asset(
-              AppAssets.imageTopLogos,
-              scale: 2,
+        child: ScaleTransition(
+          scale: _animation as Animation<double>,
+          child: FadeTransition(
+            opacity: _animation as Animation<double>,
+            child: SizedBox(
+              child: Image.asset(
+                AppAssets.imageTopLogos,
+                scale: 2,
+              ),
             ),
           ),
         ),

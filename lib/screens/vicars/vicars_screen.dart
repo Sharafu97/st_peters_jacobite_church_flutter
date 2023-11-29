@@ -40,7 +40,7 @@ class VicarsScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 55),
-                    const TitleBoard(title: 'OUR VICARS'),
+                    const TitleBoard(title: 'OUR VICAR'),
                     const SizedBox(height: 5),
                     Flexible(
                       child: ListView.separated(

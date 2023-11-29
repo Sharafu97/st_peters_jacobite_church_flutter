@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/model/committee_model.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
@@ -165,36 +166,41 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
     required double screenWidth,
     required CommitteeMember member,
   }) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: screenWidth / 2.8,
-          decoration:
-              BoxDecoration(border: Border.all(color: AppColors.brown41210A)),
-          child: _cachedImage(member.photo ?? ''),
-        ),
-        const Divider(
-          color: AppColors.brown41210A,
-          height: 0,
-          indent: AppConstants.defaultPadding,
-          endIndent: AppConstants.defaultPadding,
-        ),
-        Text(
-          (member.personName ?? '-').toUpperCase(),
-          style: textStyle.bodyLarge!.copyWith(
-            fontFamily: AppConstants.fontGotham,
-            fontSize: 15,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () => Navigator.pushNamed(context, AppRoutes.webView,
+          arguments: AppConstants.currentVicarURL),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: screenWidth / 2.8,
+            decoration:
+                BoxDecoration(border: Border.all(color: AppColors.brown41210A)),
+            child: _cachedImage(member.photo ?? ''),
           ),
-        ),
-        Text(
-          member.designation ?? '-',
-          style: textStyle.bodyMedium!.copyWith(
-            fontFamily: AppConstants.fontGotham,
-            fontSize: 13,
+          const Divider(
+            color: AppColors.brown41210A,
+            height: 0,
+            indent: AppConstants.defaultPadding,
+            endIndent: AppConstants.defaultPadding,
           ),
-        ),
-      ],
+          Text(
+            (member.personName ?? '-').toUpperCase(),
+            style: textStyle.bodyLarge!.copyWith(
+              fontFamily: AppConstants.fontGotham,
+              fontSize: 15,
+            ),
+          ),
+          Text(
+            member.designation ?? '-',
+            style: textStyle.bodyMedium!.copyWith(
+              fontFamily: AppConstants.fontGotham,
+              fontSize: 13,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -203,59 +209,64 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
     required double width,
     required CommitteeMember member,
   }) {
-    return SizedBox(
-      width: width,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                width: width,
-                height: width * 1.2,
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.brown41210A),
-                ),
-                child: _cachedImage(member.photo ?? '-'),
-              ),
-              Positioned(
-                bottom: 0,
-                left: -6,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: AppColors.yellowFBAF43,
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () => Navigator.pushNamed(context, AppRoutes.memberFamily,
+          arguments: member.memberId),
+      child: SizedBox(
+        width: width,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: width,
+                  height: width * 1.2,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.brown41210A),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                  child: Text(
-                    member.memberId ?? '-',
-                    style: textStyle.bodySmall!.copyWith(
-                      fontFamily: AppConstants.fontGotham,
+                  child: _cachedImage(member.photo ?? '-'),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: -6,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.yellowFBAF43,
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                    child: Text(
+                      member.memberId ?? '-',
+                      style: textStyle.bodySmall!.copyWith(
+                        fontFamily: AppConstants.fontGotham,
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: AppConstants.extraSmallPadding),
-          Text(
-            (member.personName ?? '-').toUpperCase(),
-            style: textStyle.bodyMedium!.copyWith(
-              fontFamily: AppConstants.fontGotham,
-              fontSize: 12,
+                )
+              ],
             ),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            member.designation ?? '-',
-            style: textStyle.bodyMedium!.copyWith(
-              fontFamily: AppConstants.fontGotham,
-              fontSize: 11,
+            const SizedBox(height: AppConstants.extraSmallPadding),
+            Text(
+              (member.personName ?? '-').toUpperCase(),
+              style: textStyle.bodyMedium!.copyWith(
+                fontFamily: AppConstants.fontGotham,
+                fontSize: 12,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            Text(
+              member.designation ?? '-',
+              style: textStyle.bodyMedium!.copyWith(
+                fontFamily: AppConstants.fontGotham,
+                fontSize: 11,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

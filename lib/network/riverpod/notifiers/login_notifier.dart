@@ -12,9 +12,13 @@ class LoginNotifier extends ChangeNotifier {
   ApiStatus get verifyStatus => _verifyStatus;
   String get error => _error;
 
-  Future<void> login(String memberCode) async {
+  bool _resend = false;
+  bool get resend => _resend;
+
+  Future<void> login(String memberCode, {bool resend = false}) async {
     if (_loginStatus == ApiStatus.LOADING) return;
     try {
+      _resend = resend;
       notifyLoginState(ApiStatus.LOADING);
       final data = <String, dynamic>{
         'member_code': memberCode,

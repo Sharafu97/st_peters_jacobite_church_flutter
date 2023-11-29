@@ -7,24 +7,38 @@ import 'package:st_peters_jacobite_church_flutter/config/utils/validators.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/login_notifier.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
+import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/button.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/costom_snackbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/textfield.dart';
 
-class RequestOTPScreen extends ConsumerWidget {
+class RequestOTPScreen extends ConsumerStatefulWidget {
+  const RequestOTPScreen({super.key});
+
+  @override
+  ConsumerState<RequestOTPScreen> createState() => _RequestOTPScreenState();
+}
+
+class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
-
-  RequestOTPScreen({super.key});
-
+  bool _isConsentChecked = false;
   void _login(WidgetRef ref) {
     if (_formKey.currentState!.validate()) {
-      ref.read(loginProvider).login(_controller.text);
+      if (_isConsentChecked) {
+        ref.read(loginProvider).login(_controller.text);
+        // Navigator.pushNamed(context, AppRoutes.verifyOTP,
+        //     arguments: _controller.text);
+      } else {
+        snackBar(context,
+            content: 'Please agree to the consent statement to continue.');
+      }
     }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
     _loginListener(ref, context);
@@ -51,7 +65,7 @@ class RequestOTPScreen extends ConsumerWidget {
                   key: _formKey,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: AppConstants.extraLargePadding),
+                        horizontal: AppConstants.defaultPadding),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -64,9 +78,13 @@ class RequestOTPScreen extends ConsumerWidget {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: AppConstants.extraLargePadding),
-                        CustomTextField(
-                          controller: _controller,
-                          validator: requiredValidator(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppConstants.defaultPadding),
+                          child: CustomTextField(
+                            controller: _controller,
+                            validator: requiredValidator(),
+                          ),
                         ),
                         const SizedBox(height: AppConstants.largePadding),
                         Text(
@@ -82,8 +100,10 @@ class RequestOTPScreen extends ConsumerWidget {
                           child: Consumer(builder: (_, ref, __) {
                             final data = ref.watch(loginProvider);
                             return CustomButton(
-                              text: 'Proceed',
-                              isLoading: data.loginStatus == ApiStatus.LOADING,
+                              text: 'PRODEED',
+                              isLoading:
+                                  (data.loginStatus == ApiStatus.LOADING &&
+                                      !data.resend),
                               onPressed: () {
                                 _login(ref);
                               },
@@ -92,13 +112,30 @@ class RequestOTPScreen extends ConsumerWidget {
                           }),
                         ),
                         const SizedBox(height: AppConstants.defaultPadding),
-                        Text(
-                          'I have read and agree to the terms & conditions and privacy policy.',
-                          textAlign: TextAlign.center,
-                          style: textStyle.bodySmall!.copyWith(
-                            fontFamily: AppConstants.fontGotham,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Checkbox.adaptive(
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: VisualDensity.compact,
+                                activeColor: AppColors.brown41210A,
+                                value: _isConsentChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _isConsentChecked = value ?? false;
+                                  });
+                                }),
+                            Expanded(
+                              child: Text(
+                                'I have read and agree to the terms & conditions\nand privacy policy.',
+                                style: textStyle.bodySmall!.copyWith(
+                                  fontFamily: AppConstants.fontGotham,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -114,17 +151,14 @@ class RequestOTPScreen extends ConsumerWidget {
 
   void _loginListener(WidgetRef ref, BuildContext context) {
     ref.listen<LoginNotifier>(loginProvider, (previous, next) {
-      if (next.loginStatus == ApiStatus.SUCCESS) {
+      if (next.loginStatus == ApiStatus.SUCCESS && !next.resend) {
         Navigator.pushNamed(context, AppRoutes.verifyOTP,
             arguments: _controller.text);
         next.notifyLoginState(ApiStatus.INITIALIZE);
       }
-      if (next.loginStatus == ApiStatus.FAILED) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(next.error)));
-        next.notifyLoginState(ApiStatus.INITIALIZE);
+      if (next.loginStatus == ApiStatus.FAILED && !next.resend) {
+        snackBar(context, content: next.error);
       }
     });
-    // return const SizedBox.shrink();
   }
 }

@@ -29,7 +29,6 @@ class CustomButton extends StatelessWidget {
       child: isLoading
           ? const CircularProgressIndicator.adaptive(
               valueColor: AlwaysStoppedAnimation<Color>(AppColors.whiteFFFFFF),
-              // backgroundColor: AppColors.whiteFFFFFF,
             )
           : Text(
               text,

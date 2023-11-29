@@ -160,7 +160,7 @@ class AboutChurchScreen extends StatelessWidget {
                                         textStyle,
                                         screenWidth,
                                         icon: AppAssets.vicar,
-                                        text: 'VICARS\n',
+                                        text: 'VICAR\n',
                                         onTap: () {
                                           navigate(context,
                                               AppConstants.currentVicarURL);
