@@ -7,6 +7,7 @@ import 'package:st_peters_jacobite_church_flutter/model/news_event_model.dart';
 import '../../model/download_model.dart';
 import '../../model/member_details_model.dart';
 import '../../model/member_list_model.dart';
+import '../../model/spiritual_org_model.dart';
 import '../api_provider/api_provider.dart';
 
 abstract class Repository {
@@ -43,6 +44,10 @@ abstract class Repository {
   }
 
   Future<CommitteeModel>? getCommittee() {
+    return null;
+  }
+
+  Future<SpiritualOrgModel>? getSpiritualOrg() {
     return null;
   }
 }
@@ -114,5 +119,12 @@ class AppRepository implements Repository {
   Future<CommitteeModel>? getCommittee() async {
     final res = await provider.getData(AppConstants.COMMITTEEURL);
     return CommitteeModel.fromJson(res);
+  }
+
+  @override
+  Future<SpiritualOrgModel>? getSpiritualOrg() async {
+    final res = await provider.getData(AppConstants.SPIRITUALORGURL);
+
+    return SpiritualOrgModel.fromJson(res);
   }
 }

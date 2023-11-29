@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/model/areaunits_model.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
@@ -8,18 +10,38 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
-class SpiritualOrganisationsScreen extends StatelessWidget {
+import '../../config/utils/enums.dart';
+import '../../network/riverpod/providers.dart';
+import '../../widgets/loading_widget.dart';
+import 'widgets/spiritual_org_listtile.dart';
+
+class SpiritualOrganisationsScreen extends ConsumerStatefulWidget {
   const SpiritualOrganisationsScreen({Key? key}) : super(key: key);
 
   static final _drawerKey = GlobalKey<ScaffoldState>();
+
+  @override
+  ConsumerState<SpiritualOrganisationsScreen> createState() =>
+      _SpiritualOrganisationsScreenState();
+}
+
+class _SpiritualOrganisationsScreenState
+    extends ConsumerState<SpiritualOrganisationsScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(spiritualOrgProvider).getSpiritualOrganizations();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      key: _drawerKey,
-      appBar: CustomAppbar(drawerKey: _drawerKey),
+      key: SpiritualOrganisationsScreen._drawerKey,
+      appBar: CustomAppbar(drawerKey: SpiritualOrganisationsScreen._drawerKey),
       drawer: const SideDrawer(),
       body: LayoutBuilder(builder: (context, constraints) {
         return SizedBox(
@@ -43,56 +65,34 @@ class SpiritualOrganisationsScreen extends StatelessWidget {
                     const SizedBox(height: 55),
                     const TitleBoard(title: 'SPIRITUAL ORGANIZATIONS'),
                     const SizedBox(height: 5),
-                    Flexible(
-                      child: GridView.builder(
-                        padding:
-                            const EdgeInsets.all(AppConstants.defaultPadding),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: AppConstants.largePadding,
-                          mainAxisSpacing: AppConstants.extraSmallPadding,
-                          childAspectRatio: 0.98,
-                        ),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(10),
-                            onTap: () => Navigator.pushNamed(
-                                context, AppRoutes.descriptionWithTitle),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 100,
-                                  width: 100,
-                                  margin: const EdgeInsets.only(bottom: 5),
-                                  decoration: BoxDecoration(
-                                      color: AppColors.whiteFFFFFF,
-                                      border: Border.all(
-                                        color: AppColors.brown41210A,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                Text(
-                                  'SPIRITUAL ORGANIZATION ${index + 1}',
-                                  style: textStyle.labelLarge!
-                                      .copyWith(color: AppColors.black000000),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'Place',
-                                  style: textStyle.bodyMedium!
-                                      .copyWith(color: AppColors.black000000),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: 20,
-                      ),
-                    ),
+                    Consumer(builder: (_, ref, __) {
+                      final data = ref.watch(spiritualOrgProvider);
+                      if (data.status == ApiStatus.LOADING) {
+                        return const Center(child: LoadingWidget());
+                      } else if (data.status == ApiStatus.FAILED) {
+                        return Center(child: Text(data.error));
+                      } else if (data.status == ApiStatus.SUCCESS) {
+                        return Flexible(
+                          child: ListView.separated(
+                            padding: const EdgeInsets.all(
+                                AppConstants.defaultPadding),
+                            separatorBuilder: (context, index) {
+                              return Image.asset(AppAssets.imageSeperator,
+                                  scale: 3);
+                            },
+                            itemBuilder: (context, index) {
+                              return SpritualOrgListTile(
+                                index: index,
+                                org: data.spiritualOrganizations[index],
+                              );
+                            },
+                            itemCount: data.spiritualOrganizations.length,
+                          ),
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    }),
                     const SizedBox(height: 45),
                   ],
                 ),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/model/areaunits_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../theme/assets.dart';
 import '../../../theme/color.dart';
@@ -35,21 +36,13 @@ class AreaUnitsListTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  areaUnit.areaName ?? 'NIL',
-                  style: textTheme.bodyLarge!
-                      .copyWith(fontFamily: AppConstants.fontGotham),
-                ),
-                const SizedBox(height: 4),
                 Container(
                   color: AppColors.brown41210A,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.smallPadding,
-                    vertical: 5,
-                  ),
+                      horizontal: AppConstants.smallPadding),
                   child: Text(
-                    'Meeting Day: ${areaUnit.meetingDay ?? 'NIL'}',
-                    style: textTheme.bodySmall!.copyWith(
+                    areaUnit.areaName ?? 'NIL',
+                    style: textTheme.bodyLarge!.copyWith(
                         fontFamily: AppConstants.fontGotham,
                         color: AppColors.whiteFFFFFF),
                   ),
@@ -60,27 +53,42 @@ class AreaUnitsListTile extends StatelessWidget {
                   style: textTheme.bodySmall!
                       .copyWith(fontFamily: AppConstants.fontGotham),
                 ),
-                const SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        'Male Coordinator',
-                        style: textTheme.bodyMedium!
-                            .copyWith(fontFamily: AppConstants.fontGotham),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'Female Coordinator',
-                        style: textTheme.bodyMedium!
-                            .copyWith(fontFamily: AppConstants.fontGotham),
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 4),
+                Text(
+                  'Meeting Day: ${areaUnit.meetingDay ?? 'NIL'}',
+                  style: textTheme.bodySmall!
+                      .copyWith(fontFamily: AppConstants.fontGotham),
                 ),
+                const SizedBox(height: 30),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'COORDINATORS',
+                    style: textTheme.bodyMedium!
+                        .copyWith(fontFamily: AppConstants.fontGotham),
+                  ),
+                ),
+                const SizedBox(height: AppConstants.smallPadding),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Expanded(
+                //       child: Text(
+                //         'Male Coordinator',
+                //         style: textTheme.bodyMedium!
+                //             .copyWith(fontFamily: AppConstants.fontGotham),
+                //       ),
+                //     ),
+                //     Expanded(
+                //       child: Text(
+                //         'Female Coordinator',
+                //         style: textTheme.bodyMedium!
+                //             .copyWith(fontFamily: AppConstants.fontGotham),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -93,7 +101,7 @@ class AreaUnitsListTile extends StatelessWidget {
                         areaUnit.maleCoordinatorPhoto),
                     coordinatorWidget(
                         textTheme,
-                        'Female Coordinator',
+                        'Female',
                         areaUnit.femaleCoordinatorName,
                         areaUnit.femaleCoordinatorPhone,
                         areaUnit.femaleCoordinatorPhoto),
@@ -138,15 +146,26 @@ class AreaUnitsListTile extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Name: ${name ?? 'NIL'} ',
+            name ?? 'NIL',
             overflow: TextOverflow.ellipsis,
             style: textTheme.bodySmall!
                 .copyWith(fontFamily: AppConstants.fontGotham),
           ),
-          Text(
-            'Contact: ${phone ?? 'NIL'}',
-            style: textTheme.bodySmall!
-                .copyWith(fontFamily: AppConstants.fontGotham),
+          const SizedBox(height: 4),
+          InkWell(
+            onTap: () => launchUrl(Uri(scheme: 'tel', path: phone)),
+            child: Row(
+              children: [
+                Image.asset(AppAssets.iconCall,
+                    height: 18, color: AppColors.brown41210A),
+                const SizedBox(width: 4),
+                Text(
+                  phone ?? 'NIL',
+                  style: textTheme.bodySmall!
+                      .copyWith(fontFamily: AppConstants.fontGotham),
+                ),
+              ],
+            ),
           ),
         ],
       ),

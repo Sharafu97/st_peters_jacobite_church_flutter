@@ -48,6 +48,7 @@ class AppAssets {
   static const iconCall = 'assets/icons/call.png';
   static const iconMessage = 'assets/icons/message.png';
   static const iconWeb = 'assets/icons/web_icon.png';
+  static const iconWhatsapp = 'assets/icons/whatsapp.png';
 
   ///[CHURCH_OFFICIALS]
   static const churchOfficialWhite = 'assets/icons/vicar_white.png';

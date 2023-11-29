@@ -11,6 +11,7 @@ import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/utils/enums.dart';
 import '../../network/riverpod/providers.dart';
@@ -219,7 +220,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
             children: [
               const SizedBox(height: 15),
               Text(
-                'Member id: $id',
+                'Member ID: $id',
                 style: textStyle.labelLarge!
                     .copyWith(color: AppColors.black000000),
               ),
@@ -377,18 +378,25 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
         children: [
           Expanded(
             flex: 3,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.extraSmallPadding, vertical: 3),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: AppColors.brown41210A),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                text1 != null && text1.isNotEmpty ? text1 : 'NIL',
-                style: textStyle.bodyMedium!.copyWith(
-                  color: AppColors.black000000,
+            child: InkWell(
+              onTap: () {
+                if (detail == 'MOBILE') {
+                  launchUrl(Uri(scheme: 'tel', path: text1));
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.extraSmallPadding, vertical: 3),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: AppColors.brown41210A),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  text1 != null && text1.isNotEmpty ? text1 : 'NIL',
+                  style: textStyle.bodyMedium!.copyWith(
+                    color: AppColors.black000000,
+                  ),
                 ),
               ),
             ),
@@ -414,18 +422,25 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           ),
           Expanded(
             flex: 3,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.extraSmallPadding, vertical: 3),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: AppColors.brown41210A),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                text2 != null && text2.isNotEmpty ? text2 : 'NIL',
-                style: textStyle.bodyMedium!.copyWith(
-                  color: AppColors.black000000,
+            child: InkWell(
+              onTap: () {
+                if (detail == 'MOBILE') {
+                  launchUrl(Uri(scheme: 'tel', path: text2));
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.extraSmallPadding, vertical: 3),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: AppColors.brown41210A),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  text2 != null && text2.isNotEmpty ? text2 : 'NIL',
+                  style: textStyle.bodyMedium!.copyWith(
+                    color: AppColors.black000000,
+                  ),
                 ),
               ),
             ),

@@ -15,6 +15,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.da
 import 'package:st_peters_jacobite_church_flutter/widgets/textfield.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../widgets/loading_widget.dart';
 
@@ -28,13 +29,13 @@ class MembersScreen extends ConsumerStatefulWidget {
 class _MembersScreenState extends ConsumerState<MembersScreen> {
   final TextEditingController _searchController = TextEditingController();
   final List<MemberType> _memberTypes = [
-    MemberType(id: '1', name: 'Member id'),
+    MemberType(id: '1', name: 'Member ID'),
     MemberType(id: '2', name: 'Name'),
     MemberType(id: '3', name: 'Mobile number'),
     MemberType(id: '4', name: 'Area unit'),
     MemberType(id: '5', name: 'Family member'),
   ];
-  MemberType _selectedType = MemberType(id: '1', name: 'Member id');
+  MemberType _selectedType = MemberType(id: '1', name: 'Member ID');
 
   Timer? timer;
   String _prevText = '';
@@ -205,6 +206,29 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ],
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onTap: () async {
+                                          String phone = dataRef.members[index]
+                                                  .memberMobile ??
+                                              '';
+                                          var whatsappUrl =
+                                              "whatsapp://send?phone=$phone";
+                                          await canLaunchUrlString(whatsappUrl)
+                                              ? launchUrlString(whatsappUrl)
+                                              : print(
+                                                  "open WhatsApp app link or do a snackbar with notification that there is no WhatsApp installed");
+                                        },
+                                        child: SizedBox(
+                                          height: 30,
+                                          width: 30,
+                                          child: Image.asset(
+                                            AppAssets.iconWhatsapp,
+                                            color: AppColors.brown41210A,
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(width: 10),
