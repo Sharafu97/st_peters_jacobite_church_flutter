@@ -27,23 +27,25 @@ class NewsAndEventsListTile extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 120,
-                width: 120,
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  color: AppColors.whiteFFFFFF.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: news.phots?[0] ?? '-',
-                  progressIndicatorBuilder: (context, url, progress) =>
-                      const Center(
-                    child: LoadingWidget(),
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              news.phots?.isNotEmpty ?? false
+                  ? Container(
+                      height: 120,
+                      width: 120,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        color: AppColors.whiteFFFFFF.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: news.phots?.first ?? '-',
+                        progressIndicatorBuilder: (context, url, progress) =>
+                            const Center(
+                          child: LoadingWidget(),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
               const SizedBox(width: 10),
               Expanded(
                 child: SizedBox(
@@ -55,7 +57,7 @@ class NewsAndEventsListTile extends StatelessWidget {
                       Text(news.newsTitle ?? '-', style: textTheme.labelLarge),
                       Text(
                         (news.newsDetails ?? '-').parseHtmlString(),
-                        maxLines: 2,
+                        maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const Spacer(),

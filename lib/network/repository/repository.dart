@@ -44,6 +44,10 @@ abstract class Repository {
     return null;
   }
 
+  Future<NewsEventModel>? getTopNewsAndEvents() {
+    return null;
+  }
+
   Future<CommitteeModel>? getCommittee() {
     return null;
   }
@@ -112,6 +116,13 @@ class AppRepository implements Repository {
   @override
   Future<NewsEventModel>? getNewsAndEvents() async {
     final res = await provider.getData(AppConstants.NEWSEVENTSURL);
+
+    return NewsEventModel.fromJson(res);
+  }
+
+  @override
+  Future<NewsEventModel>? getTopNewsAndEvents() async {
+    final res = await provider.getData(AppConstants.TOPNEWSEVENTSURL);
 
     return NewsEventModel.fromJson(res);
   }

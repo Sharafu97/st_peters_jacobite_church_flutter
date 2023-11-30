@@ -45,6 +45,7 @@ class AppConstants {
   static const SEARCHMEMBERURL = '/churchapplive/api/search';
   static const DOWNLOADLISTURL = '/churchapplive/api/downloads';
   static const NEWSEVENTSURL = '/churchapplive/api/news-events';
+  static const TOPNEWSEVENTSURL = '/churchapplive/api/top-news-events';
   static const COMMITTEEURL = '/churchapplive/api/committee-list';
   static const SPIRITUALORGURL = '/churchapplive/api/spiritual-organizations';
 

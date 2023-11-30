@@ -6,17 +6,21 @@ import 'package:st_peters_jacobite_church_flutter/network/repository/repository.
 class NewsEventsNotifier extends ChangeNotifier {
   ApiStatus _status = ApiStatus.INITIALIZE;
   List<NewsEvents> _news = [];
+  List<NewsEvents> _topNews = [];
   String _error = '';
 
   ApiStatus get status => _status;
   List<NewsEvents> get news => _news;
+  List<NewsEvents> get topNews => _topNews;
   String get error => _error;
 
   Future<void> getNewsAndEvents() async {
     try {
       notifyState(ApiStatus.LOADING);
-      final res = await AppRepository().getNewsAndEvents();
-      _news = res?.newsEvents ?? [];
+      final newsRes = await AppRepository().getNewsAndEvents();
+      final topNewsRes = await AppRepository().getTopNewsAndEvents();
+      _news = newsRes?.newsEvents ?? [];
+      _topNews = topNewsRes?.newsEvents ?? [];
 
       notifyState(ApiStatus.SUCCESS);
     } catch (e) {
