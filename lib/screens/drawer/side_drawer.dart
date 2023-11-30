@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
@@ -95,7 +96,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   showDialog(
                       context: context,
                       builder: (context) {
-                        return AlertDialog.adaptive(
+                        return AlertDialog(
                           icon: const Icon(Icons.logout_rounded),
                           content: Text(
                             'Are you sure you want to log out?',

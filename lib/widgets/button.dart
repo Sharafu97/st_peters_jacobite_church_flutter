@@ -27,12 +27,14 @@ class CustomButton extends StatelessWidget {
           backgroundColor: AppColors.brown41210A,
           fixedSize: Size(width ?? screenWidth, height ?? 50)),
       child: isLoading
-          ? const SizedBox.square(
+          ? SizedBox.square(
               dimension: 25,
               child: Center(
                 child: CircularProgressIndicator.adaptive(
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(AppColors.whiteFFFFFF),
+                  backgroundColor:
+                      AppConstants().isIOS ? AppColors.whiteFFFFFF : null,
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                      AppColors.whiteFFFFFF),
                 ),
               ),
             )
@@ -70,12 +72,14 @@ class CustomTextButton extends StatelessWidget {
       style: TextButton.styleFrom(
           fixedSize: Size(width ?? screenWidth, height ?? 50)),
       child: isLoading
-          ? const SizedBox.square(
+          ? SizedBox.square(
               dimension: 25,
               child: Center(
                 child: CircularProgressIndicator.adaptive(
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(AppColors.brown41210A),
+                  backgroundColor:
+                      AppConstants().isIOS ? AppColors.brown41210A : null,
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                      AppColors.brown41210A),
                 ),
               ),
             )
