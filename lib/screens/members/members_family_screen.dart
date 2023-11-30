@@ -502,36 +502,6 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  // Widget _address(TextTheme textStyle, {required String address}) {
-  //   return Column(
-  //     children: [
-  //       Container(
-  //         color: AppColors.brown41210A,
-  //         margin: const EdgeInsets.only(top: AppConstants.extraSmallPadding),
-  //         padding: const EdgeInsets.symmetric(
-  //           horizontal: AppConstants.smallPadding,
-  //           vertical: AppConstants.extraSmallPadding,
-  //         ),
-  //         child: Text(
-  //           'PERMENENT ADDRESS',
-  //           style: textStyle.labelLarge!.copyWith(color: AppColors.whiteFFFFFF),
-  //         ),
-  //       ),
-  //       Padding(
-  //         padding: const EdgeInsets.symmetric(
-  //             horizontal: 60, vertical: AppConstants.smallPadding),
-  //         child: Text(
-  //           address,
-  //           style: textStyle.bodyLarge!.copyWith(
-  //             color: AppColors.black000000,
-  //           ),
-  //           textAlign: TextAlign.center,
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _textWidget(String text, TextTheme textStyle) {
     return Text(
       text,
