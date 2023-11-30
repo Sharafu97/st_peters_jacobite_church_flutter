@@ -7,15 +7,14 @@ import 'package:st_peters_jacobite_church_flutter/config/utils/validators.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/login_notifier.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
-import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/button.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/costom_snackbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/textfield.dart';
 
 class VerifyOTPScreen extends ConsumerStatefulWidget {
-  const VerifyOTPScreen({super.key, required this.memberCode});
-  final String memberCode;
+  const VerifyOTPScreen({super.key, required this.param});
+  final VerifyOtpParam param;
 
   @override
   ConsumerState<VerifyOTPScreen> createState() => _VerifyOTPScreenState();
@@ -26,7 +25,9 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
   final _controller = TextEditingController();
   void _verifyOtp() {
     if (_formKey.currentState!.validate()) {
-      ref.read(loginProvider).verifyOtp(widget.memberCode, _controller.text);
+      ref
+          .read(loginProvider)
+          .verifyOtp(widget.param.memberCode, _controller.text);
     }
   }
 
@@ -101,24 +102,17 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                           ),
                           Consumer(builder: (_, ref, __) {
                             final data = ref.watch(loginProvider);
-                            return TextButton(
+                            return CustomTextButton(
                               onPressed: () {
-                                ref
-                                    .read(loginProvider)
-                                    .login(widget.memberCode, resend: true);
+                                ref.read(loginProvider).login(
+                                    widget.param.memberCode,
+                                    resend: true);
                               },
-                              child: (data.loginStatus == ApiStatus.LOADING &&
-                                      data.resend)
-                                  ? const CircularProgressIndicator.adaptive(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          AppColors.whiteFFFFFF),
-                                    )
-                                  : Text(
-                                      'RESEND OTP',
-                                      style: textStyle.bodyLarge!.copyWith(
-                                        fontFamily: AppConstants.fontGotham,
-                                      ),
-                                    ),
+                              isLoading:
+                                  data.loginStatus == ApiStatus.LOADING &&
+                                      data.resend,
+                              text: 'RESEND OTP',
+                              width: 170,
                             );
                           }),
                         ],
@@ -137,9 +131,13 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
   void _loginListener() {
     ref.listen<LoginNotifier>(loginProvider, (previous, next) {
       if (next.verifyStatus == ApiStatus.SUCCESS) {
-        Navigator.popUntil(context, ModalRoute.withName(AppRoutes.home));
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, AppRoutes.members, ModalRoute.withName(AppRoutes.home));
+        snackBar(context, content: 'Login successful.');
+
+        if (widget.param.isFromDrawer) {
+          Navigator.pop(context);
+        } else {
+          Navigator.popAndPushNamed(context, AppRoutes.members);
+        }
         next.notifyVerifyState(ApiStatus.INITIALIZE);
       }
       if (next.verifyStatus == ApiStatus.FAILED) {
@@ -155,4 +153,13 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
       }
     });
   }
+}
+
+class VerifyOtpParam {
+  VerifyOtpParam({
+    required this.memberCode,
+    required this.isFromDrawer,
+  });
+  final String memberCode;
+  final bool isFromDrawer;
 }

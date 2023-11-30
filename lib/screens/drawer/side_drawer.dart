@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/model/user_model.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/auth_notifier.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/button.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/costom_snackbar.dart';
 
 class SideDrawer extends StatefulWidget {
   const SideDrawer({Key? key}) : super(key: key);
@@ -19,70 +25,116 @@ class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme;
-    return Drawer(
-      backgroundColor: AppColors.yellowCFB68A,
-      child: Column(
-        children: [
-          ColoredBox(
-            color: AppColors.brown41210A,
-            child: SizedBox(
-              height: MediaQuery.of(context).padding.top,
-              width: MediaQuery.of(context).size.width,
-            ),
+    return Consumer(
+      builder: (context, ref, child) {
+        final authData = ref.read(authProvider);
+        return Drawer(
+          backgroundColor: AppColors.yellowCFB68A,
+          child: Column(
+            children: [
+              ColoredBox(
+                color: AppColors.brown41210A,
+                child: SizedBox(
+                  height: MediaQuery.of(context).padding.top,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.extraLargePadding,
+                    vertical: AppConstants.largePadding),
+                margin: const EdgeInsets.only(
+                    bottom: AppConstants.extraLargePadding),
+                color: AppColors.brown41210A,
+                child: Image.asset(AppAssets.imageTopLogos),
+              ),
+              if (authData.state == AuthState.authenticated)
+                _userDetailsWidget(textStyle, user: UserData().user),
+              if (authData.state == AuthState.unauthenticated)
+                _drawerItem(
+                  textStyle,
+                  icon: AppAssets.drawerLogin,
+                  text: 'Member Login',
+                  onTap: () => Navigator.popAndPushNamed(
+                      context, AppRoutes.requestOTP,
+                      arguments: true),
+                ),
+              _drawerItem(
+                textStyle,
+                icon: AppAssets.drawerTerms,
+                text: 'Terms of Use',
+                onTap: () => _navigate(AppConstants.termsOfUseURL),
+              ),
+              _drawerItem(
+                textStyle,
+                icon: AppAssets.drawerPrivacyPolicy,
+                text: 'Privacy Policy',
+                onTap: () => _navigate(AppConstants.privacyPolicyURL),
+              ),
+              _drawerItem(
+                textStyle,
+                icon: AppAssets.drawerCopyright,
+                text: 'Copyrights',
+                onTap: () => _navigate(AppConstants.copyrightURL),
+              ),
+              _drawerItem(
+                textStyle,
+                icon: AppAssets.drawerAbout,
+                text: 'About',
+                onTap: () => _navigate(AppConstants.aboutURL),
+              ),
+              _drawerItem(
+                textStyle,
+                icon: AppAssets.drawerContact,
+                text: 'Contact Us',
+                onTap: () => _navigate(AppConstants.contactURL),
+              ),
+              if (authData.state == AuthState.authenticated)
+                _drawerItem(textStyle,
+                    icon: AppAssets.drawerLogin, text: 'Logout', onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog.adaptive(
+                          icon: const Icon(Icons.logout_rounded),
+                          content: Text(
+                            'Are you sure you want to log out?',
+                            style: textStyle.bodyLarge!.copyWith(
+                              fontFamily: AppConstants.fontGotham,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          actions: [
+                            CustomButton(
+                              text: 'Cancel',
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            const SizedBox.square(
+                                dimension: AppConstants.smallPadding),
+                            CustomTextButton(
+                              text: 'Yes',
+                              onPressed: () async {
+                                await ref.read(authProvider).unauthenticate();
+                                if (mounted) {
+                                  snackBar(context,
+                                      content: 'User logged out.');
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                }
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                }),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.extraLargePadding,
-                vertical: AppConstants.largePadding),
-            margin:
-                const EdgeInsets.only(bottom: AppConstants.extraLargePadding),
-            color: AppColors.brown41210A,
-            child: Image.asset(AppAssets.imageTopLogos),
-          ),
-          _userDetailsWidget(textStyle),
-          _drawerItem(
-            textStyle,
-            icon: AppAssets.drawerLogin,
-            text: 'Member Login',
-            onTap: () => Navigator.pushNamed(context, AppRoutes.requestOTP),
-          ),
-          _drawerItem(
-            textStyle,
-            icon: AppAssets.drawerTerms,
-            text: 'Terms of Use',
-            onTap: () => _navigate(AppConstants.termsOfUseURL),
-          ),
-          _drawerItem(
-            textStyle,
-            icon: AppAssets.drawerPrivacyPolicy,
-            text: 'Privacy Policy',
-            onTap: () => _navigate(AppConstants.privacyPolicyURL),
-          ),
-          _drawerItem(
-            textStyle,
-            icon: AppAssets.drawerCopyright,
-            text: 'Copyrights',
-            onTap: () => _navigate(AppConstants.copyrightURL),
-          ),
-          _drawerItem(
-            textStyle,
-            icon: AppAssets.drawerAbout,
-            text: 'About',
-            onTap: () => _navigate(AppConstants.aboutURL),
-          ),
-          _drawerItem(
-            textStyle,
-            icon: AppAssets.drawerContact,
-            text: 'Contact Us',
-            onTap: () => _navigate(AppConstants.contactURL),
-          ),
-          _drawerItem(textStyle, icon: AppAssets.drawerLogin, text: 'Logout')
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget _userDetailsWidget(TextTheme textStyle) {
+  Widget _userDetailsWidget(TextTheme textStyle, {required UserModel user}) {
     return Padding(
       padding:
           const EdgeInsets.symmetric(horizontal: AppConstants.defaultPadding),
@@ -90,9 +142,11 @@ class _SideDrawerState extends State<SideDrawer> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Name Goes Here And Here Also',
-            style: textStyle.titleLarge!
-                .copyWith(fontFamily: AppConstants.fontGotham),
+            user.memberName ?? '-',
+            style: textStyle.titleLarge!.copyWith(
+              fontFamily: AppConstants.fontGotham,
+              fontSize: 20,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(
@@ -102,7 +156,7 @@ class _SideDrawerState extends State<SideDrawer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '987654321',
+                user.memberMobile ?? '-',
                 style: textStyle.bodyLarge!
                     .copyWith(fontFamily: AppConstants.fontGotham),
               ),
@@ -111,7 +165,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Text(
-                    'ID: 543',
+                    'ID: ${user.memberCode}',
                     style: textStyle.bodyLarge!.copyWith(
                       fontFamily: AppConstants.fontGotham,
                       color: AppColors.yellowCFB68A,

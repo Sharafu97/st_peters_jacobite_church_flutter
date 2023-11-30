@@ -3,6 +3,7 @@ import 'package:st_peters_jacobite_church_flutter/model/areaunits_model.dart';
 import 'package:st_peters_jacobite_church_flutter/model/committee_model.dart';
 import 'package:st_peters_jacobite_church_flutter/model/member_search_model.dart';
 import 'package:st_peters_jacobite_church_flutter/model/news_event_model.dart';
+import 'package:st_peters_jacobite_church_flutter/model/user_model.dart';
 
 import '../../model/download_model.dart';
 import '../../model/member_details_model.dart';
@@ -19,7 +20,7 @@ abstract class Repository {
     return null;
   }
 
-  Future<bool>? verifyOtp(Map<String, dynamic> data) {
+  Future<UserModel>? verifyOtp(Map<String, dynamic> data) {
     return null;
   }
 
@@ -70,10 +71,10 @@ class AppRepository implements Repository {
   }
 
   @override
-  Future<bool>? verifyOtp(Map<String, dynamic> data) async {
+  Future<UserModel>? verifyOtp(Map<String, dynamic> data) async {
     final res = await provider.post(AppConstants.OTPVERIFICATIONURL,
         queryParameters: data);
-    return res['status'] == 1;
+    return UserModel.fromJson(res);
   }
 
   @override

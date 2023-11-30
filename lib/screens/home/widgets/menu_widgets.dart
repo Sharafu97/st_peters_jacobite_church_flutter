@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
-import 'package:st_peters_jacobite_church_flutter/config/utils/secure_storage.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/auth_notifier.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
 import '../../../theme/assets.dart';
 
-class MenuWidget extends StatefulWidget {
+class MenuWidget extends ConsumerStatefulWidget {
   const MenuWidget({super.key});
 
   @override
-  State<MenuWidget> createState() => _MenuWidgetState();
+  ConsumerState<MenuWidget> createState() => _MenuWidgetState();
 }
 
-class _MenuWidgetState extends State<MenuWidget> {
+class _MenuWidgetState extends ConsumerState<MenuWidget> {
   static const double _heightDivider = 28;
   static const double _height = 450;
   static const double _iconHeight = 24;
   String _memberRoute = '';
-  @override
-  void initState() {
-    super.initState();
-    _getRouteName();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final authData = ref.read(authProvider);
+    _getRouteName(authData.state);
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -89,8 +89,8 @@ class _MenuWidgetState extends State<MenuWidget> {
         Positioned(
           left: 215,
           top: (_heightDivider * 5) + _iconHeight * 4,
-          child: menuIcons(
-              context, AppAssets.homeMember, 'MEMBERS', AppRoutes.members),
+          child:
+              menuIcons(context, AppAssets.homeMember, 'MEMBERS', _memberRoute),
         ),
         Positioned(
           left: 205,
@@ -117,7 +117,8 @@ class _MenuWidgetState extends State<MenuWidget> {
   Widget menuIcons(
       BuildContext context, String icon, String label, String routeName) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, routeName),
+      onTap: () => Navigator.pushNamed(context, routeName,
+          arguments: routeName == AppRoutes.requestOTP ? false : null),
       child: Row(
         children: [
           Image.asset(icon, scale: 4),
@@ -131,14 +132,14 @@ class _MenuWidgetState extends State<MenuWidget> {
     );
   }
 
-  Future<void> _getRouteName() async {
-    final res = await StorageUtils().checkUserAuthentication();
-    if (res) {
-      _memberRoute = AppRoutes.members;
-    } else {
-      _memberRoute = AppRoutes.requestOTP;
-    }
-    setState(() {});
+  Future<void> _getRouteName(AuthState state) async {
+    setState(() {
+      if (state == AuthState.authenticated) {
+        _memberRoute = AppRoutes.members;
+      } else {
+        _memberRoute = AppRoutes.requestOTP;
+      }
+    });
   }
 }
 

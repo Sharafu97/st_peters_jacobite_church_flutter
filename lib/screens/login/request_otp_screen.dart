@@ -6,6 +6,7 @@ import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/validators.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/login_notifier.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/login/verify_otp_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
@@ -14,7 +15,8 @@ import 'package:st_peters_jacobite_church_flutter/widgets/costom_snackbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/textfield.dart';
 
 class RequestOTPScreen extends ConsumerStatefulWidget {
-  const RequestOTPScreen({super.key});
+  const RequestOTPScreen({super.key, required this.isFromDrawer});
+  final bool isFromDrawer;
 
   @override
   ConsumerState<RequestOTPScreen> createState() => _RequestOTPScreenState();
@@ -28,8 +30,6 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
     if (_formKey.currentState!.validate()) {
       if (_isConsentChecked) {
         ref.read(loginProvider).login(_controller.text);
-        // Navigator.pushNamed(context, AppRoutes.verifyOTP,
-        //     arguments: _controller.text);
       } else {
         snackBar(context,
             content: 'Please agree to the consent statement to continue.');
@@ -114,21 +114,27 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                         const SizedBox(height: AppConstants.defaultPadding),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Checkbox.adaptive(
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                visualDensity: VisualDensity.compact,
-                                activeColor: AppColors.brown41210A,
-                                value: _isConsentChecked,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _isConsentChecked = value ?? false;
-                                  });
-                                }),
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Checkbox.adaptive(
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  visualDensity: VisualDensity.compact,
+                                  activeColor: AppColors.brown41210A,
+                                  value: _isConsentChecked,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _isConsentChecked = value ?? false;
+                                    });
+                                  }),
+                            ),
+                            const SizedBox(width: AppConstants.smallPadding),
                             Expanded(
                               child: Text(
-                                'I have read and agree to the terms & conditions\nand privacy policy.',
+                                'I have read and agree to the terms & conditions and privacy policy.',
                                 style: textStyle.bodySmall!.copyWith(
                                   fontFamily: AppConstants.fontGotham,
                                   fontWeight: FontWeight.w400,
@@ -152,8 +158,10 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
   void _loginListener(WidgetRef ref, BuildContext context) {
     ref.listen<LoginNotifier>(loginProvider, (previous, next) {
       if (next.loginStatus == ApiStatus.SUCCESS && !next.resend) {
-        Navigator.pushNamed(context, AppRoutes.verifyOTP,
-            arguments: _controller.text);
+        final param = VerifyOtpParam(
+            memberCode: _controller.text, isFromDrawer: widget.isFromDrawer);
+        Navigator.popAndPushNamed(context, AppRoutes.verifyOTP,
+            arguments: param);
         next.notifyLoginState(ApiStatus.INITIALIZE);
       }
       if (next.loginStatus == ApiStatus.FAILED && !next.resend) {

@@ -109,13 +109,14 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           builder: (context) => const MemberAndSpousetScreen());
 
     case AppRoutes.requestOTP:
-      return MaterialPageRoute(builder: (context) => RequestOTPScreen());
+      return MaterialPageRoute(
+          builder: (context) =>
+              RequestOTPScreen(isFromDrawer: settings.arguments as bool));
 
     case AppRoutes.verifyOTP:
       return MaterialPageRoute(
-          builder: (context) => VerifyOTPScreen(
-                memberCode: settings.arguments as String,
-              ));
+          builder: (context) =>
+              VerifyOTPScreen(param: settings.arguments as VerifyOtpParam));
 
     case AppRoutes.imageView:
       return MaterialPageRoute(

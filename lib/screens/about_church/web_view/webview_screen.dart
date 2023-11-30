@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class WebViewScreen extends StatefulWidget {
 class _WebViewScreenState extends State<WebViewScreen> {
   static final _drawerKey = GlobalKey<ScaffoldState>();
   late final WebViewController _controller;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -23,7 +25,14 @@ class _WebViewScreenState extends State<WebViewScreen> {
         const PlatformWebViewControllerCreationParams())
       ..loadRequest(Uri.parse(widget.url))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000));
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(NavigationDelegate(onProgress: (progress) {
+        if (progress == 100 && mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }));
 
     super.initState();
   }
@@ -36,14 +45,11 @@ class _WebViewScreenState extends State<WebViewScreen> {
       appBar: CustomAppbar(
         drawerKey: _drawerKey,
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height -
-            const CustomAppbar().preferredSize.height,
-        width: MediaQuery.of(context).size.width,
-        child: WebViewWidget(
-          controller: _controller,
-        ),
-      ),
+      body: _isLoading
+          ? const Center(child: LoadingWidget())
+          : WebViewWidget(
+              controller: _controller,
+            ),
       bottomSheet: const ContactBottomsheet(),
     );
   }

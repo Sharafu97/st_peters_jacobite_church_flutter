@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
-import 'package:st_peters_jacobite_church_flutter/config/utils/secure_storage.dart';
 import 'package:st_peters_jacobite_church_flutter/network/repository/repository.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/auth_notifier.dart';
 
 class LoginNotifier extends ChangeNotifier {
+  LoginNotifier(this._auth);
+  final AuthNotifier _auth;
   ApiStatus _loginStatus = ApiStatus.INITIALIZE;
   ApiStatus _verifyStatus = ApiStatus.INITIALIZE;
   String _error = '';
@@ -39,8 +41,8 @@ class LoginNotifier extends ChangeNotifier {
         'member_code': memberCode,
         'OTP': otp,
       };
-      await AppRepository().verifyOtp(data);
-      await StorageUtils().authenticateUser();
+      final user = await AppRepository().verifyOtp(data)!;
+      _auth.authenticate(user);
       notifyVerifyState(ApiStatus.SUCCESS);
     } catch (e) {
       _error = e.toString();
