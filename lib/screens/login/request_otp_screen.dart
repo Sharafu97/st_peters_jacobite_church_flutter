@@ -100,7 +100,7 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                           child: Consumer(builder: (_, ref, __) {
                             final data = ref.watch(loginProvider);
                             return CustomButton(
-                              text: 'PRODEED',
+                              text: 'PROCEED',
                               isLoading:
                                   (data.loginStatus == ApiStatus.LOADING &&
                                       !data.resend),
