@@ -63,9 +63,10 @@ class _AreaUnitsScreenState extends ConsumerState<AreaUnitsScreen> {
                     Consumer(builder: (_, ref, __) {
                       final data = ref.watch(areaUnitsProvider);
                       if (data.status == ApiStatus.LOADING) {
-                        return const Center(child: LoadingWidget());
+                        return const Expanded(
+                            child: Center(child: LoadingWidget()));
                       } else if (data.status == ApiStatus.FAILED) {
-                        return Center(child: Text(data.error));
+                        return Expanded(child: Center(child: Text(data.error)));
                       } else if (data.status == ApiStatus.SUCCESS) {
                         return Flexible(
                           child: ListView.separated(
@@ -80,11 +81,6 @@ class _AreaUnitsScreenState extends ConsumerState<AreaUnitsScreen> {
                               return AreaUnitsListTile(
                                   index: index,
                                   areaUnit: data.areaUnits[index]);
-                              // InkWell(
-                              //     borderRadius: BorderRadius.circular(10),
-                              //     onTap: () => Navigator.pushNamed(
-                              //         context, AppRoutes.descriptionWithTitle),
-                              //     child: );
                             },
                           ),
                         );

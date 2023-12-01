@@ -63,10 +63,12 @@ class _SpiritualOrganisationsScreenState
                     const SizedBox(height: 5),
                     Consumer(builder: (_, ref, __) {
                       final data = ref.watch(spiritualOrgProvider);
+
                       if (data.status == ApiStatus.LOADING) {
-                        return const Center(child: LoadingWidget());
+                        return const Expanded(
+                            child: Center(child: LoadingWidget()));
                       } else if (data.status == ApiStatus.FAILED) {
-                        return Center(child: Text(data.error));
+                        return Expanded(child: Center(child: Text(data.error)));
                       } else if (data.status == ApiStatus.SUCCESS) {
                         return Flexible(
                           child: ListView.separated(
