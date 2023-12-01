@@ -29,29 +29,31 @@ class NewsAndEventsDetailsWidget extends StatelessWidget {
             Text(news.newsTitle ?? '-', style: textTheme.titleLarge),
             Text((news.publishingDate ?? '-').dateFormat(),
                 style: textTheme.titleMedium),
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, AppRoutes.imageView,
-                  arguments: news.phots ?? []),
-              behavior: HitTestBehavior.translucent,
-              child: Container(
-                height: 150,
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: news.phots?[0] ?? '-',
-                  progressIndicatorBuilder: (context, url, progress) =>
-                      const Center(
-                    child: LoadingWidget(),
+            if ((news.phots ?? []).isNotEmpty) ...[
+              GestureDetector(
+                onTap: () => Navigator.pushNamed(context, AppRoutes.imageView,
+                    arguments: news.phots ?? []),
+                behavior: HitTestBehavior.translucent,
+                child: Container(
+                  height: 150,
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(vertical: 12),
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  fit: BoxFit.cover,
+                  child: CachedNetworkImage(
+                    imageUrl: news.phots?[0] ?? '-',
+                    progressIndicatorBuilder: (context, url, progress) =>
+                        const Center(
+                      child: LoadingWidget(),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            Text('${news.phots?.length ?? 0} photos'),
+              Text('${news.phots?.length ?? 0} photos'),
+            ],
             const SizedBox(height: 12),
             Expanded(
               child: SingleChildScrollView(
