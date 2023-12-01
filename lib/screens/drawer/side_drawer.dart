@@ -152,28 +152,18 @@ class _SideDrawerState extends State<SideDrawer> {
           const SizedBox(
             height: AppConstants.smallPadding,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                user.memberMobile ?? '-',
-                style: textStyle.bodyLarge!
-                    .copyWith(fontFamily: AppConstants.fontGotham),
-              ),
-              ColoredBox(
-                color: AppColors.brown41210A,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
-                    'ID: ${user.memberCode}',
-                    style: textStyle.bodyLarge!.copyWith(
-                      fontFamily: AppConstants.fontGotham,
-                      color: AppColors.yellowCFB68A,
-                    ),
-                  ),
+          ColoredBox(
+            color: AppColors.brown41210A,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Text(
+                'ID: ${user.memberCode}',
+                style: textStyle.bodyLarge!.copyWith(
+                  fontFamily: AppConstants.fontGotham,
+                  color: AppColors.yellowCFB68A,
                 ),
-              )
-            ],
+              ),
+            ),
           ),
           const SizedBox(
             height: AppConstants.largePadding,

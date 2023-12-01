@@ -26,13 +26,24 @@ class _WebViewScreenState extends State<WebViewScreen> {
       ..loadRequest(Uri.parse(widget.url))
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(NavigationDelegate(onProgress: (progress) {
-        if (progress == 100 && mounted) {
-          setState(() {
-            _isLoading = false;
-          });
-        }
-      }));
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (progress) {
+            if (progress == 100 && mounted) {
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          },
+          onWebResourceError: (error) {
+            setState(() {
+              _isLoading = false;
+            });
+            debugPrint(
+                '${error.errorType}: ${error.errorCode}:: ${error.description}\n${error.url}');
+          },
+        ),
+      );
 
     super.initState();
   }
@@ -47,9 +58,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
       ),
       body: _isLoading
           ? const Center(child: LoadingWidget())
-          : WebViewWidget(
-              controller: _controller,
-            ),
+          : WebViewWidget(controller: _controller),
       bottomSheet: const ContactBottomsheet(),
     );
   }
