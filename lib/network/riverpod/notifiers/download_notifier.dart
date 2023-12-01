@@ -38,7 +38,7 @@ class DownloadNotifier extends ChangeNotifier {
     String fileUrl,
   ) async {
     if (!await Permission.storage.request().isGranted) {
-      Map<Permission, PermissionStatus> statuses = await [
+      await [
         Permission.storage,
         //add more permission to request here.
       ].request();

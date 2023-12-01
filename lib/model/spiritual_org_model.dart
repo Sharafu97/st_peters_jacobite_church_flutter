@@ -33,7 +33,7 @@ class SpiritualOrganizations {
   String? coordinatorPhoto1;
   String? coordinatorName2;
   String? coordinatorDesignation2;
-  Null? coordinatorPhone2;
+  String? coordinatorPhone2;
   String? coordinatorPhoto2;
 
   SpiritualOrganizations(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/auth_notifier.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
@@ -108,7 +109,7 @@ class _MenuWidgetState extends ConsumerState<MenuWidget> {
           left: 120,
           top: (_heightDivider * 8) + _iconHeight * 7,
           child: menuIcons(context, AppAssets.homePrayerTime, 'PRAYER TIMES',
-              AppRoutes.prayerTiming),
+              AppRoutes.webView),
         ),
       ],
     );
@@ -117,8 +118,11 @@ class _MenuWidgetState extends ConsumerState<MenuWidget> {
   Widget menuIcons(
       BuildContext context, String icon, String label, String routeName) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, routeName,
-          arguments: routeName == AppRoutes.requestOTP ? false : null),
+      onTap: () => Navigator.pushNamed(
+        context,
+        routeName,
+        arguments: _setNavigatorArguments(routeName),
+      ),
       child: Row(
         children: [
           Image.asset(icon, scale: 4),
@@ -130,6 +134,17 @@ class _MenuWidgetState extends ConsumerState<MenuWidget> {
         ],
       ),
     );
+  }
+
+  dynamic _setNavigatorArguments(String route) {
+    switch (route) {
+      case AppRoutes.requestOTP:
+        return false;
+      case AppRoutes.webView:
+        return AppConstants.prayerTimingURL;
+      default:
+        return null;
+    }
   }
 
   Future<void> _getRouteName(AuthState state) async {

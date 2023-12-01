@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
-import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
-import 'package:st_peters_jacobite_church_flutter/model/areaunits_model.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
-import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
@@ -37,7 +34,6 @@ class _SpiritualOrganisationsScreenState
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       key: SpiritualOrganisationsScreen._drawerKey,

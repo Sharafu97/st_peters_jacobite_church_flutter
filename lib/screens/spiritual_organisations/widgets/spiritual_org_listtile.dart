@@ -4,7 +4,6 @@ import 'package:st_peters_jacobite_church_flutter/model/spiritual_org_model.dart
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/constants.dart';
-import '../../../model/areaunits_model.dart';
 import '../../../theme/assets.dart';
 import '../../../theme/color.dart';
 import '../../../widgets/loading_widget.dart';

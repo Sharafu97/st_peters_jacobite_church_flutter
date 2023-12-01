@@ -12,6 +12,7 @@ import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/costom_snackbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/textfield.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -217,10 +218,14 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
                                               '';
                                           var whatsappUrl =
                                               "whatsapp://send?phone=$phone";
-                                          await canLaunchUrlString(whatsappUrl)
-                                              ? launchUrlString(whatsappUrl)
-                                              : print(
-                                                  "open WhatsApp app link or do a snackbar with notification that there is no WhatsApp installed");
+                                          try {
+                                            await launchUrlString(whatsappUrl);
+                                          } catch (e) {
+                                            if (mounted) {
+                                              snackBar(context,
+                                                  content: e.toString());
+                                            }
+                                          }
                                         },
                                         child: SizedBox(
                                           height: 30,

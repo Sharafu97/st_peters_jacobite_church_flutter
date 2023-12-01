@@ -91,7 +91,7 @@ class AreaUnitsListTile extends StatelessWidget {
                 // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     coordinatorWidget(
                         textTheme,
@@ -99,6 +99,7 @@ class AreaUnitsListTile extends StatelessWidget {
                         areaUnit.maleCoordinatorName,
                         areaUnit.maleCoordinatorPhone,
                         areaUnit.maleCoordinatorPhoto),
+                    const SizedBox(width: AppConstants.extraSmallPadding),
                     coordinatorWidget(
                         textTheme,
                         'Female',
@@ -147,7 +148,6 @@ class AreaUnitsListTile extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             name ?? 'NIL',
-            overflow: TextOverflow.ellipsis,
             style: textTheme.bodySmall!
                 .copyWith(fontFamily: AppConstants.fontGotham),
           ),

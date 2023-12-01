@@ -250,18 +250,18 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
             ),
             const SizedBox(height: AppConstants.extraSmallPadding),
             Text(
-              (member.personName ?? '-').toUpperCase(),
-              style: textStyle.bodyMedium!.copyWith(
-                fontFamily: AppConstants.fontGotham,
-                fontSize: 12,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            Text(
               member.designation ?? '-',
               style: textStyle.bodyMedium!.copyWith(
                 fontFamily: AppConstants.fontGotham,
                 fontSize: 11,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              (member.personName ?? '-').toUpperCase(),
+              style: textStyle.bodyMedium!.copyWith(
+                fontFamily: AppConstants.fontGotham,
+                fontSize: 12,
               ),
               textAlign: TextAlign.center,
             ),
