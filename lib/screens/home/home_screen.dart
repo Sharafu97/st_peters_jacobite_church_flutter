@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/home/widgets/menu_widgets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
@@ -66,7 +68,12 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              const MenuWidget()
+              Consumer(
+                builder: (context, ref, child) {
+                  final data = ref.watch(authProvider);
+                  return MenuWidget(state: data.state);
+                },
+              )
             ],
           ),
         ],
@@ -74,23 +81,4 @@ class HomeScreen extends StatelessWidget {
       bottomSheet: const ContactBottomsheet(),
     );
   }
-
-  // Widget menuIcons(String icon, String label) {
-  //   return Row(
-  //     children: [
-  //       SvgPicture.asset(icon, height: 24),
-  //       Text(label),
-  //     ],
-  //   );
-  // }
-
-  // menuIcons(double angle, {String? icon, String? label}) {
-  //   final double rad = vector_math_64.radians(angle);
-  //   return Transform(
-  //       transform: Matrix4.identity()..translate(cos(rad), sin(rad)),
-  //       child: IconButton(
-  //         icon: SvgPicture.asset(icon ?? '', height: 24),
-  //         onPressed: () {},
-  //       ));
-  // }
 }

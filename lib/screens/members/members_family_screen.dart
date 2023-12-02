@@ -200,7 +200,6 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
       String? name, String? id, String? date, TextTheme textStyle,
       {required double width}) {
     return Container(
-      // height: 60,
       width: width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -456,48 +455,102 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           vertical: AppConstants.smallPadding,
           horizontal: AppConstants.defaultPadding),
       child: Column(
-        children: List.generate(
-            3,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const RotatedBox(
+                quarterTurns: 2,
+                child: TriangleShape(
+                  color: AppColors.brown41210A,
+                  size: Size(10, 29),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                    bottom: AppConstants.extraSmallPadding),
+                decoration: const BoxDecoration(
+                  color: AppColors.brown41210A,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.brown41210A,
+                      offset: Offset(1, 0),
+                    ),
+                    BoxShadow(
+                      color: AppColors.brown41210A,
+                      offset: Offset(-1, 0),
+                    )
+                  ],
+                ),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.extraSmallPadding, vertical: 2),
+                alignment: Alignment.center,
+                child: Text(
+                  'WEDDING DAY',
+                  style: textStyle.bodyLarge!
+                      .copyWith(color: AppColors.whiteFFFFFF),
+                ),
+              ),
+              const TriangleShape(
+                color: AppColors.brown41210A,
+                size: Size(10, 29),
+              ),
+            ],
+          ),
+          Text(
+            member?.memberWeddingDate.dateFormat(dateFormatLong) ?? 'NIL',
+            style: textStyle.bodyLarge!.copyWith(color: AppColors.black000000),
+          ),
+          const SizedBox(height: AppConstants.defaultPadding),
+          ...List.generate(
+            2,
             (index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: Row(
-                    children: [
-                      Container(
-                        color: AppColors.brown41210A,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppConstants.extraSmallPadding,
-                            vertical: 2),
-                        alignment: Alignment.center,
-                        child: Text(
-                          index == 0
-                              ? 'WEDDING DAY'
-                              : index == 1
-                                  ? 'AREA UNIT'
-                                  : 'DIOCESE',
-                          style: textStyle.bodyLarge!
-                              .copyWith(color: AppColors.whiteFFFFFF),
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.brown41210A,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.brown41210A,
+                          offset: Offset(1, 0),
                         ),
-                      ),
-                      const TriangleShape(
-                        color: AppColors.brown41210A,
-                        size: Size(10, 30),
-                      ),
-                      const SizedBox(width: AppConstants.smallPadding),
-                      const Spacer(),
-                      Text(
-                        index == 0
-                            ? member?.memberWeddingDate
-                                    .dateFormat(dateFormatLong) ??
-                                'NIL'
-                            : index == 1
-                                ? member?.areaUnitName ?? 'NIL'
-                                : member?.memberDiocese ?? 'NIL',
-                        style: textStyle.bodyLarge!
-                            .copyWith(color: AppColors.black000000),
-                      )
-                    ],
+                      ],
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.extraSmallPadding,
+                        vertical: 2),
+                    alignment: Alignment.center,
+                    child: Text(
+                      index == 0 ? 'AREA UNIT' : 'DIOCESE',
+                      style: textStyle.bodyLarge!
+                          .copyWith(color: AppColors.whiteFFFFFF),
+                    ),
                   ),
-                )),
+                  const TriangleShape(
+                    color: AppColors.brown41210A,
+                    size: Size(10, 29),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 5,
+                    child: Image.asset(AppAssets.imageSeperator, scale: 3),
+                  ),
+                  const Spacer(),
+                  Text(
+                    index == 0
+                        ? member?.areaUnitName ?? 'NIL'
+                        : member?.memberDiocese ?? 'NIL',
+                    style: textStyle.bodyLarge!
+                        .copyWith(color: AppColors.black000000),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
