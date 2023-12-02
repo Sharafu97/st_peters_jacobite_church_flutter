@@ -450,6 +450,8 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
   }
 
   Widget _centerDetails(TextTheme textStyle, Member? member) {
+    final screenWidth =
+        MediaQuery.of(context).size.width - (2 * AppConstants.defaultPadding);
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: AppConstants.smallPadding,
@@ -464,10 +466,11 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
                 quarterTurns: 2,
                 child: TriangleShape(
                   color: AppColors.brown41210A,
-                  size: Size(10, 29),
+                  size: Size(10, 30),
                 ),
               ),
               Container(
+                height: 30,
                 margin: const EdgeInsets.only(
                     bottom: AppConstants.extraSmallPadding),
                 decoration: const BoxDecoration(
@@ -494,7 +497,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               ),
               const TriangleShape(
                 color: AppColors.brown41210A,
-                size: Size(10, 29),
+                size: Size(10, 30),
               ),
             ],
           ),
@@ -509,42 +512,63 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               padding: const EdgeInsets.only(bottom: 4),
               child: Row(
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: AppColors.brown41210A,
-                      boxShadow: [
-                        BoxShadow(
+                  SizedBox(
+                    width: screenWidth / 3,
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 29,
+                          decoration: const BoxDecoration(
+                            color: AppColors.brown41210A,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.brown41210A,
+                                offset: Offset(1, 0),
+                              ),
+                            ],
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppConstants.extraSmallPadding,
+                              vertical: 2),
+                          alignment: Alignment.center,
+                          child: Text(
+                            index == 0 ? 'AREA UNIT' : 'DIOCESE',
+                            style: textStyle.bodyLarge!
+                                .copyWith(color: AppColors.whiteFFFFFF),
+                          ),
+                        ),
+                        const TriangleShape(
                           color: AppColors.brown41210A,
-                          offset: Offset(1, 0),
+                          size: Size(10, 29),
                         ),
                       ],
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: AppConstants.extraSmallPadding,
-                        vertical: 2),
-                    alignment: Alignment.center,
-                    child: Text(
-                      index == 0 ? 'AREA UNIT' : 'DIOCESE',
-                      style: textStyle.bodyLarge!
-                          .copyWith(color: AppColors.whiteFFFFFF),
-                    ),
-                  ),
-                  const TriangleShape(
-                    color: AppColors.brown41210A,
-                    size: Size(10, 29),
                   ),
                   const Spacer(),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width / 5,
-                    child: Image.asset(AppAssets.imageSeperator, scale: 3),
+                    width: screenWidth / 3,
+                    child: Center(
+                      child: Image.asset(
+                        AppAssets.imageSeperator,
+                        scale: 3,
+                        width: screenWidth / 3.5,
+                      ),
+                    ),
                   ),
                   const Spacer(),
-                  Text(
-                    index == 0
-                        ? member?.areaUnitName ?? 'NIL'
-                        : member?.memberDiocese ?? 'NIL',
-                    style: textStyle.bodyLarge!
-                        .copyWith(color: AppColors.black000000),
+                  SizedBox(
+                    width: screenWidth / 3,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        index == 0
+                            ? member?.areaUnitName ?? 'NIL'
+                            : member?.memberDiocese ?? 'NIL',
+                        style: textStyle.bodyLarge!
+                            .copyWith(color: AppColors.black000000),
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
                   )
                 ],
               ),
