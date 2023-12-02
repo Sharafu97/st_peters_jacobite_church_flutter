@@ -82,7 +82,7 @@ class _NewsAndEventsScreenState extends ConsumerState<NewsAndEventsScreen> {
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.only(left: 30, top: 20),
                           child: Text(
-                            'News, Events and Announcement',
+                            'News, Events and Announcements',
                             style: textTheme.bodyMedium!
                                 .copyWith(fontFamily: AppConstants.fontGotham),
                           ),

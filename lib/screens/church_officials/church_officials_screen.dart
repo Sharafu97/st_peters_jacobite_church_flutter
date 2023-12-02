@@ -173,6 +173,14 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(
+            member.designation ?? '-',
+            style: textStyle.bodyMedium!.copyWith(
+              fontFamily: AppConstants.fontGotham,
+              fontSize: 13,
+            ),
+          ),
+          const SizedBox(height: AppConstants.extraSmallPadding),
           Container(
             width: screenWidth / 2.8,
             decoration:
@@ -185,18 +193,12 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
             indent: AppConstants.defaultPadding,
             endIndent: AppConstants.defaultPadding,
           ),
+          const SizedBox(height: AppConstants.extraSmallPadding),
           Text(
             (member.personName ?? '-').toUpperCase(),
             style: textStyle.bodyLarge!.copyWith(
               fontFamily: AppConstants.fontGotham,
               fontSize: 15,
-            ),
-          ),
-          Text(
-            member.designation ?? '-',
-            style: textStyle.bodyMedium!.copyWith(
-              fontFamily: AppConstants.fontGotham,
-              fontSize: 13,
             ),
           ),
         ],
@@ -218,19 +220,29 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Text(
+              member.designation ?? '-',
+              style: textStyle.bodyMedium!.copyWith(
+                fontFamily: AppConstants.fontGotham,
+                fontSize: 11,
+              ),
+              textAlign: TextAlign.center,
+            ),
             Stack(
               clipBehavior: Clip.none,
               children: [
                 Container(
                   width: width,
                   height: width * 1.2,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: AppConstants.extraSmallPadding),
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColors.brown41210A),
                   ),
                   child: _cachedImage(member.photo ?? '-'),
                 ),
                 Positioned(
-                  bottom: 0,
+                  bottom: AppConstants.extraSmallPadding,
                   left: -6,
                   child: Container(
                     decoration: const BoxDecoration(
@@ -247,15 +259,6 @@ class _ChurchOfficialsScreenState extends ConsumerState<ChurchOfficialsScreen> {
                   ),
                 )
               ],
-            ),
-            const SizedBox(height: AppConstants.extraSmallPadding),
-            Text(
-              member.designation ?? '-',
-              style: textStyle.bodyMedium!.copyWith(
-                fontFamily: AppConstants.fontGotham,
-                fontSize: 11,
-              ),
-              textAlign: TextAlign.center,
             ),
             Text(
               (member.personName ?? '-').toUpperCase(),

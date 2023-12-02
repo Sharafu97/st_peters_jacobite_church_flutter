@@ -133,11 +133,58 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                             ),
                             const SizedBox(width: AppConstants.smallPadding),
                             Expanded(
-                              child: Text(
-                                'I have read and agree to the terms & conditions and privacy policy.',
-                                style: textStyle.bodySmall!.copyWith(
-                                  fontFamily: AppConstants.fontGotham,
-                                  fontWeight: FontWeight.w400,
+                              child: Text.rich(
+                                TextSpan(
+                                  text: 'I have read and agree to the ',
+                                  style: textStyle.bodySmall!.copyWith(
+                                    fontFamily: AppConstants.fontGotham,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  children: [
+                                    WidgetSpan(
+                                      child: GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onTap: () => Navigator.pushNamed(
+                                            context, AppRoutes.webView,
+                                            arguments:
+                                                AppConstants.termsOfUseURL),
+                                        child: Text(
+                                          'terms & conditions',
+                                          style: textStyle.bodySmall!.copyWith(
+                                            fontFamily: AppConstants.fontGotham,
+                                            fontWeight: FontWeight.w400,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' and ',
+                                      style: textStyle.bodySmall!.copyWith(
+                                        fontFamily: AppConstants.fontGotham,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    WidgetSpan(
+                                      child: GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onTap: () => Navigator.pushNamed(
+                                            context, AppRoutes.webView,
+                                            arguments:
+                                                AppConstants.privacyPolicyURL),
+                                        child: Text(
+                                          'privacy policy.',
+                                          style: textStyle.bodySmall!.copyWith(
+                                            fontFamily: AppConstants.fontGotham,
+                                            fontWeight: FontWeight.w400,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
