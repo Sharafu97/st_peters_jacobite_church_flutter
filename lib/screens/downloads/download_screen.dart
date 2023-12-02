@@ -25,16 +25,20 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
   static final _drawerKey = GlobalKey<ScaffoldState>();
 
   void _checkStoragePermission() async {
-    if (AppConstants().isIOS) {
-      await Permission.storage.request();
-    } else {
-      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      if (androidInfo.version.sdkInt >= 33) {
-        await Permission.manageExternalStorage.request();
-      } else {
+    try {
+      if (AppConstants().isIOS) {
         await Permission.storage.request();
+      } else {
+        DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        if (androidInfo.version.sdkInt >= 33) {
+          await Permission.manageExternalStorage.request();
+        } else {
+          await Permission.storage.request();
+        }
       }
+    } on Exception catch (e) {
+      debugPrint(e.toString());
     }
   }
 
