@@ -37,7 +37,7 @@ class SpritualOrgListTile extends StatelessWidget {
           const SizedBox(height: AppConstants.smallPadding),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               coordinatorWidget(
                   textTheme,
@@ -97,15 +97,19 @@ class SpritualOrgListTile extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             name ?? 'NIL',
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: textTheme.bodySmall!
                 .copyWith(fontFamily: AppConstants.fontGotham),
           ),
+          const SizedBox(height: AppConstants.extraSmallPadding),
           Text(
             desgnation ?? 'NIL',
             overflow: TextOverflow.ellipsis,
-            style: textTheme.bodySmall!
-                .copyWith(fontFamily: AppConstants.fontGotham),
+            style: textTheme.bodySmall!.copyWith(
+              fontFamily: AppConstants.fontGotham,
+              fontSize: 11,
+            ),
           ),
           const SizedBox(height: 6),
           InkWell(

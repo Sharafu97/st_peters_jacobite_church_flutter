@@ -597,7 +597,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
             vertical: AppConstants.extraSmallPadding,
           ),
           child: Text(
-            'PERMENENT ADDRESS',
+            'PERMANENT ADDRESS',
             style: textStyle.labelLarge!.copyWith(color: AppColors.whiteFFFFFF),
           ),
         ),

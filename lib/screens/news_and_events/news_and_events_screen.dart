@@ -53,55 +53,62 @@ class _NewsAndEventsScreenState extends ConsumerState<NewsAndEventsScreen> {
                 final data = ref.watch(newsEventsProvider);
                 if (data.status == ApiStatus.SUCCESS) {
                   return Expanded(
-                    child: Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(left: 30, top: 30),
-                          child: Text(
-                            'Top News',
-                            style: textTheme.bodyMedium!
-                                .copyWith(fontFamily: AppConstants.fontGotham),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.only(left: 30, top: 30),
+                            child: Text(
+                              'Top News',
+                              style: textTheme.bodyMedium!.copyWith(
+                                  fontFamily: AppConstants.fontGotham),
+                            ),
                           ),
-                        ),
-                        ListView.separated(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          itemCount: data.topNews.length,
-                          separatorBuilder: (context, index) {
-                            return Image.asset(AppAssets.imageSeperator,
-                                scale: 4);
-                          },
-                          itemBuilder: (context, index) {
-                            return NewsAndEventsListTile(
-                                news: data.topNews[index]);
-                          },
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(left: 30, top: 20),
-                          child: Text(
-                            'News, Events and Announcements',
-                            style: textTheme.bodyMedium!
-                                .copyWith(fontFamily: AppConstants.fontGotham),
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10),
+                            itemCount: data.topNews.length,
+                            separatorBuilder: (context, index) {
+                              return Image.asset(AppAssets.imageSeperator,
+                                  scale: 4);
+                            },
+                            itemBuilder: (context, index) {
+                              return NewsAndEventsListTile(
+                                news: data.topNews[index],
+                              );
+                            },
                           ),
-                        ),
-                        ListView.separated(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          itemCount: data.news.length,
-                          separatorBuilder: (context, index) {
-                            return Image.asset(AppAssets.imageSeperator,
-                                scale: 4);
-                          },
-                          itemBuilder: (context, index) {
-                            return NewsAndEventsListTile(
-                                news: data.news[index]);
-                          },
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.only(left: 30, top: 20),
+                            child: Text(
+                              'News, Events and Announcements',
+                              style: textTheme.bodyMedium!.copyWith(
+                                  fontFamily: AppConstants.fontGotham),
+                            ),
+                          ),
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10),
+                            itemCount: data.news.length,
+                            separatorBuilder: (context, index) {
+                              return Image.asset(AppAssets.imageSeperator,
+                                  scale: 4);
+                            },
+                            itemBuilder: (context, index) {
+                              return NewsAndEventsListTile(
+                                news: data.news[index],
+                              );
+                            },
+                          ),
+                          const SizedBox(height: AppConstants.largePadding),
+                        ],
+                      ),
                     ),
                   );
                 } else if (data.status == ApiStatus.LOADING) {
