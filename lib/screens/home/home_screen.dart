@@ -67,13 +67,15 @@ class HomeScreen extends StatelessWidget {
                   fontFamily: AppConstants.fontGotham,
                 ),
               ),
-              const SizedBox(height: 30),
+              const Spacer(),
               Consumer(
                 builder: (context, ref, child) {
                   final data = ref.watch(authProvider);
                   return MenuWidget(state: data.state);
                 },
-              )
+              ),
+              const Spacer(),
+              const SizedBox(height: 30)
             ],
           ),
         ],

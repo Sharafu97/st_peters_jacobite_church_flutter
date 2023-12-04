@@ -54,10 +54,13 @@ class NewsAndEventsListTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text(news.newsTitle ?? '-', style: textTheme.labelLarge),
+                      Text(news.newsTitle ?? '-',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: textTheme.labelLarge),
                       Text(
                         (news.newsDetails ?? '-').parseHtmlString(),
-                        maxLines: 3,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const Spacer(),

@@ -175,7 +175,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
                                     height: AppConstants.defaultPadding,
                                   ),
                                 ),
-                                _permenantAddressWidget(data.member, textStyle),
+                                _addressWidget(data.member, textStyle),
                               ],
                             ),
                           ),
@@ -586,7 +586,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
     );
   }
 
-  Widget _permenantAddressWidget(Member? member, TextTheme textStyle) {
+  Widget _addressWidget(Member? member, TextTheme textStyle) {
     return Column(
       children: [
         Container(
@@ -597,8 +597,8 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
             vertical: AppConstants.extraSmallPadding,
           ),
           child: Text(
-            'PERMANENT ADDRESS',
-            style: textStyle.labelLarge!.copyWith(color: AppColors.whiteFFFFFF),
+            'RESIDENTIAL ADDRESS',
+            style: textStyle.bodyMedium!.copyWith(color: AppColors.whiteFFFFFF),
           ),
         ),
         Padding(
@@ -606,6 +606,30 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
               horizontal: 60, vertical: AppConstants.smallPadding),
           child: Text(
             'Flat: ${member?.memberFlatNo ?? 'NIL'}, Building: ${member?.memberBuildingNo ?? 'NIL'}, Road:${member?.memberRoadNo ?? 'NIL'}, Block:${member?.memberBlockNo ?? 'NIL'}, ${member?.memberArea} ',
+            style: textStyle.bodyLarge!.copyWith(
+              color: AppColors.black000000,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Divider(),
+        Container(
+          color: AppColors.brown41210A,
+          margin: const EdgeInsets.only(top: AppConstants.extraSmallPadding),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppConstants.smallPadding,
+            vertical: AppConstants.extraSmallPadding,
+          ),
+          child: Text(
+            'PERMANENT ADDRESS',
+            style: textStyle.bodyMedium!.copyWith(color: AppColors.whiteFFFFFF),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 60, vertical: AppConstants.smallPadding),
+          child: Text(
+            member?.memberIndiaAddress ?? 'NIL',
             style: textStyle.bodyLarge!.copyWith(
               color: AppColors.black000000,
             ),

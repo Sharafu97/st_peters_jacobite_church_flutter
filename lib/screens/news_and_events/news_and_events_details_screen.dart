@@ -29,14 +29,16 @@ class NewsAndEventsDetailsScreen extends StatelessWidget {
             image: AssetImage(AppAssets.imageLogoWatermark),
           ),
         ),
-        child: Column(
-          children: [
-            const SizedBox(height: 55),
-            const TitleBoard(title: 'NEWS & EVENTS'),
-            NewsAndEventsDetailsWidget(news: news),
-            Image.asset(AppAssets.imageSeperator, scale: 3),
-            const SizedBox(height: 50)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 55),
+              const TitleBoard(title: 'NEWS & EVENTS'),
+              NewsAndEventsDetailsWidget(news: news),
+              Image.asset(AppAssets.imageSeperator, scale: 3),
+              const SizedBox(height: 50)
+            ],
+          ),
         ),
       ),
       bottomSheet: const ContactBottomsheet(),
