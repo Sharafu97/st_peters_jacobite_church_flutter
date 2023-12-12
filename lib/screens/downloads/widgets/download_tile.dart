@@ -22,7 +22,7 @@ class DownloadListTile extends ConsumerStatefulWidget {
 }
 
 class _DownloadListTileState extends ConsumerState<DownloadListTile> {
-  final timeStyle = textTheme.bodyLarge?.copyWith();
+  final timeStyle = textTheme.labelLarge?.copyWith();
   String filePath = '';
   bool ifPathExist = false;
 

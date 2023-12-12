@@ -612,7 +612,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
             textAlign: TextAlign.center,
           ),
         ),
-        Divider(),
+        const Divider(),
         Container(
           color: AppColors.brown41210A,
           margin: const EdgeInsets.only(top: AppConstants.extraSmallPadding),
