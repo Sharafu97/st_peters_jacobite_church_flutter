@@ -7,7 +7,7 @@ import 'package:st_peters_jacobite_church_flutter/screens/area_units/widgets/are
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
-import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottombar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
@@ -96,7 +96,7 @@ class _AreaUnitsScreenState extends ConsumerState<AreaUnitsScreen> {
           ),
         );
       }),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 }

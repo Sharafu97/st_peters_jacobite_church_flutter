@@ -82,5 +82,7 @@ class AppConstants {
   static const CHURCHPHONE = '+97317245432';
   static const CHURCHMAIL = 'stpeters@batelco.com.bh';
   static const CHURCHWEBSITE = 'http://www.stpetersbahrain.org/';
+  static const CHURCHPRAYARFORM =
+      'https://insta-connect.in/churchapplive/prayer-request';
   static const CHURCHLOCATION = 'https://maps.app.goo.gl/VokT7tfbyReV5Xzx6';
 }

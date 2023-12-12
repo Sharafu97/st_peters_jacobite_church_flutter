@@ -9,7 +9,7 @@ import 'package:st_peters_jacobite_church_flutter/screens/members/widgets/triang
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
-import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottombar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -192,7 +192,7 @@ class _MembersFamilyScreenState extends ConsumerState<MembersFamilyScreen> {
           ),
         );
       }),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 

@@ -5,8 +5,8 @@ import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class ContactBottomsheet extends StatelessWidget {
-  const ContactBottomsheet({Key? key}) : super(key: key);
+class ContactBottomBar extends StatelessWidget {
+  const ContactBottomBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +19,11 @@ class ContactBottomsheet extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            InkWell(
+                onTap: () => launchUrlString(AppConstants.CHURCHPRAYARFORM),
+                child: Image.asset(AppAssets.iconPrayer,
+                    color: AppColors.whiteFFFFFF)),
+            const SizedBox(width: 8),
             InkWell(
                 onTap: () => launchUrl(
                     Uri(scheme: 'tel', path: AppConstants.CHURCHPHONE)),

@@ -10,7 +10,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 import '../../config/constants.dart';
 import '../../theme/text_theme.dart';
-import '../../widgets/contact_bottomsheet.dart';
+import '../../widgets/contact_bottombar.dart';
 import 'widgets/news_and_events_list_tile.dart';
 
 class NewsAndEventsScreen extends ConsumerStatefulWidget {
@@ -126,7 +126,7 @@ class _NewsAndEventsScreenState extends ConsumerState<NewsAndEventsScreen> {
           ],
         ),
       ),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 }

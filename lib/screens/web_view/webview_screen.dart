@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
-import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottombar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -59,7 +59,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
       body: _isLoading
           ? const Center(child: LoadingWidget())
           : WebViewWidget(controller: _controller),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 }

@@ -9,7 +9,7 @@ import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 
 import '../../widgets/appbar.dart';
-import '../../widgets/contact_bottomsheet.dart';
+import '../../widgets/contact_bottombar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 }

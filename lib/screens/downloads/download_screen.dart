@@ -10,7 +10,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 import '../../config/utils/enums.dart';
-import '../../widgets/contact_bottomsheet.dart';
+import '../../widgets/contact_bottombar.dart';
 import '../../widgets/loading_widget.dart';
 import 'widgets/download_tile.dart';
 
@@ -94,7 +94,7 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
           ],
         ),
       ),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 }

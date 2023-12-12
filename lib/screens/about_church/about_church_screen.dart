@@ -4,7 +4,7 @@ import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
-import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottomsheet.dart';
+import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottombar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 class AboutChurchScreen extends StatelessWidget {
@@ -115,13 +115,12 @@ class AboutChurchScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       _menuItem(
                                         textStyle,
@@ -139,7 +138,7 @@ class AboutChurchScreen extends StatelessWidget {
                                         textStyle,
                                         screenWidth,
                                         icon: AppAssets.formerPatriarchalVicar,
-                                        text: 'FORMER\nPATRIARCHAL VICARS',
+                                        text: 'FORMER\nPATRIARCHAL\nVICARS',
                                         onTap: () {
                                           navigate(
                                               context,
@@ -149,12 +148,15 @@ class AboutChurchScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Image.asset(AppAssets.seperator2, scale: 3),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 36),
+                                    child: Image.asset(AppAssets.seperator2,
+                                        scale: 3),
+                                  ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       _menuItem(
                                         textStyle,
@@ -229,7 +231,7 @@ class AboutChurchScreen extends StatelessWidget {
           ),
         );
       }),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 
@@ -248,7 +250,7 @@ class AboutChurchScreen extends StatelessWidget {
             text,
             style: textStyle.bodySmall,
             textAlign: TextAlign.center,
-            maxLines: 2,
+            maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
         ]));

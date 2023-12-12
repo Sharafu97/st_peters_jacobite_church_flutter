@@ -5,7 +5,7 @@ import 'package:st_peters_jacobite_church_flutter/screens/news_and_events/widget
 
 import '../../theme/assets.dart';
 import '../../widgets/appbar.dart';
-import '../../widgets/contact_bottomsheet.dart';
+import '../../widgets/contact_bottombar.dart';
 import '../../widgets/title_board.dart';
 
 class NewsAndEventsDetailsScreen extends StatelessWidget {
@@ -41,7 +41,7 @@ class NewsAndEventsDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomSheet: const ContactBottomsheet(),
+      bottomSheet: const ContactBottomBar(),
     );
   }
 }
