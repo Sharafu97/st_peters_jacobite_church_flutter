@@ -62,6 +62,9 @@ class AppAssets {
   static const drawerCopyright = 'assets/icons/drawer/copyright.png';
   static const drawerAbout = 'assets/icons/drawer/about.png';
   static const drawerContact = 'assets/icons/drawer/contact.png';
+
+  ///[OTHER]
+  static const downloadIcon = 'assets/icons/downloads_icon.png';
 }
 
 class AppIcons {}

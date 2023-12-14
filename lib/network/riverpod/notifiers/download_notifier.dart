@@ -9,14 +9,18 @@ import '../../repository/repository.dart';
 
 class DownloadNotifier extends ChangeNotifier {
   ApiStatus _status = ApiStatus.INITIALIZE;
-  List<Downloads> _downloadItems = [];
+  List<Downloads> _galleryDownloadItems = [];
+  List<Downloads> _formDownloadItems = [];
+  List<Downloads> _otherDownloadItems = [];
   bool _isDownloading = false;
   String _downloadingUrl = '';
   String _downloadPerc = '';
   String _error = '';
 
   ApiStatus get status => _status;
-  List<Downloads> get downloadItems => _downloadItems;
+  List<Downloads> get galleryDownloadItems => _galleryDownloadItems;
+  List<Downloads> get formDownloadItems => _formDownloadItems;
+  List<Downloads> get otherDownloadItems => _otherDownloadItems;
   bool get isDownloading => _isDownloading;
   String get downloadingUrl => _downloadingUrl;
   String get downloadPerc => _downloadPerc;
@@ -25,7 +29,18 @@ class DownloadNotifier extends ChangeNotifier {
     try {
       notifyState(ApiStatus.LOADING);
       final res = await AppRepository().getDownloadItems();
-      _downloadItems = res?.downloads ?? [];
+
+      /// 1 GELLERY ITEMS 2 FORM ITEMS
+      _galleryDownloadItems =
+          res?.downloads?.where((element) => element.fileId == '1').toList() ??
+              [];
+      _formDownloadItems =
+          res?.downloads?.where((element) => element.fileId == '2').toList() ??
+              [];
+      _otherDownloadItems = res?.downloads
+              ?.where((element) => !['1', '2'].contains(element.fileId))
+              .toList() ??
+          [];
 
       notifyState(ApiStatus.SUCCESS);
     } catch (e) {

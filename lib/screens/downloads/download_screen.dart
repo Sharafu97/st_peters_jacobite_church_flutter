@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/model/download_model.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
@@ -10,6 +11,8 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 import '../../config/utils/enums.dart';
+import '../../theme/color.dart';
+import '../../theme/text_theme.dart';
 import '../../widgets/contact_bottombar.dart';
 import '../../widgets/loading_widget.dart';
 import 'widgets/download_tile.dart';
@@ -21,8 +24,12 @@ class DownloadScreen extends ConsumerStatefulWidget {
   ConsumerState<DownloadScreen> createState() => _DownloadScreenState();
 }
 
-class _DownloadScreenState extends ConsumerState<DownloadScreen> {
+class _DownloadScreenState extends ConsumerState<DownloadScreen>
+    with TickerProviderStateMixin {
   static final _drawerKey = GlobalKey<ScaffoldState>();
+  late TabController tabController;
+
+  List<String> tabs = ['GALLERY', 'PUBLICATIONS/MESSAGES', 'FORMS'];
 
   void _checkStoragePermission() async {
     try {
@@ -44,11 +51,22 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
 
   @override
   void initState() {
+    setupTabController();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(downloadProvider).downloadList();
     });
     _checkStoragePermission();
     super.initState();
+  }
+
+  setupTabController() {
+    tabController = TabController(length: 3, vsync: this)..addListener(() {});
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -75,15 +93,40 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
                 return Expanded(child: Center(child: Text(data.error)));
               } else if (data.status == ApiStatus.SUCCESS) {
                 return Expanded(
-                  child: ListView.separated(
-                    padding: const EdgeInsets.all(30),
-                    itemCount: data.downloadItems.length,
-                    separatorBuilder: (context, index) {
-                      return Image.asset(AppAssets.imageSeperator, scale: 4);
-                    },
-                    itemBuilder: (context, index) {
-                      return DownloadListTile(file: data.downloadItems[index]);
-                    },
+                  child: Column(
+                    children: [
+                      TabBar(
+                        controller: tabController,
+                        onTap: (i) {},
+                        indicator: BoxDecoration(color: AppColors.brown41210A),
+                        indicatorSize: TabBarIndicatorSize.label,
+                        unselectedLabelColor: AppColors.brown41210A,
+                        labelColor: AppColors.whiteFFFFFF,
+                        dividerColor: AppColors.transparent,
+                        labelPadding: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
+                        indicatorPadding: EdgeInsets.zero,
+                        labelStyle: textTheme.bodySmall,
+                        tabs: List.generate(
+                          3,
+                          (index) => Padding(
+                            padding: const EdgeInsets.all(4),
+                            child:
+                                Text(tabs[index], textAlign: TextAlign.center),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: tabController,
+                          children: [
+                            tabView(data.galleryDownloadItems),
+                            tabView(data.otherDownloadItems),
+                            tabView(data.formDownloadItems),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 );
               } else {
@@ -95,6 +138,20 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen> {
         ),
       ),
       bottomSheet: const ContactBottomBar(),
+    );
+  }
+
+  Widget tabView(List<Downloads> downloadItems) {
+    return ListView.separated(
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(30),
+      itemCount: downloadItems.length,
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: 5);
+      },
+      itemBuilder: (context, index) {
+        return DownloadListTile(file: downloadItems[index], index: index);
+      },
     );
   }
 }

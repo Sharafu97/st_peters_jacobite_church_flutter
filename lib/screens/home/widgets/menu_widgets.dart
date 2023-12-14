@@ -96,7 +96,7 @@ class MenuWidget extends StatelessWidget {
         Positioned(
           left: 120,
           top: (_heightDivider * 8) + _iconHeight * 7,
-          child: _menuIcons(context, AppAssets.homePrayerTime, 'PRAYER TIMES',
+          child: _menuIcons(context, AppAssets.homePrayerTime, 'PRAYER TIMINGS',
               AppRoutes.webView),
         ),
       ],
