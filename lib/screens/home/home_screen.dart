@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/drawer/side_drawer.dart';
@@ -11,10 +12,24 @@ import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 import '../../widgets/appbar.dart';
 import '../../widgets/contact_bottombar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   static final _drawerKey = GlobalKey<ScaffoldState>();
+  void _requestNotificationPermission() async {
+    await Permission.notification.request();
+  }
+
+  @override
+  void initState() {
+    _requestNotificationPermission();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

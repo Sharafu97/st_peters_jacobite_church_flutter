@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/utils/enums.dart';
 import 'package:st_peters_jacobite_church_flutter/network/repository/repository.dart';
 import 'package:st_peters_jacobite_church_flutter/network/riverpod/notifiers/auth_notifier.dart';
@@ -40,6 +41,7 @@ class LoginNotifier extends ChangeNotifier {
       final data = <String, dynamic>{
         'member_code': memberCode,
         'OTP': otp,
+        'fcm_token': AppConstants.fcmToken,
       };
       final user = await AppRepository().verifyOtp(data)!;
       _auth.authenticate(user);

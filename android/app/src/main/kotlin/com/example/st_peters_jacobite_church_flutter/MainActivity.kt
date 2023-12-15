@@ -1,4 +1,4 @@
-package com.example.st_peters_jacobite_church_flutter
+package com.spjsc.bahrain
 
 import io.flutter.embedding.android.FlutterActivity
 
