@@ -31,6 +31,8 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
 
   List<String> tabs = ['GALLERY', 'PUBLICATIONS/MESSAGES', 'FORMS'];
 
+  double tabwidth = 0;
+
   void _checkStoragePermission() async {
     try {
       if (AppConstants().isIOS) {
@@ -60,7 +62,10 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
   }
 
   setupTabController() {
-    tabController = TabController(length: 3, vsync: this)..addListener(() {});
+    tabController = TabController(length: 3, vsync: this)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   @override
@@ -71,6 +76,7 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
 
   @override
   Widget build(BuildContext context) {
+    tabwidth = (MediaQuery.of(context).size.width - 30) / 3;
     return Scaffold(
       key: _drawerKey,
       appBar: CustomAppbar(drawerKey: _drawerKey),
@@ -98,22 +104,33 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
                       TabBar(
                         controller: tabController,
                         onTap: (i) {},
-                        indicator: BoxDecoration(color: AppColors.brown41210A),
+                        indicator: const BoxDecoration(
+                          color: AppColors.brown995D3C,
+                        ),
                         indicatorSize: TabBarIndicatorSize.label,
-                        unselectedLabelColor: AppColors.brown41210A,
-                        labelColor: AppColors.whiteFFFFFF,
                         dividerColor: AppColors.transparent,
                         labelPadding: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
-                        indicatorPadding: EdgeInsets.zero,
-                        labelStyle: textTheme.bodySmall,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 28, vertical: 20),
+                        indicatorPadding: EdgeInsets.only(bottom: 2),
                         tabs: List.generate(
                           3,
-                          (index) => Padding(
-                            padding: const EdgeInsets.all(4),
-                            child:
-                                Text(tabs[index], textAlign: TextAlign.center),
-                          ),
+                          (index) => Container(
+                              color: tabController.index != index
+                                  ? AppColors.brown41210A
+                                  : AppColors.transparent,
+                              width: tabwidth,
+                              height: 22,
+                              margin: const EdgeInsets.symmetric(horizontal: 2),
+                              alignment: Alignment.center,
+                              child: Text(
+                                tabs[index],
+                                textAlign: TextAlign.center,
+                                style: textTheme.labelSmall?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    height: 0,
+                                    color: AppColors.whiteFFFFFF),
+                              )),
                         ),
                       ),
                       Expanded(
@@ -144,7 +161,7 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
   Widget tabView(List<Downloads> downloadItems) {
     return ListView.separated(
       shrinkWrap: true,
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       itemCount: downloadItems.length,
       separatorBuilder: (context, index) {
         return const SizedBox(height: 5);

@@ -60,8 +60,8 @@ class _DownloadListTileState extends ConsumerState<DownloadListTile> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: widget.index % 2 == 0
-                ? AppColors.darkBrown41210A
-                : AppColors.lightBrown41210A,
+                ? AppColors.darkBrownAF8874
+                : AppColors.lightBrownD6B9AB,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
