@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "9198827726",
+    "project_id": "spjsc-bahrain",
+    "storage_bucket": "spjsc-bahrain.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9198827726:android:488a11ed99ea0920e1f89f",
+        "android_client_info": {
+          "package_name": "com.spjsc.bahrain"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtMfK0wrkg7twsgm6vgyYcgMN9MT-B8FA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

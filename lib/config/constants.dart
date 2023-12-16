@@ -2,6 +2,8 @@
 
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 class AppConstants {
   AppConstants._privateConstructor();
   factory AppConstants() {
@@ -9,7 +11,7 @@ class AppConstants {
   }
   void init() {
     _setPlatform();
-    // _setFCMToken();
+    _setFCMToken();
   }
 
   static final AppConstants _instance = AppConstants._privateConstructor();
@@ -20,7 +22,7 @@ class AppConstants {
   static const largePadding = 30.0;
   static const extraLargePadding = 40.0;
   bool isIOS = false;
-  String fcmToken = '';
+  static String fcmToken = '';
 
   ///[FONT_FAMILIES]
   static const fontBrighton = 'Brighton';
@@ -30,6 +32,11 @@ class AppConstants {
 
   void _setPlatform() {
     isIOS = Platform.isIOS;
+  }
+
+  void _setFCMToken() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    fcmToken = await messaging.getToken() ?? '';
   }
 
   static const loremIpsum =
