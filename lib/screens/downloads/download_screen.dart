@@ -112,7 +112,7 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
                         labelPadding: EdgeInsets.zero,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 28, vertical: 20),
-                        indicatorPadding: EdgeInsets.only(bottom: 2),
+                        indicatorPadding: const EdgeInsets.only(bottom: 2),
                         tabs: List.generate(
                           3,
                           (index) => Container(
@@ -120,7 +120,7 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
                                   ? AppColors.brown41210A
                                   : AppColors.transparent,
                               width: tabwidth,
-                              height: 22,
+                              height: 35,
                               margin: const EdgeInsets.symmetric(horizontal: 2),
                               alignment: Alignment.center,
                               child: Text(

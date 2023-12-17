@@ -149,7 +149,7 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                                             arguments:
                                                 AppConstants.termsOfUseURL),
                                         child: Text(
-                                          'terms & conditions',
+                                          'Terms & Conditions',
                                           style: textStyle.bodySmall!.copyWith(
                                             fontFamily: AppConstants.fontGotham,
                                             fontWeight: FontWeight.w400,
@@ -174,7 +174,7 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                                             arguments:
                                                 AppConstants.privacyPolicyURL),
                                         child: Text(
-                                          'privacy policy.',
+                                          'Privacy Policy.',
                                           style: textStyle.bodySmall!.copyWith(
                                             fontFamily: AppConstants.fontGotham,
                                             fontWeight: FontWeight.w400,

@@ -37,6 +37,7 @@ class AppConstants {
   void _setFCMToken() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     fcmToken = await messaging.getToken() ?? '';
+    // print(fcmToken);
   }
 
   static const loremIpsum =
