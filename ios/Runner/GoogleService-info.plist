@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   GoogleService-Info.plist
-   Runner
-
-   Created by Vaisakh Bhaskar on 17/12/23.
-   Copyright (c) 2023 . All rights reserved.
--->
 <plist version="1.0">
-<dict/>
+<dict>
+    <key>API_KEY</key>
+    <string>AIzaSyC-oPLgddRcGEZNP2l_Wcaokdu3GST-16U</string>
+    <key>GCM_SENDER_ID</key>
+    <string>9198827726</string>
+    <key>PLIST_VERSION</key>
+    <string>1</string>
+    <key>BUNDLE_ID</key>
+    <string>com.spjsc.bahrain</string>
+    <key>PROJECT_ID</key>
+    <string>spjsc-bahrain</string>
+    <key>STORAGE_BUCKET</key>
+    <string>spjsc-bahrain.appspot.com</string>
+    <key>IS_ADS_ENABLED</key>
+    <false></false>
+    <key>IS_ANALYTICS_ENABLED</key>
+    <false></false>
+    <key>IS_APPINVITE_ENABLED</key>
+    <true></true>
+    <key>IS_GCM_ENABLED</key>
+    <true></true>
+    <key>IS_SIGNIN_ENABLED</key>
+    <true></true>
+    <key>GOOGLE_APP_ID</key>
+    <string>1:9198827726:ios:9c4d471756e949bce1f89f</string>
+</dict>
 </plist>
