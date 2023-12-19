@@ -83,7 +83,7 @@ class _RequestOTPScreenState extends ConsumerState<RequestOTPScreen> {
                               horizontal: AppConstants.defaultPadding),
                           child: CustomTextField(
                             controller: _controller,
-                            validator: requiredValidator(),
+                            validator: requiredValidator().call,
                           ),
                         ),
                         const SizedBox(height: AppConstants.largePadding),

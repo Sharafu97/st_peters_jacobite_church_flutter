@@ -19,15 +19,19 @@ class PushNotificationsManager {
   Future<void> init(BuildContext context) async {
     await Firebase.initializeApp();
     const initializationSettingsAndroid =
-        AndroidInitializationSettings('ic_launcher_foreground');
-    const initializationSettingsIOS = DarwinInitializationSettings();
+        AndroidInitializationSettings('@drawable/ic_launcher_foreground');
+    const initializationSettingsIOS = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
 
     const initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
 
-    flutterLocalNotificationsPlugin.initialize(
+    await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
     );
 
@@ -49,15 +53,18 @@ class PushNotificationsManager {
       // when app is opened via a notification whilst the app is terminated
       final initialMessage = await firebaseMessaging.getInitialMessage();
       if (initialMessage != null && context.mounted) {
-        onSelectNotification(context);
+        onSelectNotification(context, message: initialMessage);
       }
 
-      FirebaseMessaging.onBackgroundMessage(
-          (message) => onSelectNotification(context));
+      await firebaseMessaging.setForegroundNotificationPresentationOptions(
+        alert: true, // Required to display a heads up notification
+        badge: true,
+        sound: true,
+      );
 
       // when user presses a notification message displayed via FCM.
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-        onSelectNotification(context);
+        onSelectNotification(context, message: message);
       });
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -73,11 +80,10 @@ class PushNotificationsManager {
   }
 }
 
-@pragma('vm:entry-point')
 Future<void> showNotification(String title, String body, String id) async {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-    'default',
+    'com.spjsc.bahrain.high',
     'new_request',
     importance: Importance.high,
     playSound: true,
@@ -85,6 +91,7 @@ Future<void> showNotification(String title, String body, String id) async {
     priority: Priority.high,
     enableLights: true,
     enableVibration: true,
+    icon: '@drawable/ic_launcher_foreground',
     // sound: RawResourceAndroidNotificationSound('notification.caf'),
   );
 
@@ -97,6 +104,7 @@ Future<void> showNotification(String title, String body, String id) async {
     android: androidPlatformChannelSpecifics,
     iOS: iOSChannelSpecifics,
   );
+
   await flutterLocalNotificationsPlugin.show(
     0,
     title,
@@ -106,7 +114,8 @@ Future<void> showNotification(String title, String body, String id) async {
   );
 }
 
-Future onSelectNotification(BuildContext context) async {
+Future onSelectNotification(BuildContext context,
+    {required RemoteMessage message}) async {
   Navigator.pushNamedAndRemoveUntil(
     context,
     AppRoutes.init,

@@ -13,7 +13,7 @@ import '../../widgets/loading_widget.dart';
 import 'widgets/spiritual_org_listtile.dart';
 
 class SpiritualOrganisationsScreen extends ConsumerStatefulWidget {
-  const SpiritualOrganisationsScreen({Key? key}) : super(key: key);
+  const SpiritualOrganisationsScreen({super.key});
 
   static final _drawerKey = GlobalKey<ScaffoldState>();
 

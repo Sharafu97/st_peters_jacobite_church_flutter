@@ -5,7 +5,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/appbar.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 
 class ImageViewScreen extends StatefulWidget {
-  const ImageViewScreen({Key? key, required this.images}) : super(key: key);
+  const ImageViewScreen({super.key, required this.images});
   final List<String> images;
 
   @override

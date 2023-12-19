@@ -21,7 +21,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../widgets/loading_widget.dart';
 
 class MembersScreen extends ConsumerStatefulWidget {
-  const MembersScreen({Key? key}) : super(key: key);
+  const MembersScreen({super.key});
 
   @override
   ConsumerState<MembersScreen> createState() => _MembersScreenState();

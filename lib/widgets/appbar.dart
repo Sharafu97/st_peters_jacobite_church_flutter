@@ -4,10 +4,10 @@ import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
-    Key? key,
+    super.key,
     this.drawerKey,
     this.showDrawer = false,
-  }) : super(key: key);
+  });
 
   final GlobalKey<ScaffoldState>? drawerKey;
   final bool showDrawer;

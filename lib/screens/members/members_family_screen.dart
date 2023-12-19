@@ -18,8 +18,7 @@ import '../../network/riverpod/providers.dart';
 import '../../widgets/loading_widget.dart';
 
 class MembersFamilyScreen extends ConsumerStatefulWidget {
-  const MembersFamilyScreen({Key? key, required this.memberId})
-      : super(key: key);
+  const MembersFamilyScreen({super.key, required this.memberId});
 
   final String memberId;
 

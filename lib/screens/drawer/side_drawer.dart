@@ -11,7 +11,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/button.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/costom_snackbar.dart';
 
 class SideDrawer extends StatefulWidget {
-  const SideDrawer({Key? key}) : super(key: key);
+  const SideDrawer({super.key});
 
   @override
   State<SideDrawer> createState() => _SideDrawerState();

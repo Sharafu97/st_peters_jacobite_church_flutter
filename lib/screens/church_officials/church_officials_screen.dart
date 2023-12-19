@@ -15,7 +15,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 class ChurchOfficialsScreen extends ConsumerStatefulWidget {
-  const ChurchOfficialsScreen({Key? key}) : super(key: key);
+  const ChurchOfficialsScreen({super.key});
 
   @override
   ConsumerState<ChurchOfficialsScreen> createState() =>

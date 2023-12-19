@@ -1,4 +1,3 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -37,7 +36,7 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
     try {
       if (AppConstants().isIOS) {
         await Permission.storage.request();
-      } 
+      }
       // else {
       //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
       //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;

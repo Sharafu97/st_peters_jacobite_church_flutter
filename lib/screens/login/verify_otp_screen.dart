@@ -76,7 +76,7 @@ class _VerifyOTPScreenState extends ConsumerState<VerifyOTPScreen> {
                               height: AppConstants.extraLargePadding),
                           CustomTextField(
                             controller: _controller,
-                            validator: requiredValidator(),
+                            validator: requiredValidator().call,
                             keyboardType: TextInputType.number,
                           ),
                           const SizedBox(height: AppConstants.largePadding),

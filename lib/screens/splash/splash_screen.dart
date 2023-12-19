@@ -5,7 +5,7 @@ import 'package:st_peters_jacobite_church_flutter/network/riverpod/providers.dar
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   ConsumerState<SplashScreen> createState() => _SplashScreenState();

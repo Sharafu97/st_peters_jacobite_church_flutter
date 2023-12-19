@@ -12,7 +12,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 class AreaUnitsScreen extends ConsumerStatefulWidget {
-  const AreaUnitsScreen({Key? key}) : super(key: key);
+  const AreaUnitsScreen({super.key});
 
   @override
   ConsumerState<AreaUnitsScreen> createState() => _AreaUnitsScreenState();

@@ -8,7 +8,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/contact_bottombar.dart
 import 'package:st_peters_jacobite_church_flutter/widgets/title_board.dart';
 
 class AboutChurchScreen extends StatelessWidget {
-  const AboutChurchScreen({Key? key}) : super(key: key);
+  const AboutChurchScreen({super.key});
 
   navigate(BuildContext context, String url) {
     Navigator.pushNamed(context, AppRoutes.webView, arguments: url);

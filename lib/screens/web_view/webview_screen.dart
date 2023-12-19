@@ -6,7 +6,7 @@ import 'package:st_peters_jacobite_church_flutter/widgets/loading_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
-  const WebViewScreen({Key? key, required this.url}) : super(key: key);
+  const WebViewScreen({super.key, required this.url});
 
   final String url;
 
