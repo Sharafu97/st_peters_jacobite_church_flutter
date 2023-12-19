@@ -6,9 +6,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
     Key? key,
     this.drawerKey,
+    this.showDrawer = false,
   }) : super(key: key);
 
   final GlobalKey<ScaffoldState>? drawerKey;
+  final bool showDrawer;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: InkWell(
                   onTap: () {
-                    if (drawerKey != null) {
+                    if (showDrawer) {
                       drawerKey!.currentState!.openDrawer();
                     } else {
                       Navigator.of(context).pop();
@@ -49,7 +51,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
-                      drawerKey != null
+                      showDrawer
                           ? Icons.menu_rounded
                           : Icons.arrow_back_ios_rounded,
                       color: AppColors.whiteFFFFFF,

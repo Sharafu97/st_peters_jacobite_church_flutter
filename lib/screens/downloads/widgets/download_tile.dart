@@ -11,6 +11,7 @@ import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
 import 'package:st_peters_jacobite_church_flutter/widgets/costom_snackbar.dart';
 
+import '../../../config/constants.dart';
 import '../../../config/routes.dart';
 import '../../../config/utils/util_functions.dart';
 
@@ -53,7 +54,7 @@ class _DownloadListTileState extends ConsumerState<DownloadListTile> {
         onTap: () {
           if (ifPathExist) {
             Navigator.pushNamed(context, AppRoutes.fileView,
-                arguments: filePath);
+                arguments: AppConstants().isIOS ? filePath : widget.file.phots);
           }
         },
         child: Container(

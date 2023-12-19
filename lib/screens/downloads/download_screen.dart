@@ -37,15 +37,16 @@ class _DownloadScreenState extends ConsumerState<DownloadScreen>
     try {
       if (AppConstants().isIOS) {
         await Permission.storage.request();
-      } else {
-        DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-        if (androidInfo.version.sdkInt >= 33) {
-          await Permission.manageExternalStorage.request();
-        } else {
-          await Permission.storage.request();
-        }
-      }
+      } 
+      // else {
+      //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      //   if (androidInfo.version.sdkInt >= 33) {
+      //     await Permission.manageExternalStorage.request();
+      //   } else {
+      //     await Permission.storage.request();
+      //   }
+      // }
     } on Exception catch (e) {
       debugPrint(e.toString());
     }

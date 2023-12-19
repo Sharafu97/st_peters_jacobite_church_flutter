@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _drawerKey,
-      appBar: CustomAppbar(drawerKey: _drawerKey),
+      appBar: CustomAppbar(drawerKey: _drawerKey, showDrawer: true),
       drawer: const SideDrawer(),
       body: Stack(
         children: [
@@ -66,12 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 1),
-              Text(
-                'UNDER THE HOLY APOSTOLIC SEE OF ANTIOCH & ALL THE EAST',
-                style: textTheme.labelSmall?.copyWith(
-                  fontFamily: AppConstants.fontGotham,
-                  letterSpacing: -0.1,
-                  wordSpacing: -0.1,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  'UNDER THE HOLY APOSTOLIC SEE OF ANTIOCH & ALL THE EAST',
+                  textAlign: TextAlign.center,
+                  style: textTheme.labelSmall?.copyWith(
+                    fontFamily: AppConstants.fontGotham,
+                    letterSpacing: -0.1,
+                    wordSpacing: -0.1,
+                  ),
                 ),
               ),
               const SizedBox(height: 2),
