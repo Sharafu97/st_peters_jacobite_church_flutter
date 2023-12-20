@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
+import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/assets.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,7 +21,8 @@ class ContactBottomBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
-                onTap: () => launchUrlString(AppConstants.CHURCHPRAYARFORM),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.webView,
+                    arguments: AppConstants.CHURCHPRAYARFORM),
                 child: Image.asset(AppAssets.iconPrayer,
                     color: AppColors.whiteFFFFFF)),
             const SizedBox(width: 8),

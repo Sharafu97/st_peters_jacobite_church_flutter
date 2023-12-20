@@ -127,6 +127,21 @@ class _SideDrawerState extends State<SideDrawer> {
                         );
                       });
                 }),
+              // _drawerItem(
+              //   textStyle,
+              //   icon: AppAssets.drawerContact,
+              //   text: 'FCM Token',
+              //   onTap: () => showDialog(
+              //       context: context,
+              //       builder: (context) {
+              //         return Dialog(
+              //           child: Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: SelectableText(AppConstants.fcmToken),
+              //           ),
+              //         );
+              //       }),
+              // ),
             ],
           ),
         );

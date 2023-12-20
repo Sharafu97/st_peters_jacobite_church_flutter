@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
 import 'package:st_peters_jacobite_church_flutter/config/notification.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
+import 'package:st_peters_jacobite_church_flutter/screens/splash/splash_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/palette.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/text_theme.dart';
@@ -19,11 +20,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     await Firebase.initializeApp();
   }
 
-  await showNotification(
-    message.notification?.title ?? 'New notification',
-    message.notification?.body ?? 'You have a new notification',
-    '${message.data['id']}',
-  );
+  // await showNotification(
+  //   message.notification?.title ?? 'New notification',
+  //   message.notification?.body ?? 'You have a new notification',
+  //   '${message.data['id']}',
+  // );
 }
 
 Future<void> main() async {
@@ -56,7 +57,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     firebaseMessaging.subscribeToTopic('all');
-    PushNotificationsManager().init(context);
     super.initState();
   }
 
@@ -77,5 +77,15 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: generateRoute,
     );
+  }
+}
+
+class AppInit extends StatelessWidget {
+  const AppInit({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // PushNotificationsManager().init(context);
+    return const SplashScreen();
   }
 }

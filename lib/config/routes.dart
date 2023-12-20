@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:st_peters_jacobite_church_flutter/main.dart';
 import 'package:st_peters_jacobite_church_flutter/model/news_event_model.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/about_church/about_church_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/area_units/area_units_screen.dart';
@@ -20,7 +21,8 @@ import '../screens/news_and_events/news_and_events_details_screen.dart';
 
 class AppRoutes {
   static const init = '/';
-  static const home = 'home';
+  static const splash = '/splash';
+  static const home = '/home';
   static const aboutChurch = '/about_church';
   static const webView = '/web_view';
   static const churchOfficials = '/church_officials';
@@ -40,6 +42,9 @@ class AppRoutes {
 Route<dynamic>? generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.init:
+      return MaterialPageRoute(builder: (context) => const AppInit());
+
+    case AppRoutes.splash:
       return MaterialPageRoute(builder: (context) => const SplashScreen());
 
     case AppRoutes.home:
@@ -107,6 +112,6 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
               FileViewScreen(filePath: settings.arguments as String));
 
     default:
-      return MaterialPageRoute(builder: (context) => const SplashScreen());
+      return MaterialPageRoute(builder: (context) => const AppInit());
   }
 }

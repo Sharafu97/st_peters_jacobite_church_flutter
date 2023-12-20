@@ -57,7 +57,7 @@ class PushNotificationsManager {
       }
 
       await firebaseMessaging.setForegroundNotificationPresentationOptions(
-        alert: true, // Required to display a heads up notification
+        alert: false, // Required to display a heads up notification
         badge: true,
         sound: true,
       );
@@ -68,11 +68,12 @@ class PushNotificationsManager {
       });
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-        showNotification(
-          message.notification?.title ?? 'New notification',
-          message.notification?.body ?? 'You have a new notification',
-          '${message.data['id']}',
-        );
+        print(message);
+        // showNotification(
+        //   message.notification?.title ?? 'New notification',
+        //   message.notification?.body ?? 'You have a new notification',
+        //   '${message.data['id']}',
+        // );
       });
 
       _initialized = true;
@@ -116,9 +117,13 @@ Future<void> showNotification(String title, String body, String id) async {
 
 Future onSelectNotification(BuildContext context,
     {required RemoteMessage message}) async {
-  Navigator.pushNamedAndRemoveUntil(
-    context,
-    AppRoutes.init,
-    (route) => false,
-  );
+  if (message.data['screen'] == 'news-events') {
+    Future.delayed(const Duration(milliseconds: 500)).then((value) {
+      Navigator.pushNamed(
+        context,
+        AppRoutes.newsAndEvents,
+      );
+    });
+  }
 }
+//"screen" -> "news-events"
