@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:st_peters_jacobite_church_flutter/config/constants.dart';
-import 'package:st_peters_jacobite_church_flutter/config/notification.dart';
 import 'package:st_peters_jacobite_church_flutter/config/routes.dart';
 import 'package:st_peters_jacobite_church_flutter/screens/splash/splash_screen.dart';
 import 'package:st_peters_jacobite_church_flutter/theme/color.dart';
@@ -19,12 +18,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (apps.isEmpty) {
     await Firebase.initializeApp();
   }
-
-  // await showNotification(
-  //   message.notification?.title ?? 'New notification',
-  //   message.notification?.body ?? 'You have a new notification',
-  //   '${message.data['id']}',
-  // );
 }
 
 Future<void> main() async {
@@ -85,7 +78,6 @@ class AppInit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // PushNotificationsManager().init(context);
     return const SplashScreen();
   }
 }
